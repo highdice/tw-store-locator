@@ -1,0 +1,9 @@
+{
+  "name": "Tom's World Store Locator",
+  "dependencies": {
+    "jquery": "^2.2.1",
+    "bootstrap-sass": "bootstrap-sass-official#^3.3.6",
+    "font-awesome": "^4.5.0",
+    "css-spinners": "^2.2.0"
+  }
+}

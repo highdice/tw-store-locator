@@ -1,0 +1,290 @@
+@import "vendor/bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+
+body {
+    font-family: 'Lato';
+}
+
+.fa-btn {
+    margin-right: 6px;
+}
+
+ul {
+	list-style: none;
+	padding: 0px;
+}
+
+input[type="checkbox"] {
+  margin-top: -1px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.mapbox-logo {
+	display: none;
+}
+
+.leaflet-container .leaflet-control-attribution {
+	display: none !important;
+}
+
+.leaflet-popup-content {
+	padding: 0px !important;	
+}
+
+.form-group {
+	.input-icon {
+		position: absolute;
+	    margin-top: 9px;
+	    margin-left: 12px;
+	    color: #707070;
+	}
+
+	input {
+		padding-left: 35px;
+	}
+}
+
+.panel {
+	border: 0px;
+    box-shadow: 3px 4px 12px #303030;
+}
+
+.panel-default {
+	.panel-heading {
+		color: #fff;
+    	background-color: #f47c4b;
+    	border-color: #ddd;
+    }
+}
+
+.navbar {
+	margin-bottom: 0px;
+}
+
+.navbar-default {
+	background-color: #f47c4b;
+    border: 0px;
+    border-radius: 0px;
+}
+
+.navbar-nav {
+	li {
+		.dropdown-menu {
+			background: #DE602D;
+		}
+
+		a {
+			&:hover {
+				background: #DE602D !important;
+			}
+
+			&:focus {
+				background: #DE602D;
+			}
+		}
+	}
+
+	.open {
+		background: #DE602D;
+
+		a {
+			&:focus {
+				background: #DE602D !important;
+			}
+		}
+
+		li {
+			a {
+				&:hover {
+					color: #F1A687 !important;
+				}
+			}
+		}
+	}
+}
+
+.navbar-brand {
+	color: #ffffff !important;
+}
+
+.nav {
+	li {
+		a {
+			color: #ffffff !important;
+		}
+	}
+}
+
+.navbar-collapse {
+	border: 0px !important;
+	border-top: 1px solid #DE602D !important;
+}
+
+.navbar-toggle {
+	border-color: #F98F64 !important;
+    background: #DE602D;
+
+    &:focus {
+    	background: #EA7140 !important;
+    }
+
+    &:hover {
+    	background: #EA7140 !important;
+    }
+}
+
+.icon-bar {
+	background: #ffffff !important;
+}
+
+.hide {
+	visibility: hidden;
+}
+
+.show {
+	visibility: visible;
+}
+
+.guest-bg {
+	background: #6A5BAE;
+}
+
+.tw-logo {
+	width: 360px;
+	margin-top: 30px;
+}
+
+.top-100 {
+	margin-top: 100px;
+}
+
+.forgot-password {
+	margin-left: -12px;
+	margin-bottom: -20px;
+	color: #337AB7;
+}
+
+.login-button {
+	margin-right: 10px;
+}
+
+#sidebar {
+	position: absolute;
+	left: 0;
+	z-index: 2;
+	width: 50px;
+    background: #303030;
+    height: 600px;
+
+    ul {
+    	li {
+    		padding: 13px;
+    		cursor: pointer;
+
+    		i {
+    			font-size: 20px;
+    			color: #9f9f9f;
+    		}
+
+    		&:hover {
+    			background: #5C80EA;
+
+    			i {
+    				color: #ffffff;
+    			}
+    		}
+    	}
+    }
+}
+
+.sidebar-item-active {
+	background: #3c5fc4;
+
+	i {
+		color: #ffffff !important;
+	}
+}
+
+#sidebar-content-container {
+	display: none;
+	position: absolute;
+	left: 0;
+	z-index: 1;
+	width: 300px;
+	background: #3c5fc4;
+	height: 600px;
+	margin-left: 50px;
+	padding: 8px;
+
+	.title {
+		padding: 7px 0px 16px 0px;
+	    width: 100%;
+	    color: #fff;
+	    text-align: center;
+	}
+}
+
+#map {
+	width: 100%;
+	height: 600px;
+}
+
+#search-container {
+	width: 500px;
+    position: absolute;
+    z-index: 1;
+    background: #ffffff;
+    padding: 10px 10px 10px 10px;
+    left: 0;
+    right: 0;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+	box-shadow: 3px 3px 8px #606060;
+
+    i {
+    	position: absolute;
+	    margin-top: 19px;
+	    margin-left: 10px;
+	    color: #808080;
+    }
+
+    .search-input {
+        display: inline-block !important;
+    	width: 88%;
+    	padding-left: 35px;
+    	padding-right: 35px;
+    	border: 0px;
+    	box-shadow: none;
+    }
+
+    .search-button {
+    	display: inline-block !important;
+    }
+}
+
+#loader {
+    position: absolute;
+    z-index: 2; 
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background: #ffffff;
+    overflow: hidden;
+    transition: background 1s ease-out;
+    -webkit-transition: background 1s ease-out;
+
+    .done {
+    	background:rgba(255, 255, 255, 0);
+    }
+
+    .hide {
+    	display: none;
+    }
+
+    .circles-loader {
+    	position:absolute;
+	    left:50%;
+	    top:50%;
+    }
+}
