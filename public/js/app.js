@@ -1,6 +1,21 @@
 //INITIALIZATION
+$(function() {
+  $( "#date_opened" ).datepicker();
+});
+
+var loader = document.getElementById('loader');
+
+startLoading();
+
+//show all markers on load
+$(document).ready(function() {
+  finishedLoading();
+  showMarkers(5);
+});
+
 //initialize mapbox
 L.mapbox.accessToken = 'pk.eyJ1IjoiaGlnaGRpY2UiLCJhIjoiY2lmcWxrcDB6am05MXN4bTdiZGlzcWtzeiJ9.HowS8sLtivG7hhhcWYZdig';
+
 var markers = new L.MarkerClusterGroup({
                   polygonOptions: {
                       fillColor: '#3887be',
@@ -19,18 +34,9 @@ var markers = new L.MarkerClusterGroup({
                   }
               });
 
-var loader = document.getElementById('loader');
-
-startLoading();
-
-var map = L.mapbox.map('map', 'mapbox.streets', { zoomControl: false, maxBounds: [[-90,-180],[90,180]] }).setView([13, 122], 5).on('load', finishedLoading());//.addLayer(L.mapbox.tileLayer('highdice.cifqlknit704qsikqrqp3peuo', {continuousWorld: 'true'}));
+var map = L.mapbox.map('map', 'mapbox.streets', { zoomControl: false, maxBounds: [[-90,-180],[90,180]] }).setView([13, 122], 5);//.addLayer(L.mapbox.tileLayer('highdice.cifqlknit704qsikqrqp3peuo', {continuousWorld: 'true'}));
 
 new L.Control.Zoom({ position: 'topright' }).addTo(map);
-
-//show all markers on load
-$(document).ready(function() {
-  showMarkers(5);
-});
 
 //EVENTS
 //event for searching location via main search input
@@ -86,9 +92,6 @@ $.ajax({
             var store = data[i];
             var name = store['name'];
             var address = store['address'];
-            var barangay = store['barangay'];
-            var district = store['district'];
-            var city = store['city'];
             var region = store['region'];
 
             var marker = L.marker(new L.LatLng(store['latitude'], store['longitude']), {
@@ -103,7 +106,7 @@ $.ajax({
             //set popup
             var popup = L.popup({
               autoPan: true
-            }).setContent('<div style="text-align:center;padding:20px 10px 10px 10px;background:#aaa51d;color:white;width:100%;"><h1 style="font-size:25px;text-transform:uppercase;">'+name+'</h1><p style="color:#f8f48c;">'+address+', '+barangay+', '+district+', '+city+', '+region+'</p></div><div style="padding: 20px 15px 10px 15px;"><p>Opening Hours: 10:00 AM to 9:00 PM</p></div>');
+            }).setContent('<div style="text-align:center;padding:20px 10px 10px 10px;background:#aaa51d;color:white;width:100%;"><h1 style="font-size:25px;text-transform:uppercase;">'+name+'</h1><p style="color:#f8f48c;">'+address+', '+region+'</p></div><div style="padding: 20px 15px 10px 15px;"><p>Opening Hours: 10:00 AM to 9:00 PM</p></div>');
 
             marker.bindPopup(popup, {
               //closeButton: false,

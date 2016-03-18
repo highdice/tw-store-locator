@@ -4,6 +4,7 @@
     "jquery": "^2.2.1",
     "bootstrap-sass": "bootstrap-sass-official#^3.3.6",
     "font-awesome": "^4.5.0",
-    "css-spinners": "^2.2.0"
+    "css-spinners": "^2.2.0",
+    "jquery-ui": "^1.11.4"
   }
 }

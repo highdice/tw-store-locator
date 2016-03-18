@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStoresTable extends Migration
+class CreateSatelliteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,24 +12,22 @@ class CreateStoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('stores', function (Blueprint $table) {
+        Schema::create('satellite', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('store_code', 10);
+            $table->integer('branch_code');
+            $table->string('satellite_code', 50);
             $table->string('trade_name', 250);
             $table->string('name', 250);
-            $table->integer('category');
             $table->text('address');
-            $table->string('barangay', 250);
-            $table->string('district', 250);
-            $table->string('city', 250);
-            $table->string('province', 250);
             $table->integer('zip_code');
-            $table->string('region', 250);
-            $table->string('island_group', 10);
+            $table->integer('region');
+            $table->integer('island_group');
+            $table->integer('division');
             $table->float('latitude');
             $table->float('longitude');
             $table->dateTime('date_opened');
             $table->float('size');
+            $table->boolean('status')->default(1);
             $table->nullableTimestamps();
         });
     }
@@ -41,6 +39,6 @@ class CreateStoresTable extends Migration
      */
     public function down()
     {
-        Schema::drop('stores');
+        Schema::drop('satellite');
     }
 }

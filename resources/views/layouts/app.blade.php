@@ -37,8 +37,9 @@
                 <!-- Left Side Of Navbar -->
                 @if (!Auth::guest())
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Dashboard</a></li>
-                    <li><a href="{{ url('/stores') }}">Stores</a></li>
+                    <li class="{{ (Request::is('home') || Request::is('/')) ? 'active' : '' }}"><a href="{{ url('/home') }}"><i class="fa fa-btn fa-dashboard"></i>Dashboard</a></li>
+                    <li class="{{ (Request::is('stores/locator')) ? 'active' : '' }}"><a href="{{ url('/stores/locator') }}"><i class="fa fa-btn fa-map-marker"></i>Locator</a></li>
+                    <li class="{{ (Request::is('stores')) ? 'active' : '' }}"><a href="{{ url('/stores') }}"><i class="fa fa-btn fa-building"></i>Stores</a></li>
                 </ul>
                 @endif
 
@@ -66,9 +67,12 @@
     @endif
 
     @yield('content')
+    
+    <div id='loader'>
+        <div class="circles-loader"></div>
+    </div>
 
     <!-- JavaScripts -->
     <script src="{{ elixir('js/all.js') }}"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 </body>
 </html>

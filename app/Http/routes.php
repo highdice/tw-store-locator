@@ -34,13 +34,19 @@ Route::group(['middleware' => 'web'], function () {
 	    }
 	});
 
-    Route::get('/home', 'HomeController@index');    
-	Route::get('/stores', 'StoreController@index');
+    Route::get('/home', 'HomeController@index');
+
+    Route::group(['prefix' => 'stores'], function() {    
+		Route::get('/', 'BranchController@index');
+		Route::get('/locator', 'BranchController@locator');
+		Route::get('/add', 'BranchController@add');
+	});
 
     /**
      * This contains all api routes, disabled auth first
      */
     Route::group(['prefix' => 'api'], function() {
-    	Route::post('stores', 'StoreController@show');
+    	Route::post('stores', 'BranchController@show');
+    	Route::post('stores/add', 'BranchController@add');
     });
 });

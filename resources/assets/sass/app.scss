@@ -13,12 +13,6 @@ ul {
 	padding: 0px;
 }
 
-input[type="checkbox"] {
-  margin-top: -1px;
-  vertical-align: middle;
-  margin-right: 10px;
-}
-
 .mapbox-logo {
 	display: none;
 }
@@ -34,19 +28,41 @@ input[type="checkbox"] {
 .form-group {
 	.input-icon {
 		position: absolute;
-	    margin-top: 9px;
+	    margin-top: 12px;
 	    margin-left: 12px;
 	    color: #707070;
 	}
 
-	input {
+	input, select {
 		padding-left: 35px;
+		border-radius: 0;
+    	height: 40px;
+	}
+
+	input[type="checkbox"] {
+		height: 13px;
+	}
+
+	.custom-form {
+		.input-icon {
+		    margin-top: 34px;
+		}
+
+		span {
+			display: block;
+		    color: #606060;
+		    margin-bottom: 2px;
+		}
+	}
+
+	.help-block {
+		color: #a94442 !important;
 	}
 }
 
 .panel {
 	border: 0px;
-    box-shadow: 3px 4px 12px #303030;
+	box-shadow: 2px 4px 9px #858585;
 }
 
 .panel-default {
@@ -65,6 +81,10 @@ input[type="checkbox"] {
 	background-color: #f47c4b;
     border: 0px;
     border-radius: 0px;
+
+    .navbar-collapse, .navbar-form {
+    	border: 0px !important;
+    }
 }
 
 .navbar-nav {
@@ -99,6 +119,12 @@ input[type="checkbox"] {
 					color: #F1A687 !important;
 				}
 			}
+		}
+	}
+
+	.active {
+		a {
+			background: #DE602D !important;
 		}
 	}
 }
@@ -145,8 +171,16 @@ input[type="checkbox"] {
 	visibility: visible;
 }
 
+.required {
+	color: #D66868 !important;
+}
+
 .guest-bg {
-	background: #6A5BAE;
+	background: #48965C;
+
+	.panel {
+		box-shadow: 3px 4px 12px #303030;
+	}
 }
 
 .tw-logo {
@@ -164,8 +198,10 @@ input[type="checkbox"] {
 	color: #337AB7;
 }
 
-.login-button {
-	margin-right: 10px;
+.guest-button {
+	margin-right: 3px;
+	margin-bottom: 5px;
+	width: 150px;
 }
 
 #sidebar {
@@ -211,10 +247,16 @@ input[type="checkbox"] {
 	left: 0;
 	z-index: 1;
 	width: 300px;
-	background: #3c5fc4;
+	background: rgba(0, 0, 0, 0.6);
 	height: 600px;
 	margin-left: 50px;
 	padding: 8px;
+
+	input[type="checkbox"] {
+	  margin-top: -1px;
+	  vertical-align: middle;
+	  margin-right: 10px;
+	}
 
 	.title {
 		padding: 7px 0px 16px 0px;
@@ -263,11 +305,16 @@ input[type="checkbox"] {
     }
 }
 
+.action-button {
+	padding: 6px 7px 6px 12px;
+}
+
 #loader {
     position: absolute;
-    z-index: 2; 
+    z-index: 999; 
     top: 0;
     bottom: 0;
+    margin-top: -70px;
     width: 100%;
     background: #ffffff;
     overflow: hidden;

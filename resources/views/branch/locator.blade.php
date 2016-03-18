@@ -116,7 +116,4 @@
     </div>
 </aside>
 <div id="map"></div>
-<div id='loader'>
-    <div class="circles-loader"></div>
-</div>
 @endsection

@@ -25,3 +25,15 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+
+Setup Instructions:
+
+- Change .env.example to .env and update the database credentials inside
+- On your terminal, perform "php artisan migrate" to migrate all the tables needed
+- On your terminal, "php artisan db:seed" to populate the tables with initial data
+- On your terminal, "php artisan serve" then type localhost:8000 in your browser
+
+Admin Login Credentials:
+
+Username: twadmin@gmail.com
+Password: admin123

@@ -54,10 +54,10 @@
 
                         <div class="form-group">
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary guest-button">
                                     <i class="fa fa-btn fa-refresh"></i>Reset Password
                                 </button>
-                                <a href="{{ url('/login') }}" class="btn btn-primary back-button">
+                                <a href="{{ url('/login') }}" class="btn btn-primary guest-button">
                                     <i class="fa fa-btn fa-arrow-left"></i>Back
                                 </a>
                             </div>

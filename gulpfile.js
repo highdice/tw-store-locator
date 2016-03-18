@@ -24,10 +24,18 @@ elixir(function(mix) {
     		paths.bower_components + 'jquery/dist/jquery.min.js',
     		paths.js + 'vendor/jquery.js'
     	)
+        .copy(
+            paths.bower_components + 'jquery-ui/jquery-ui.min.js',
+            paths.js + 'vendor/jquery-ui.js'
+        )
     	.copy(
     		paths.bower_components + 'bootstrap-sass/assets/javascripts/bootstrap.js',
     		paths.js + 'vendor/bootstrap.js'
     	)
+        .copy(
+            paths.bower_components + 'jquery-ui/themes/ui-lightness/jquery-ui.min.css',
+            paths.css + 'vendor/jquery-ui.css'
+        )
     	.copy(
     		paths.bower_components + 'font-awesome/css/font-awesome.min.css',
     		paths.css + 'vendor/font-awesome.css'
@@ -35,6 +43,10 @@ elixir(function(mix) {
         .copy(
             paths.bower_components + 'css-spinners/css/spinner/circles.css',
             paths.css + 'vendor/css-spinners.css'
+        )
+        .copy(
+            paths.bower_components + 'jquery-ui/themes/ui-lightness/images',
+            paths.build + 'css/images'
         )
         .copy(
             paths.bower_components + 'font-awesome/fonts',
@@ -46,6 +58,7 @@ elixir(function(mix) {
         );
     
     mix.styles([
+            paths.root + 'public/css/vendor/jquery-ui.css',
             paths.root + 'public/css/vendor/font-awesome.css',
             paths.root + 'public/css/vendor/mapbox.css',
             paths.root + 'public/css/vendor/MarkerCluster.css',
@@ -55,6 +68,7 @@ elixir(function(mix) {
         ])
         .scripts([
             paths.root + 'public/js/vendor/jquery.js',
+            paths.root + 'public/js/vendor/jquery-ui.js',
             paths.root + 'public/js/vendor/bootstrap.js',
             paths.root + 'public/js/vendor/mapbox.js',
             paths.root + 'public/js/vendor/leaflet.markercluster.js',
