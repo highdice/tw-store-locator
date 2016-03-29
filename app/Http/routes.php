@@ -30,23 +30,36 @@ Route::group(['middleware' => 'web'], function () {
     		return redirect()->guest('login');
     	}
     	else {
-    		return view('welcome');
+    		return redirect('dashboard');
 	    }
 	});
 
-    Route::get('/home', 'HomeController@index');
+    Route::get('/dashboard', 'HomeController@index');
 
     Route::group(['prefix' => 'stores'], function() {    
 		Route::get('/', 'BranchController@index');
 		Route::get('/locator', 'BranchController@locator');
 		Route::get('/add', 'BranchController@add');
+		Route::get('/{id}/edit', 'BranchController@edit');
+		Route::get('/{id}/status', 'BranchController@status');
+
+		Route::group(['prefix' => '/{branch_id}/satellite'], function() { 
+			Route::get('/', 'SatelliteController@index');
+			Route::get('/add', 'SatelliteController@add');
+			Route::get('/{id}/edit', 'SatelliteController@edit');
+		});
 	});
 
     /**
      * This contains all api routes, disabled auth first
      */
-    Route::group(['prefix' => 'api'], function() {
+    Route::group(['prefix' => 'api/v1'], function() {
     	Route::post('stores', 'BranchController@show');
-    	Route::post('stores/add', 'BranchController@add');
+    	Route::post('stores/add', 'BranchController@postAdd');
+    	Route::post('stores/edit', 'BranchController@postEdit');
+    	Route::get('stores/island_groups', 'BranchController@getIslandGroupsCount');
+
+    	Route::post('satellite/add', 'SatelliteController@postAdd');
+    	Route::post('satellite/edit', 'SatelliteController@postEdit');
     });
 });

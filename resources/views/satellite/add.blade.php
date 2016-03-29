@@ -2,38 +2,26 @@
 
 @section('content')
 <div class="container">
-    <h3><i class="glyphicon glyphicon-plus header-icon"></i> Add New Branch</h3>
+    <h3><i class="glyphicon glyphicon-plus header-icon"></i> Add New Satellite</h3>
     <p class="sub-header">Fields with <i class="glyphicon glyphicon-certificate required"></i> are required.
     <hr />
 
-    <form class="form-horizontal" role="form" method="POST" action="{{ url('/api/v1/stores/add') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ url('/api/v1/satellite/add') }}">
         {!! csrf_field() !!}
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="col-md-6">
-                    <div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}">
+                    <input type="hidden" readonly="readonly" class="form-control" name="branch_id" value="{{ $branch_id }}">
+
+                    <div class="form-group{{ $errors->has('satellite_code') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
-                            <span>Store Code</span>
+                            <span>Satellite Code</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter the code here" name="code" value="{{ old('code') }}">
+                            <input type="text" class="form-control" placeholder="Enter the satellite code here" name="satellite_code" value="{{ old('satellite_code') }}">
 
-                            @if ($errors->has('code'))
+                            @if ($errors->has('satellite_code'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('code') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group{{ $errors->has('branch_code') ? ' has-error' : '' }}">
-                        <div class="col-md-12 custom-form">
-                            <span>Branch Code</span>
-                            <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter the branch code here" name="branch_code" value="{{ old('branch_code') }}">
-
-                            @if ($errors->has('branch_code'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('branch_code') }}</strong>
+                                    <strong>{{ $errors->first('satellite_code') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -55,9 +43,9 @@
 
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
-                            <span>Branch Name</span>
+                            <span>satellite Name</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter the branch name here" name="name" value="{{ old('name') }}">
+                            <input type="text" class="form-control" placeholder="Enter the satellite name here" name="name" value="{{ old('name') }}">
 
                             @if ($errors->has('name'))
                                 <span class="help-block">
@@ -210,7 +198,7 @@
                             <button type="submit" class="btn btn-primary guest-button">
                                 <i class="fa fa-btn fa-check"></i>Submit
                             </button>
-                            <a href="{{ url('/stores') }}" class="btn btn-primary guest-button">
+                            <a href="{{ url('/stores/' . $branch_id . '/satellite') }}" class="btn btn-primary guest-button">
                                 <i class="fa fa-btn fa-arrow-left"></i>Back
                             </a>
                         </div>

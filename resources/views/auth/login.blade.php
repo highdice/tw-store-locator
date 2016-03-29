@@ -46,6 +46,10 @@
                                     <label>
                                         <input type="checkbox" name="remember"> Remember Me
                                     </label>
+                                    |
+                                    <label class="forgot-password-lbl">
+                                        <a href="{{ url('/password/reset') }}">Forgot Password</a>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -57,9 +61,6 @@
                                 </button>
                                 <a href="{{ url('/register') }}" class="btn btn-primary guest-button">
                                     <i class="fa fa-btn fa-user"></i>Register
-                                </a>
-                                <a href="{{ url('/password/reset') }}" class="btn btn-primary guest-button">
-                                    <i class="fa fa-btn fa-question"></i>Forgot Password
                                 </a>
                             </div>
                         </div>

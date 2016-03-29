@@ -4,16 +4,33 @@
 <center>
 <div id="search-container">
     <i class="glyphicon glyphicon-search"></i>
+    {!! csrf_field() !!}
     <input type="text" id="search-input" class="form-control search-input" placeholder="Search Here . . ." />
     <button id="search-button" class="btn btn-primary search-button">GO</button>
 </div>
 </center>
 <aside>
+    <div id="sidebar-show">
+        <i class="glyphicon glyphicon-eye-open"></i>
+    </div>
     <div id="sidebar">
         <ul>
-            <li id="test"><i class="glyphicon glyphicon-search"></i></li>
-            <li id="test2"><i class="glyphicon glyphicon-home"></i></li>
-            <li><i class="glyphicon glyphicon-cog"></i></li>
+            <li id="sidebar-hide">
+                <i class="glyphicon glyphicon-eye-close"></i>
+                <p>Hide</p>
+            </li>
+            <li id="sidebar-search" class="sidebar-js-button">
+                <i class="glyphicon glyphicon-search"></i>
+                <p>Search</p>
+            </li>
+            <li id="sidebar-result" class="sidebar-js-button">
+                <i class="glyphicon glyphicon-list"></i>
+                <p>Result</p>
+            </li>
+            <li id="sidebar-settings" class="sidebar-js-button">
+                <i class="glyphicon glyphicon-cog"></i>
+                <p>Settings</p>
+            </li>
         </ul>
     </div>
 
@@ -117,3 +134,7 @@
 </aside>
 <div id="map"></div>
 @endsection
+
+@section('scripts')
+    <script src="{{ elixir('js/all-mapbox.js') }}"></script>
+@stop

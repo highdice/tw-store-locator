@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="container">
-    <h3><i class="glyphicon glyphicon-plus header-icon"></i> Add New Branch</h3>
+    <h3><i class="glyphicon glyphicon-pencil header-icon"></i> Edit Branch Information</h3>
     <p class="sub-header">Fields with <i class="glyphicon glyphicon-certificate required"></i> are required.
     <hr />
 
-    <form class="form-horizontal" role="form" method="POST" action="{{ url('/api/v1/stores/add') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ url('/api/v1/stores/edit') }}">
         {!! csrf_field() !!}
         <div class="panel panel-default">
             <div class="panel-body">
@@ -15,7 +15,7 @@
                         <div class="col-md-12 custom-form">
                             <span>Store Code</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter the code here" name="code" value="{{ old('code') }}">
+                            <input type="text" class="form-control" placeholder="Enter the code here" name="code" value="{{ $data->code }}">
 
                             @if ($errors->has('code'))
                                 <span class="help-block">
@@ -29,7 +29,7 @@
                         <div class="col-md-12 custom-form">
                             <span>Branch Code</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter the branch code here" name="branch_code" value="{{ old('branch_code') }}">
+                            <input type="text" class="form-control" placeholder="Enter the branch code here" name="branch_code" value="{{ $data->branch_code }}">
 
                             @if ($errors->has('branch_code'))
                                 <span class="help-block">
@@ -43,7 +43,7 @@
                         <div class="col-md-12 custom-form">
                             <span>Trade Name</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter the trade name here" name="trade_name" value="{{ old('trade_name') }}">
+                            <input type="text" class="form-control" placeholder="Enter the trade name here" name="trade_name" value="{{ $data->trade_name }}">
 
                             @if ($errors->has('trade_name'))
                                 <span class="help-block">
@@ -57,7 +57,7 @@
                         <div class="col-md-12 custom-form">
                             <span>Branch Name</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter the branch name here" name="name" value="{{ old('name') }}">
+                            <input type="text" class="form-control" placeholder="Enter the branch name here" name="name" value="{{ $data->name }}">
 
                             @if ($errors->has('name'))
                                 <span class="help-block">
@@ -71,7 +71,7 @@
                         <div class="col-md-12 custom-form">
                             <span>Size (sqm)</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter size in square meters here" name="size" value="{{ old('size') }}">
+                            <input type="text" class="form-control" placeholder="Enter size in square meters here" name="size" value="{{ $data->size }}">
 
                             @if ($errors->has('size'))
                                 <span class="help-block">
@@ -85,7 +85,7 @@
                         <div class="col-md-12 custom-form">
                             <span>Division</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter division number here" name="division" value="{{ old('division') }}">
+                            <input type="text" class="form-control" placeholder="Enter division number here" name="division" value="{{ $data->division }}">
 
                             @if ($errors->has('division'))
                                 <span class="help-block">
@@ -99,7 +99,7 @@
                         <div class="col-md-12 custom-form">
                             <span>Date Opened</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" id="date_opened" class="form-control" placeholder="Enter the date of opening here" name="date_opened" value="{{ old('date_opened') }}">
+                            <input type="text" id="date_opened" class="form-control" placeholder="Enter the date of opening here" name="date_opened" value="{{ $data->date_opened }}">
 
                             @if ($errors->has('date_opened'))
                                 <span class="help-block">
@@ -115,7 +115,7 @@
                         <div class="col-md-12 custom-form">
                             <span>Address</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter the address here" name="address" value="{{ old('address') }}">
+                            <input type="text" class="form-control" placeholder="Enter the address here" name="address" value="{{ $data->address }}">
 
                             @if ($errors->has('address'))
                                 <span class="help-block">
@@ -129,7 +129,7 @@
                         <div class="col-md-12 custom-form">
                             <span>Zip Code</span>
                             <i class="glyphicon glyphicon-certificate input-icon"></i>
-                            <input type="text" class="form-control" placeholder="Enter the zip code here" name="zip_code" value="{{ old('zip_code') }}">
+                            <input type="text" class="form-control" placeholder="Enter the zip code here" name="zip_code" value="{{ $data->zip_code }}">
 
                             @if ($errors->has('zip_code'))
                                 <span class="help-block">
@@ -144,8 +144,8 @@
                             <span>Region</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
                             
-                            <select class="form-control" name="region" value="{{ old('region') }}">
-                                <option value="">Choose a region</option>
+                            <select class="form-control" name="region" value="{{ $data->region }}">
+                                <option value="{{ $region->id }}">{{ 'Current: ' . $region->title . ' - ' . $region->description }}</option>
                                 @foreach ($regions as $region)
                                     <option value="{{ $region->id }}">{{ $region->title . ' - ' . $region->description }}</option>
                                 @endforeach
@@ -162,9 +162,9 @@
                         <div class="col-md-12 custom-form">
                             <span>Island Group</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="radio" class="first-radio" id="island_group-1" name="island_group" checked="checked" value="1"><label for="island_group-1">Luzon</label>
-                            <input type="radio" id="island_group-2" name="island_group" value="2"><label for="island_group-2">Visayas</label>
-                            <input type="radio" id="island_group-3" name="island_group" value="3"><label for="island_group-3">Mindanao</label>
+                            <input type="radio" class="first-radio" id="island_group-1" name="island_group" {{ ($data->island_group == 1) ? 'checked="checked"' : '' }} value="1"><label for="island_group-1">Luzon</label>
+                            <input type="radio" id="island_group-2" name="island_group" {{ ($data->island_group == 2) ? 'checked="checked"' : '' }} value="2"><label for="island_group-2">Visayas</label>
+                            <input type="radio" id="island_group-3" name="island_group" {{ ($data->island_group == 3) ? 'checked="checked"' : '' }} value="3"><label for="island_group-3">Mindanao</label>
 
                             @if ($errors->has('island_group'))
                                 <span class="help-block">
@@ -178,7 +178,7 @@
                         <div class="col-md-12 custom-form">
                             <span>Longitude</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter the longitude here" name="longitude" value="{{ old('longitude') }}">
+                            <input type="text" class="form-control" placeholder="Enter the longitude here" name="longitude" value="{{ $data->longitude }}">
 
                             @if ($errors->has('longitude'))
                                 <span class="help-block">
@@ -192,7 +192,7 @@
                         <div class="col-md-12 custom-form">
                             <span>Latitude</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter the latitude here" name="latitude" value="{{ old('latitude') }}">
+                            <input type="text" class="form-control" placeholder="Enter the latitude here" name="latitude" value="{{ $data->latitude }}">
 
                             @if ($errors->has('latitude'))
                                 <span class="help-block">

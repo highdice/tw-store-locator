@@ -21,7 +21,7 @@ class Branch extends Model
      */
     public function getPaginatedRecords()
     {
-        return Branch::paginate(10);
+        return Branch::orderBy('id', 'desc')->paginate(10);
     }
 
     /**

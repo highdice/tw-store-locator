@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ elixir('css/all.css') }}" rel="stylesheet">
+
 </head>
 <body id="app-layout" class="{{ (Auth::guest()) ? 'guest-bg' : '' }}">
     @if (!Auth::guest())
@@ -28,7 +29,7 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/dashboard') }}">
                     Tom's World
                 </a>
             </div>
@@ -37,9 +38,9 @@
                 <!-- Left Side Of Navbar -->
                 @if (!Auth::guest())
                 <ul class="nav navbar-nav">
-                    <li class="{{ (Request::is('home') || Request::is('/')) ? 'active' : '' }}"><a href="{{ url('/home') }}"><i class="fa fa-btn fa-dashboard"></i>Dashboard</a></li>
+                    <li class="{{ (Request::is('dashboard') || Request::is('/')) ? 'active' : '' }}"><a href="{{ url('/dashboard') }}"><i class="fa fa-btn fa-dashboard"></i>Dashboard</a></li>
                     <li class="{{ (Request::is('stores/locator')) ? 'active' : '' }}"><a href="{{ url('/stores/locator') }}"><i class="fa fa-btn fa-map-marker"></i>Locator</a></li>
-                    <li class="{{ (Request::is('stores')) ? 'active' : '' }}"><a href="{{ url('/stores') }}"><i class="fa fa-btn fa-building"></i>Stores</a></li>
+                    <li class="{{ (Request::is('stores') || Request::is('stores/add')) ? 'active' : '' }}"><a href="{{ url('/stores') }}"><i class="fa fa-btn fa-building"></i>Stores</a></li>
                 </ul>
                 @endif
 
@@ -56,6 +57,7 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/user/edit') }}"><i class="fa fa-btn fa-user"></i>Profile</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
@@ -74,5 +76,7 @@
 
     <!-- JavaScripts -->
     <script src="{{ elixir('js/all.js') }}"></script>
+    @yield('scripts')
+
 </body>
 </html>

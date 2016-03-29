@@ -34,7 +34,7 @@
                         <div class="form-group">
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary guest-button">
-                                    <i class="fa fa-btn fa-send"></i>Reset Password
+                                    <i class="fa fa-btn fa-send"></i>Reset
                                 </button>
                                 <a href="{{ url('/login') }}" class="btn btn-primary guest-button">
                                     <i class="fa fa-btn fa-arrow-left"></i>Back

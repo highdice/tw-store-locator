@@ -28,6 +28,14 @@ elixir(function(mix) {
             paths.bower_components + 'jquery-ui/jquery-ui.min.js',
             paths.js + 'vendor/jquery-ui.js'
         )
+        .copy(
+            paths.bower_components + 'highcharts/highcharts.js',
+            paths.js + 'vendor/highcharts.js'
+        )
+        .copy(
+            paths.bower_components + 'highcharts/modules/exporting.js',
+            paths.js + 'vendor/exporting.js'
+        )
     	.copy(
     		paths.bower_components + 'bootstrap-sass/assets/javascripts/bootstrap.js',
     		paths.js + 'vendor/bootstrap.js'
@@ -56,25 +64,30 @@ elixir(function(mix) {
             paths.bower_components + 'bootstrap-sass/assets/fonts/bootstrap/**',
             paths.build + 'fonts/bootstrap'
         );
-    
+
     mix.styles([
             paths.root + 'public/css/vendor/jquery-ui.css',
             paths.root + 'public/css/vendor/font-awesome.css',
             paths.root + 'public/css/vendor/mapbox.css',
             paths.root + 'public/css/vendor/MarkerCluster.css',
-            paths.root + 'public/css/vendor/MarkerCluster.default.css',
             paths.root + 'public/css/vendor/css-spinners.css',
             paths.root + 'public/css/app.css'
         ])
         .scripts([
+            paths.root + 'public/js/vendor/mapbox.js',
+            paths.root + 'public/js/vendor/leaflet.markercluster.js',
+            paths.root + 'public/js/mapbox-scripts.js',
+        ], 'public/js/all-mapbox.js')
+        .scripts([
+            paths.root + 'public/js/vendor/highcharts.js',
+            paths.root + 'public/js/vendor/exporting.js',
+            paths.root + 'public/js/highcharts-scripts.js',
+        ], 'public/js/all-highcharts.js')
+        .scripts([
             paths.root + 'public/js/vendor/jquery.js',
             paths.root + 'public/js/vendor/jquery-ui.js',
             paths.root + 'public/js/vendor/bootstrap.js',
-            paths.root + 'public/js/vendor/mapbox.js',
-            paths.root + 'public/js/vendor/leaflet.markercluster.js',
-            paths.root + 'public/js/vendor/turf.min.js',
-            paths.root + 'public/js/vendor/realworld.388.js',
             paths.root + 'public/js/app.js'
         ])
-        .version([paths.css + 'all.css', paths.js + 'all.js']);
+        .version([paths.css + 'all.css', paths.js + 'all-mapbox.js', paths.js + 'all-highcharts.js', paths.js + 'all.js']);
 });

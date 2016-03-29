@@ -32,4 +32,10 @@ class LookupController extends Controller
         $result = new Lookup();
         return $result->getRegions();
     }
+
+    public function getRegion($id)
+    {
+        $result = new Lookup();
+        return $result->getRegion($id);
+    }
 }

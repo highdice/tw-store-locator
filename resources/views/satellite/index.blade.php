@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container">
-  <h3>Branches</h3>
+  <h3>Satellites</h3>
   <hr />
-  <a href="{{ url('stores/add') }}" class="btn btn-primary add-button">
-      <i class="fa fa-btn fa-plus"></i>Add Branch
+  <a href="{{ url('stores/' . $branch_id . '/satellite/add') }}" class="btn btn-primary add-button">
+      <i class="fa fa-btn fa-plus"></i>Add Satellite
   </a>
   <a href="javascript:void(0)" class="btn btn-primary show-filter-button">
       <i class="fa fa-btn fa-search"></i>Show Filter
@@ -13,6 +13,7 @@
   <a href="javascript:void(0)" class="btn btn-primary hide-filter-button">
       <i class="fa fa-btn fa-search"></i>Hide Filter
   </a>
+
   <div class="panel panel-default search-filter-container">
       <div class="panel-body">
           <div class="col-md-6 no-padding">
@@ -33,7 +34,7 @@
                       
                       <select class="form-control search-by">
                           <option value="">Any</option>
-                          <option value="">Branch Code</option>
+                          <option value="">Satellite Code</option>
                           <option value="">Trade Name</option>
                           <option value="">Satellite Name</option>
                           <option value="">Division</option>
@@ -64,11 +65,10 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Branch Code</th>
+          <th>Satellite Code</th>
           <th>Trade Name</th>
           <th>Name</th>
           <th>Division</th>
-          <th>Satellites</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -77,24 +77,20 @@
         <?php $x = 0; ?>
         @foreach ($data as $datum)
           <tr class="{{ ($x % 2) ? 'odd' : '' }}">
-            <td>{{ $datum->branch_code }}</td>
+            <td>{{ $datum->satellite_code }}</td>
             <td>{{ $datum->trade_name }}</td>
             <td>{{ $datum->name }}</td>
             <td>{{ $datum->division }}</td>
-            <td>{{ count($datum->satellites) }}</td>
             <td>
-              <a href="{{ url('/stores/' . $datum->id . '/satellite') }}" title="View Satellites" class="btn btn-warning action-button">
-                  <i class="fa fa-btn fa-eye"></i>
-              </a>
-              <a href="{{ url('/stores/' . $datum->id . '/edit' ) }}" title="Update" class="btn btn-info action-button">
+              <a href="{{ url('/stores/' . $datum->branch_id . '/satellite/' . $datum->id . '/edit' ) }}" title="Update" class="btn btn-info action-button">
                   <i class="fa fa-btn fa-pencil"></i>
               </a>
               @if ($datum->status == 1)
-                <a href="{{ url('/stores/' . $datum->id . '/status') }}" title="Deactivate" class="btn btn-danger action-button">
+                <a href="{{ url('/stores/' . $datum->branch_id . '/satellite/' . $datum->id . '/status') }}" title="Deactivate" class="btn btn-danger action-button">
                     <i class="fa fa-btn fa-close"></i>
                 </a>
               @else
-                <a href="{{ url('/stores/' . $datum->id . '/status') }}" title="Activate" class="btn btn-success action-button">
+                <a href="{{ url('/stores/' . $datum->branch_id . '/satellite/' . $datum->id . '/status') }}" title="Activate" class="btn btn-success action-button">
                   <i class="fa fa-btn fa-close"></i>
                 </a>
               @endif
@@ -108,7 +104,7 @@
       </tbody>
     </table>
   </div>
-
+  
   @if (isset($data) && count($data) > 0 && !empty($data))
     {{ $data->render() }}
   @endif
