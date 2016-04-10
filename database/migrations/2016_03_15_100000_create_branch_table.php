@@ -25,6 +25,7 @@ class CreateBranchTable extends Migration
             $table->integer('division');
             $table->float('latitude');
             $table->float('longitude');
+            $table->string('contact_number', 250);
             $table->dateTime('date_opened');
             $table->float('size');
             $table->boolean('status')->default(1);

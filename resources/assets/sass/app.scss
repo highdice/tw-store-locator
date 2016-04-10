@@ -191,12 +191,28 @@ ul {
 	background: #ffffff !important;
 }
 
+.remove {
+	display: none;
+}
+
 .hide {
 	visibility: hidden;
 }
 
 .show {
 	visibility: visible;
+}
+
+.no-margin {
+	margin: 0px;
+}
+
+.no-margin-bottom {
+	margin-bottom: 0px;
+}
+
+.no-margin-top {
+	margin-top: 0px;
 }
 
 .odd {
@@ -227,8 +243,19 @@ ul {
 }
 
 .tw-logo {
-	width: 430px;
 	margin-top: 30px;
+}
+
+.top-30 {
+	margin-top: 30px;
+}
+
+.top-50 {
+	margin-top: 50px;
+}
+
+.top-70 {
+	margin-top: 70px;
 }
 
 .top-100 {
@@ -448,7 +475,7 @@ ul {
 .popup-header {
 	text-align: center;
 	padding: 20px 10px 10px 10px;
-	background: #aaa51d;
+	background: #426ADA;
 	color: #ffffff;
 	width: 100%;
 
@@ -458,7 +485,7 @@ ul {
 	}
 
 	p {
-		color: #f8f48c;
+		color: #BDCEFB;
 	}
 }
 

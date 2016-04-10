@@ -8,10 +8,10 @@
       <i class="fa fa-btn fa-plus"></i>Add Branch
   </a>
   <a href="javascript:void(0)" class="btn btn-primary show-filter-button">
-      <i class="fa fa-btn fa-search"></i>Show Filter
+      <i class="fa fa-btn fa-filter"></i>Show Filter
   </a>
   <a href="javascript:void(0)" class="btn btn-primary hide-filter-button">
-      <i class="fa fa-btn fa-search"></i>Hide Filter
+      <i class="fa fa-btn fa-filter"></i>Hide Filter
   </a>
   <div class="panel panel-default search-filter-container">
       <div class="panel-body">
@@ -52,7 +52,7 @@
               <div class="form-group">
                   <div class="col-md-12">
                       <a href="" class="btn btn-success guest-button">
-                          <i class="fa fa-btn fa-check"></i>Search
+                          <i class="fa fa-btn fa-search"></i>Search
                       </a>
                   </div>
               </div>

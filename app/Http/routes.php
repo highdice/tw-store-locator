@@ -36,6 +36,13 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/dashboard', 'HomeController@index');
 
+    Route::group(['prefix' => 'users'], function() {    
+		Route::get('/', 'UserController@index');
+		Route::get('/add', 'UserController@add');
+		Route::get('/{id}/edit', 'UserController@edit');
+		Route::get('/{id}/status', 'UserController@status');
+	});
+
     Route::group(['prefix' => 'stores'], function() {    
 		Route::get('/', 'BranchController@index');
 		Route::get('/locator', 'BranchController@locator');
@@ -61,5 +68,8 @@ Route::group(['middleware' => 'web'], function () {
 
     	Route::post('satellite/add', 'SatelliteController@postAdd');
     	Route::post('satellite/edit', 'SatelliteController@postEdit');
+
+    	Route::post('users/add', 'UserController@postAdd');
+    	Route::post('users/edit', 'UserController@postEdit');
     });
 });

@@ -2,18 +2,19 @@
 
 @section('content')
 <center>
-<div id="search-container">
+<div id="search-container" class="hidden-xs">
     <i class="glyphicon glyphicon-search"></i>
     {!! csrf_field() !!}
     <input type="text" id="search-input" class="form-control search-input" placeholder="Search Here . . ." />
     <button id="search-button" class="btn btn-primary search-button">GO</button>
+    <button id="show-regions" class="btn btn-primary search-button">SHOW REGIONS</button>
 </div>
 </center>
 <aside>
     <div id="sidebar-show">
         <i class="glyphicon glyphicon-eye-open"></i>
     </div>
-    <div id="sidebar">
+    <div id="sidebar" class="hidden-xs">
         <ul>
             <li id="sidebar-hide">
                 <i class="glyphicon glyphicon-eye-close"></i>
@@ -34,7 +35,7 @@
         </ul>
     </div>
 
-    <div id="sidebar-content-container">
+    <div id="sidebar-content-container" class="hidden-xs">
         <div class="title">Advanced Search</div>
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           <div class="panel panel-default">
@@ -132,7 +133,10 @@
         </div>
     </div>
 </aside>
+
 <div id="map"></div>
+
+<input type="hidden" id="regions-path" value="{{ asset('js/regions.json') }}">
 @endsection
 
 @section('scripts')

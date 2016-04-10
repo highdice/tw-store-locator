@@ -23,4 +23,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get all satellites with pagination.
+     */
+    public function getPaginatedRecords()
+    {
+        return User::orderBy('id', 'desc')->paginate(10);
+    }
 }

@@ -40,7 +40,8 @@
                 <ul class="nav navbar-nav">
                     <li class="{{ (Request::is('dashboard') || Request::is('/')) ? 'active' : '' }}"><a href="{{ url('/dashboard') }}"><i class="fa fa-btn fa-dashboard"></i>Dashboard</a></li>
                     <li class="{{ (Request::is('stores/locator')) ? 'active' : '' }}"><a href="{{ url('/stores/locator') }}"><i class="fa fa-btn fa-map-marker"></i>Locator</a></li>
-                    <li class="{{ (Request::is('stores') || Request::is('stores/add')) ? 'active' : '' }}"><a href="{{ url('/stores') }}"><i class="fa fa-btn fa-building"></i>Stores</a></li>
+                    <li class="{{ (Request::is('stores') || Request::is('stores/add') || Request::is('stores/*/edit')) ? 'active' : '' }}"><a href="{{ url('/stores') }}"><i class="fa fa-btn fa-building"></i>Stores</a></li>
+                    <li class="{{ (Request::is('users') || Request::is('users/*')) ? 'active' : '' }}"><a href="{{ url('/users') }}"><i class="fa fa-btn fa-user"></i>Users</a></li>
                 </ul>
                 @endif
 
@@ -70,7 +71,7 @@
 
     @yield('content')
     
-    <div id='loader'>
+    <div id="loader">
         <div class="circles-loader"></div>
     </div>
 

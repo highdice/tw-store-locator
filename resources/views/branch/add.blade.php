@@ -108,6 +108,20 @@
                             @endif
                         </div>
                     </div>
+
+                    <div class="form-group{{ $errors->has('date_opened') ? ' has-error' : '' }}">
+                        <div class="col-md-12 custom-form">
+                            <span>Contact Number/s</span>
+                            <i class="glyphicon glyphicon-certificate input-icon"></i>
+                            <input type="text" id="contact_number" class="form-control" placeholder="Enter the contact number here" name="contact_number" value="{{ old('contact_number') }}">
+
+                            @if ($errors->has('contact_number'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('contact_number') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-md-6">

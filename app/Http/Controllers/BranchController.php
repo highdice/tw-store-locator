@@ -119,13 +119,8 @@ class BranchController extends Controller
      */
     public function show(Request $data)
     {
-        if(empty($data)) {
-            $result = new Branch();
-            return $result->where('status', '1')->get(array('name', 'address', 'region', 'island_group', 'latitude', 'longitude'));
-        }
-        else {
-            return 1;
-        }
+        $result = new Branch();
+        return $result->where('status', '1')->get(array('code', 'branch_code', 'trade_name', 'name', 'address', 'region', 'island_group', 'latitude', 'longitude'));
     }
 
     /**

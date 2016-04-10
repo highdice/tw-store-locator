@@ -2,9 +2,10 @@
 
 @section('content')
 <div class="container">
+    <div class="col-lg-12 col-md-12 hidden-sm hidden-xs top-70"></div>
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-default top-100">
+        <div class="col-md-6 col-md-offset-3 top-30">
+            <div class="panel panel-default">
                 <div class="panel-heading">Reset Password</div>
 
                 <div class="panel-body">

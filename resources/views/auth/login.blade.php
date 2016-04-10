@@ -6,7 +6,7 @@
         <div class="col-md-6 col-md-offset-3">
             <center><img src="build/css/images/tw-logo.png" alt="" class="tw-logo img-responsive"></center>
             <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+                <div class="panel-heading hide">Login</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
@@ -54,7 +54,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group no-margin-bottom">
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary guest-button">
                                     <i class="fa fa-btn fa-sign-in"></i>Login

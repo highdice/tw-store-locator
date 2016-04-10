@@ -14,7 +14,7 @@ class CreateSatelliteTable extends Migration
     {
         Schema::create('satellite', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('branch_code');
+            $table->integer('branch_id');
             $table->string('satellite_code', 50);
             $table->string('trade_name', 250);
             $table->string('name', 250);
@@ -25,6 +25,7 @@ class CreateSatelliteTable extends Migration
             $table->integer('division');
             $table->float('latitude');
             $table->float('longitude');
+            $table->string('contact_number', 250);
             $table->dateTime('date_opened');
             $table->float('size');
             $table->boolean('status')->default(1);

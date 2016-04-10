@@ -188,5 +188,29 @@ class LookupTableSeeder extends Seeder
 	            'created_at' => date('Y-m-d h:i:s'),
 	            'updated_at' => date('Y-m-d h:i:s')
 	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'trade_name',
+	            'title' => "Tom's World",
+	            'description' => "Tom's World",
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'trade_name',
+	            'title' => 'Austin Land',
+	            'description' => 'Austin Land',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'trade_name',
+	            'title' => 'Joy Planet',
+	            'description' => 'Joy Planet',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
     }
 }

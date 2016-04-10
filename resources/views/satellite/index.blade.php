@@ -11,7 +11,7 @@
       <i class="fa fa-btn fa-search"></i>Show Filter
   </a>
   <a href="javascript:void(0)" class="btn btn-primary hide-filter-button">
-      <i class="fa fa-btn fa-search"></i>Hide Filter
+      <i class="fa fa-btn fa-filter"></i>Hide Filter
   </a>
 
   <div class="panel panel-default search-filter-container">
