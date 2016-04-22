@@ -105,7 +105,7 @@ $(document).ready(function() {
                     }
                 });
 
-  var map = L.mapbox.map('map', 'mapbox.streets', { zoomControl: false, maxBounds: [[-90,-180],[90,180]] }).setView([13, 122], 5);//.addLayer(L.mapbox.tileLayer('highdice.cifqlknit704qsikqrqp3peuo', {continuousWorld: 'true'}));
+  var map = L.mapbox.map('map', 'mapbox.light', { zoomControl: false, minZoom: 6, maxBounds: [[-90,-180],[90,180]] }).setView([13, 122], 6);//.addLayer(L.mapbox.tileLayer('highdice.cifqlknit704qsikqrqp3peuo', {continuousWorld: 'true'}));
 
   new L.Control.Zoom({ position: 'topright' }).addTo(map);
 
@@ -138,6 +138,7 @@ $(document).ready(function() {
                 var icon = L.icon({
                               iconUrl: '/build/css/images/tomsworld-marker-min.png',
                               iconSize: [52, 77],
+                              iconAnchor: [26, 33.5],
                               popupAnchor: [0, -40]
                             })
 
@@ -178,14 +179,14 @@ $(document).ready(function() {
       gj = L.geoJson(data, {
           style: function(feature) {
               switch (feature.properties.name) {
-                  case 'Ilocos Region (Region I)': return {color: region1_swatch, opacity: 1, fillOpacity: 0.6, weight: 1};
-                  case 'Cagayan Valley (Region II)': return {color: region2_swatch, opacity: 1, fillOpacity: 0.6, weight: 1};
-                  case 'Central Luzon (Region III)': return {color: region3_swatch, opacity: 1, fillOpacity: 0.6, weight: 1};
-                  case 'CALABARZON (Region IV-A)': return {color: region4a_swatch, opacity: 1, fillOpacity: 0.6, weight: 1};
-                  case 'MIMAROPA (Region IV-B)': return {color: region4b_swatch, opacity: 1, fillOpacity: 0.6, weight: 1};
-                  case 'Western Visayas (Region VI)': return {color: region6_swatch, opacity: 1, fillOpacity: 0.6, weight: 1};
-                  case 'Caraga (Region XIII)': return {color: region9_swatch, opacity: 1, fillOpacity: 0.6, weight: 1};
-                  default: return {color: random_color(), opacity: 1, fillOpacity: 0.6, weight: 1};
+                  case 'Ilocos Region (Region I)': return {color: region1_swatch, opacity: 1, fillOpacity: 0.1, weight: 1};
+                  case 'Cagayan Valley (Region II)': return {color: region2_swatch, opacity: 1, fillOpacity: 0.1, weight: 1};
+                  case 'Central Luzon (Region III)': return {color: region3_swatch, opacity: 1, fillOpacity: 0.1, weight: 1};
+                  case 'CALABARZON (Region IV-A)': return {color: region4a_swatch, opacity: 1, fillOpacity: 0.1, weight: 1};
+                  case 'MIMAROPA (Region IV-B)': return {color: region4b_swatch, opacity: 1, fillOpacity: 0.1, weight: 1};
+                  case 'Western Visayas (Region VI)': return {color: region6_swatch, opacity: 1, fillOpacity: 0.1, weight: 1};
+                  case 'Caraga (Region XIII)': return {color: region9_swatch, opacity: 1, fillOpacity: 0.1, weight: 1};
+                  default: return {color: random_color(), opacity: 1, fillOpacity: 0.1, weight: 1};
               }
           },
           onEachFeature: function (feature, layer) {

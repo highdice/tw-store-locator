@@ -370,7 +370,7 @@ $(document).ready(function() {
             backgroundColor: 'rgba(255, 255, 255, 0)'
         },
         title: {
-            text: 'Historical Chart',
+            text: '',
             x: -20 //center
         },
         subtitle: {
@@ -421,7 +421,7 @@ $(document).ready(function() {
             type: 'pie'
         },
         title: {
-            text: 'Stores Per Island Group'
+            text: ''
         },
         credits: {
             enabled: false
@@ -472,7 +472,7 @@ $(document).ready(function() {
             type: 'pie'
         },
         title: {
-            text: 'Stores Per Region'
+            text: ''
         },
         credits: {
             enabled: false
@@ -524,7 +524,7 @@ $(document).ready(function() {
             type: 'pie'
         },
         title: {
-            text: 'Stores Per Division'
+            text: ''
         },
         credits: {
             enabled: false

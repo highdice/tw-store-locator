@@ -1,65 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="page-title-container">
   <h3>Branches</h3>
-  <hr />
-  <a href="{{ url('stores/add') }}" class="btn btn-primary add-button">
+  <p>Lorem ipsum dolor kismet akhmet</p>
+</div>
+
+<div class="inner-container page-add-container">
+  <a href="{{ url('stores/add') }}" class="btn btn-success add-button">
       <i class="fa fa-btn fa-plus"></i>Add Branch
   </a>
-  <a href="javascript:void(0)" class="btn btn-primary show-filter-button">
-      <i class="fa fa-btn fa-filter"></i>Show Filter
-  </a>
-  <a href="javascript:void(0)" class="btn btn-primary hide-filter-button">
-      <i class="fa fa-btn fa-filter"></i>Hide Filter
-  </a>
-  <div class="panel panel-default search-filter-container">
-      <div class="panel-body">
-          <div class="col-md-6 no-padding">
-              <div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}">
-                  <div class="col-md-12 custom-form">
-                      <span>Search Criteria</span>
-                      <i class="glyphicon glyphicon-certificate input-icon"></i>
-                      <input type="text" class="form-control search-criteria" placeholder="Enter the search value here">
-                  </div>
-              </div>
-            </div>
+</div>
 
-            <div class="col-md-6 no-padding">
-                <div class="form-group{{ $errors->has('region') ? ' has-error' : '' }}">
-                  <div class="col-md-12 custom-form">
-                      <span>Search By</span>
-                      <i class="glyphicon glyphicon-certificate input-icon"></i>
-                      
-                      <select class="form-control search-by">
-                          <option value="">Any</option>
-                          <option value="">Branch Code</option>
-                          <option value="">Trade Name</option>
-                          <option value="">Satellite Name</option>
-                          <option value="">Division</option>
-                      </select>
-                      @if ($errors->has('region'))
-                          <span class="help-block">
-                              <strong>{{ $errors->first('region') }}</strong>
-                          </span>
-                      @endif
-                  </div>
-              </div>
-            </div>
+<div class="inner-container">
+  <div class="col-lg-12 no-padding"> 
+    <div class="input-group"> 
+      <span class="input-group-addon" id="sizing-addon2"><i class="glyphicon glyphicon-search"></i></span>
+      <input type="text" class="form-control" placeholder="Search filter"> 
+      <div class="input-group-btn"> 
+        <button type="button" class="btn btn-default">SEARCH</button> 
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+          <span class="search-by">BY</span><span class="caret"></span>
+        </button> 
 
-            <div class="col-md-12 no-padding">
-              <br />
-              <div class="form-group">
-                  <div class="col-md-12">
-                      <a href="" class="btn btn-success guest-button">
-                          <i class="fa fa-btn fa-search"></i>Search
-                      </a>
-                  </div>
-              </div>
-          </div>
-      </div>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li><a href="#">Branch Code</a></li> 
+          <li><a href="#">Trade Name</a></li> 
+          <li><a href="#">Satellite Name</a></li> 
+          <li><a href="#">Division Name</a></li> 
+          <li role="separator" class="divider"></li> 
+          <li><a href="#">Any</a></li> 
+        </ul> 
+      </div> 
+    </div> 
   </div>
-  <hr />
+
   <div class="table-responsive"> 
     <table class="table">
       <thead>

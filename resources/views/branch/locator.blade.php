@@ -14,7 +14,7 @@
     <div id="sidebar-show">
         <i class="glyphicon glyphicon-eye-open"></i>
     </div>
-    <div id="sidebar" class="hidden-xs">
+    <div id="locator-sidebar" class="hidden-xs">
         <ul>
             <li id="sidebar-hide">
                 <i class="glyphicon glyphicon-eye-close"></i>

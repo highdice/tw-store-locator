@@ -17,7 +17,6 @@
 <body id="app-layout" class="{{ (Auth::guest()) ? 'guest-bg' : '' }}">
     @if (!Auth::guest())
     <nav class="navbar navbar-default">
-        <div class="container">
             <div class="navbar-header">
 
                 <!-- Collapsed Hamburger -->
@@ -65,7 +64,6 @@
                     @endif
                 </ul>
             </div>
-        </div>
     </nav>
     @endif
 

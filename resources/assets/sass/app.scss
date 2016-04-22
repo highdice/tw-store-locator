@@ -1,12 +1,13 @@
 @import "vendor/bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 
-body {
+body, html {
     font-family: 'Lato';
-    background: #f0f0f0;
+    background: #e3e3e3;
+    height: 100%;
 }
 
 hr {
-	border-top: 1px solid #cfcfcf;
+	border-top: 3px solid #cfcfcf;
     border-bottom: 1px solid #fff;
 }
 
@@ -33,6 +34,12 @@ ul {
 
 .leaflet-popup-content {
 	padding: 0px !important;	
+}
+
+.table-responsive {
+	background: #ffffff;
+	padding: 5px;
+	border: 3px solid #e3e3e3;
 }
 
 .form-group {
@@ -103,10 +110,9 @@ ul {
 }
 
 .navbar-default {
-	background-color: #5CB14C;
+	background-color: #399BFE;
     border: 0px;
     border-radius: 0px;
-    box-shadow: 0px 2px 5px #505050;
     z-index: 3;
 
     .navbar-collapse, .navbar-form {
@@ -117,34 +123,34 @@ ul {
 .navbar-nav {
 	li {
 		.dropdown-menu {
-			background: #4A9A3B;
+			background: #2674ce;
 		}
 
 		a {
 			&:hover {
-				background: #4A9A3B !important;
+				background: #52a7fe !important;
 			}
 
 			&:focus {
-				color: #C6F9BD;
+				color: #ffffff;
 			}
 		}
 	}
 
 	.open {
-		background: #4A9A3B;
+		background: #2674ce;
 
 		a {
 			&:focus {
-				background: #4A9A3B !important;
+				background: #2674ce !important;
 			}
 		}
 
 		li {
 			a {
 				&:hover {
-					background: #4A9A3B;
-					color: #95F583 !important;
+					background: #52a7fe;
+					color: #ffffff !important;
 				}
 			}
 		}
@@ -152,13 +158,14 @@ ul {
 
 	.active {
 		a {
-			background: #F38436 !important;
+			background: #2674ce !important;
 		}
 	}
 }
 
 .navbar-brand {
 	color: #ffffff !important;
+	background: #F79232 !important;
 }
 
 .nav {
@@ -175,15 +182,15 @@ ul {
 }
 
 .navbar-toggle {
-	border-color: #69BB5A !important;
-    background: #4A9A3B;
+	border-color: #2674ce !important;
+    background: #3683DB;
 
     &:focus {
-    	background: #4A9A3B !important;
+    	background: #2674ce !important;
     }
 
     &:hover {
-    	background: #4A9A3B !important;
+    	background: #52a7fe !important;
     }
 }
 
@@ -273,13 +280,30 @@ ul {
     margin-left: 15px;
 }
 
-#sidebar {
+.page-title-container {
+	background: #fff;
+    margin: 0px;
+    padding: 20px 20px;
+    border-bottom: 2px solid #cdcdcd;
+
+    h3 {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	p {
+		color: #808080;
+		margin-top: -5px;
+	}
+}
+
+#locator-sidebar {
 	position: absolute;
 	left: 0;
 	z-index: 2;
 	width: 80px;
     background: #303030;
-    height: 600px;
+    height: 100%;
 
     ul {
     	li {
@@ -288,7 +312,7 @@ ul {
     		cursor: pointer;
 
     		i {
-    			font-size: 20px;
+    			font-size: 15px;
     			color: #9f9f9f;
     		}
 
@@ -309,6 +333,60 @@ ul {
     				color: #ffffff;
     			}
     		}
+    	}
+    }
+}
+
+#sidebar {
+	position: absolute;
+	left: 0;
+	z-index: 2;
+    background: #303030;
+    height: 100%;
+    padding: 0px;
+
+    p {
+	    color: #ffffff;
+	    padding: 10px;
+	    padding-bottom: 5px;
+	    margin-bottom: 0px;
+	    margin-top: 27px;
+    }
+
+    ul {
+    	li {
+    		cursor: pointer;
+    		color: #9f9f9f;
+    		padding: 15px 10px;
+
+    		i {
+    			font-size: 13px;
+    			color: #9f9f9f;
+    			margin-right: 10px;
+    		}
+
+    		p {
+    			color: #f0f0f0;
+			    margin-top: 3px;
+			    margin-bottom: 0px;
+    		}
+
+    		&:hover {
+    			color: #ffffff;
+    			background: #202020;
+
+    			i {
+    				color: #ffffff;
+    			}
+
+    			p {
+    				color: #ffffff;
+    			}
+    		}
+    	}
+
+    	.active {
+    		background: #202020;
     	}
     }
 }
@@ -376,8 +454,9 @@ ul {
 }
 
 #map {
+	position: absolute;
 	width: 100%;
-	height: 600px;
+	height: 100%;
 }
 
 #search-container {
@@ -493,16 +572,21 @@ ul {
 	padding: 20px 15px 10px 15px;
 }
 
-.chart-container {
+.inner-container {
 	padding-right: 0px;
 	padding-left: 0px;
-	margin-top: 50px;
+	border: 10px solid #e3e3e3;
+	border-top: none;
+	border-bottom: none;
 }
 
 .line-chart {
 	min-width: 310px;
 	height: 400px;
 	margin: 0 auto;
+	background: #ffffff;
+	margin-top:10px;
+	border: 3px solid #e3e3e3;
 }
 
 .pie-chart {
@@ -510,4 +594,15 @@ ul {
 	height: 400px;
 	max-width: 600px;
 	margin: 0 auto;
+	background: #ffffff;
+	border: 3px solid #e3e3e3;
+}
+
+.search-by {
+	margin-right: 10px;
+}
+
+.page-add-container {
+	margin-top: 20px;
+	margin-bottom: 10px;	
 }
