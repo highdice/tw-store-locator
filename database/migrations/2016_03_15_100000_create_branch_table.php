@@ -16,7 +16,8 @@ class CreateBranchTable extends Migration
             $table->increments('id');
             $table->string('code', 50);
             $table->string('branch_code', 50);
-            $table->string('trade_name', 250);
+            $table->string('trade_name_prefix', 100);
+            $table->integer('trade_name');
             $table->string('name', 250);
             $table->text('address');
             $table->integer('zip_code');

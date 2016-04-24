@@ -5784,6 +5784,7 @@ ul {
 
 .form-group .input-icon {
   position: absolute;
+  z-index: 1;
   margin-top: 12px;
   margin-left: 12px;
   color: #a0a0a0; }
@@ -5820,6 +5821,14 @@ ul {
 .form-group .help-block {
   color: #a94442 !important; }
 
+.form-group .input-divider {
+  padding-top: 9px;
+  text-align: center;
+  font-weight: bold; }
+
+.form-group .input-half {
+  padding-left: 10px; }
+
 .panel {
   border: 0px; }
 
@@ -5827,6 +5836,15 @@ ul {
   color: #fff;
   background-color: #F03131;
   border-color: #ddd; }
+
+.breadcrumb {
+  margin-bottom: 0px;
+  background: #2674CE;
+  border-radius: 0px; }
+  .breadcrumb li a {
+    color: #ffffff; }
+  .breadcrumb .active {
+    color: #B9D5F5; }
 
 .navbar {
   margin-bottom: 0px; }
@@ -5946,7 +5964,7 @@ ul {
 .page-title-container {
   background: #fff;
   margin: 0px;
-  padding: 20px 20px;
+  padding: 15px 20px 20px 20px;
   border-bottom: 2px solid #cdcdcd; }
   .page-title-container h3 {
     margin-top: 10px;
@@ -5981,18 +5999,22 @@ ul {
         color: #ffffff; }
 
 #sidebar {
-  position: absolute;
+  position: fixed;
   left: 0;
+  top: 0;
   z-index: 2;
   background: #303030;
   height: 100%;
   padding: 0px; }
+  #sidebar .sidebar-divider {
+    height: 10px;
+    width: 100%;
+    margin-top: 67px; }
   #sidebar p {
     color: #ffffff;
     padding: 10px;
     padding-bottom: 5px;
-    margin-bottom: 0px;
-    margin-top: 27px; }
+    margin-bottom: 0px; }
   #sidebar ul li {
     cursor: pointer;
     color: #9f9f9f;
@@ -6165,6 +6187,7 @@ ul {
   margin: 0 auto;
   background: #ffffff;
   margin-top: 10px;
+  padding-top: 10px;
   border: 3px solid #e3e3e3; }
 
 .pie-chart {

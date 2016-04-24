@@ -2,18 +2,35 @@
 
 @section('content')
 <aside>
-    <div id="sidebar" class="col-lg-1 col-md-2 col-sm-2 hidden-xs">
-        <p>CHARTS</p>
+    <div id="sidebar" class="col-lg-2 col-md-3 col-sm-3 hidden-xs">
+        <div class="sidebar-divider"></div>
+        <p>GENERAL</p>
         <ul>
             <li id="sidebar-result" class="sidebar-js-button active">
                 <i class="glyphicon glyphicon-stats"></i>
-                Charts
+                Historical
+            </li>
+        </ul>
+
+        <p>BY CATEGORY</p>
+        <ul>
+            <li id="sidebar-result" class="sidebar-js-button">
+                <i class="glyphicon glyphicon-stats"></i>
+                Island Group
+            </li>
+            <li id="sidebar-result" class="sidebar-js-button">
+                <i class="glyphicon glyphicon-list-alt"></i>
+                Region
+            </li>
+            <li id="sidebar-result" class="sidebar-js-button">
+                <i class="glyphicon glyphicon-list-alt"></i>
+                Division
             </li>
         </ul>
     </div>
 </aside>
 
-<div class="col-lg-offset-1 col-lg-11 col-md-offset-2 col-lg-10 col-sm-offset-2 col-sm-10 no-padding">
+<div class="col-lg-offset-2 col-lg-10 col-md-offset-3 col-md-9 col-sm-offset-3 col-sm-9 no-padding">
     <div class="page-title-container">
         <h3>Dashboard</h3>
         <p>Lorem ipsum dolor kismet akhmet</p>

@@ -32,7 +32,8 @@ class BranchController extends Controller
         return Validator::make($data, [
             'code' => 'required|max:250|unique:branch',
             'branch_code' => 'required|max:250|unique:branch',
-            'trade_name' => 'required||max:250',
+            'trade_name_prefix' => 'required|max:100',
+            'trade_name' => 'required|integer',
             'name' => 'required|max:250',
             'size' => 'required',
             'date_opened' => 'required|date',
@@ -41,6 +42,7 @@ class BranchController extends Controller
             'region' => 'required',
             'longitude' => 'required|numeric',
             'latitude' => 'required|numeric',
+            'area' => 'required|max:250',
             'division' => 'required|integer|between:1,4',
             'island_group' => 'required'
         ]);
@@ -73,7 +75,7 @@ class BranchController extends Controller
     {
         $result = new Branch();
         $data = $result->getPaginatedRecords();
-        
+
         return view('branch.index', ['data' => $data]);
     }
 
@@ -87,7 +89,8 @@ class BranchController extends Controller
     {
         $result = new LookupController();
         $regions = $result->getRegions();
-        return view('branch.add', ['regions' => $regions]);
+        $trade_names = $result->getTradeNames();
+        return view('branch.add', ['regions' => $regions, 'trade_names' => $trade_names]);
     }
 
     /**
@@ -104,11 +107,9 @@ class BranchController extends Controller
 
         $result = new LookupController();
         $regions = $result->getRegions();
+        $trade_names = $result->getTradeNames();     
 
-        $result = new LookupController();
-        $region = $result->getRegion($data->region);
-
-        return view('branch.edit', ['regions' => $regions, 'region' => $region, 'data' => $data]);
+        return view('branch.edit', ['regions' => $regions, 'trade_names' => $trade_names, 'data' => $data]);
     }
 
     /**
@@ -142,6 +143,7 @@ class BranchController extends Controller
         $branch = new Branch;
         $branch->code = $data['code'];
         $branch->branch_code = $data['branch_code'];
+        $branch->trade_name_prefix = strtoupper($data['trade_name_prefix']);
         $branch->trade_name = $data['trade_name'];
         $branch->name = $data['name'];
         $branch->size = $data['size'];
@@ -151,6 +153,7 @@ class BranchController extends Controller
         $branch->region = $data['region'];
         $branch->longitude = $data['longitude'];
         $branch->latitude = $data['latitude'];
+        $branch->area = $data['area'];
         $branch->division = $data['division'];
         $branch->island_group = $data['island_group'];
         $branch->status = 1;
@@ -178,6 +181,7 @@ class BranchController extends Controller
         $branch = new Branch;
         $branch->code = $data['code'];
         $branch->branch_code = $data['branch_code'];
+        $branch->trade_name_prefix = strtoupper($data['trade_name_prefix']);
         $branch->trade_name = $data['trade_name'];
         $branch->name = $data['name'];
         $branch->size = $data['size'];
@@ -187,6 +191,7 @@ class BranchController extends Controller
         $branch->region = $data['region'];
         $branch->longitude = $data['longitude'];
         $branch->latitude = $data['latitude'];
+        $branch->area = $data['area'];
         $branch->division = $data['division'];
         $branch->island_group = $data['island_group'];
         $branch->where('id', $data['id']);

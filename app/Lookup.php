@@ -17,6 +17,14 @@ class Lookup extends Model
     }
 
     /**
+     * Get all trade names
+     */
+    public function getTradeNames()
+    {
+        return Lookup::where('key', 'trade_name')->orderBy('title', 'asc')->get(array('id', 'title', 'description'));
+    }
+
+    /**
      * Get a region by id
      */
     public function getRegion($id)

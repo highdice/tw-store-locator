@@ -16,7 +16,8 @@ class BranchTableSeeder extends Seeder
         DB::table('branch')->insert([
         		'code' => 'PL01',
 	            'branch_code' => 'PL1',
-	            'trade_name' => 'PC - Toms World',
+	            'trade_name_prefix' => 'PC',
+	            'trade_name' => 23,
 	            'name' => 'Festival Mall',
 	            'address' => '3rd Level, Xsite Area and KBOX Festival Super Mall, Filinvest, Alabang, Muntinlupa City',
 	            'zip_code' => '1770',
@@ -35,7 +36,8 @@ class BranchTableSeeder extends Seeder
 	    DB::table('branch')->insert([
 	    		'code' => 'PL02',
 	            'branch_code' => 'PL2',
-	            'trade_name' => 'PTI - Toms World',
+	            'trade_name_prefix' => 'PTI',
+	            'trade_name' => 23,
 	            'name' => 'SM Fairview',
 	            'address' => '2nd Level with Satellite In-Front, Annex building, Greater Lagro, Novaliches, Quezon City',
 	            'zip_code' => '1118',
@@ -54,7 +56,8 @@ class BranchTableSeeder extends Seeder
 	    DB::table('branch')->insert([
 	    		'code' => 'PL03',
 	            'branch_code' => 'PL3',
-	            'trade_name' => 'JPI - Toms World',
+	            'trade_name_prefix' => 'JPI',
+	            'trade_name' => 23,
 	            'name' => 'SM Southmall',
 	            'address' => 'Unit 236, 2nd Level, Almanza Uno, Alabang, Las Pinas City',
 	            'zip_code' => '1750',
@@ -73,7 +76,8 @@ class BranchTableSeeder extends Seeder
 	     DB::table('branch')->insert([
 	     		'code' => 'PL04',
 	            'branch_code' => 'SPG',
-	            'trade_name' => 'TJI - Toms World',
+	            'trade_name_prefix' => 'TJI',
+	            'trade_name' => 23,
 	            'name' => 'SM Pampanga',
 	            'address' => 'Jose Abad Santos Avenue, Corner North Luzon Expressway, San Jose, San Fernando City, Pampanga',
 	            'zip_code' => '2000',

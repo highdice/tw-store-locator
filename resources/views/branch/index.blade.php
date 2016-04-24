@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+<ol class="breadcrumb">
+  <li class="active">Branches</li>
+</ol>
+
 <div class="page-title-container">
   <h3>Branches</h3>
   <p>Lorem ipsum dolor kismet akhmet</p>
@@ -27,7 +31,7 @@
           <li><a href="#">Branch Code</a></li> 
           <li><a href="#">Trade Name</a></li> 
           <li><a href="#">Satellite Name</a></li> 
-          <li><a href="#">Division Name</a></li> 
+          <li><a href="#">Division</a></li> 
           <li role="separator" class="divider"></li> 
           <li><a href="#">Any</a></li> 
         </ul> 
@@ -53,7 +57,7 @@
         @foreach ($data as $datum)
           <tr class="{{ ($x % 2) ? 'odd' : '' }}">
             <td>{{ $datum->branch_code }}</td>
-            <td>{{ $datum->trade_name }}</td>
+            <td>{{ $datum->trade_name_prefix . ' - ' . $datum->getTradeName->description }}</td>
             <td>{{ $datum->name }}</td>
             <td>{{ $datum->division }}</td>
             <td>{{ count($datum->satellites) }}</td>

@@ -38,4 +38,10 @@ class LookupController extends Controller
         $result = new Lookup();
         return $result->getRegion($id);
     }
+
+    public function getTradeNames()
+    {
+        $result = new Lookup();
+        return $result->getTradeNames();
+    }
 }

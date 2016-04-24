@@ -1,11 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h3><i class="glyphicon glyphicon-pencil header-icon"></i> Edit Branch Information</h3>
-    <p class="sub-header">Fields with <i class="glyphicon glyphicon-certificate required"></i> are required.
-    <hr />
+<ol class="breadcrumb">
+  <li><a href="/stores">Branches</a></li>
+  <li class="active">Edit</li>
+</ol>
 
+<div class="page-title-container">
+  <h3>Edit Branch</h3>
+  <p>Fields with <i class="glyphicon glyphicon-certificate required"></i> are required.
+</div>
+
+<div class="container top-30">
     <form class="form-horizontal" role="form" method="POST" action="{{ url('/api/v1/stores/edit') }}">
         {!! csrf_field() !!}
         <div class="panel panel-default">
@@ -39,17 +45,36 @@
                         </div>
                     </div>
 
-                    <div class="form-group{{ $errors->has('trade_name') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('trade_name_prefix') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
                             <span>Trade Name</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter the trade name here" name="trade_name" value="{{ $data->trade_name }}">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                <input type="text" class="form-control" placeholder="Enter the trade name here" name="trade_name_prefix" value="{{ $data->trade_name_prefix }}">
 
-                            @if ($errors->has('trade_name'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('trade_name') }}</strong>
-                                </span>
-                            @endif
+                                @if ($errors->has('trade_name_prefix'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('trade_name_prefix') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-padding">
+                                <span class="input-divider">-</span>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 no-padding">
+                                <select class="form-control input-half" name="trade_name" value="{{ $data->trade_name }}">
+                                    <option value="{{ $data->trade_name }}">{{ 'Current: ' . $data->getTradeName->description }}</option>
+                                    @foreach ($trade_names as $trade_name)
+                                        <option value="{{ $trade_name->id }}">{{ $trade_name->description }}</option>
+                                    @endforeach
+                                </select>
+
+                                @if ($errors->has('trade_name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('trade_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
                         </div>
                     </div>
 
@@ -81,20 +106,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group{{ $errors->has('division') ? ' has-error' : '' }}">
-                        <div class="col-md-12 custom-form">
-                            <span>Division</span>
-                            <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter division number here" name="division" value="{{ $data->division }}">
-
-                            @if ($errors->has('division'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('division') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
                     <div class="form-group{{ $errors->has('date_opened') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
                             <span>Date Opened</span>
@@ -104,6 +115,20 @@
                             @if ($errors->has('date_opened'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('date_opened') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('date_opened') ? ' has-error' : '' }}">
+                        <div class="col-md-12 custom-form">
+                            <span>Contact Number/s</span>
+                            <i class="glyphicon glyphicon-certificate input-icon"></i>
+                            <input type="text" id="contact_number" class="form-control" placeholder="Enter the contact number here" name="contact_number" value="{{ $data->contact_number }}">
+
+                            @if ($errors->has('contact_number'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('contact_number') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -145,7 +170,7 @@
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
                             
                             <select class="form-control" name="region" value="{{ $data->region }}">
-                                <option value="{{ $region->id }}">{{ 'Current: ' . $region->title . ' - ' . $region->description }}</option>
+                                <option value="{{ $data->region }}">{{ 'Current: ' . $data->getRegion->title . ' - ' . $data->getRegion->description }}</option>
                                 @foreach ($regions as $region)
                                     <option value="{{ $region->id }}">{{ $region->title . ' - ' . $region->description }}</option>
                                 @endforeach
@@ -169,6 +194,34 @@
                             @if ($errors->has('island_group'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('island_group') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('area') ? ' has-error' : '' }}">
+                        <div class="col-md-12 custom-form">
+                            <span>Area</span>
+                            <i class="glyphicon glyphicon-certificate input-icon required"></i>
+                            <input type="text" class="form-control" placeholder="Enter the area here" name="area" value="{{ $data->area }}">
+
+                            @if ($errors->has('area'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('area') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('division') ? ' has-error' : '' }}">
+                        <div class="col-md-12 custom-form">
+                            <span>Division</span>
+                            <i class="glyphicon glyphicon-certificate input-icon required"></i>
+                            <input type="text" class="form-control" placeholder="Enter division number here" name="division" value="{{ $data->division }}">
+
+                            @if ($errors->has('division'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('division') }}</strong>
                                 </span>
                             @endif
                         </div>
