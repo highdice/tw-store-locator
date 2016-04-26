@@ -3,6 +3,7 @@
 @section('content')
 <ol class="breadcrumb">
   <li><a href="/stores">Branches</a></li>
+  <li class="active">{{ $data->id }}</li>
   <li class="active">Edit</li>
 </ol>
 
@@ -12,10 +13,12 @@
 </div>
 
 <div class="container top-30">
-    <form class="form-horizontal" role="form" method="POST" action="{{ url('/api/v1/stores/edit') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ url('/api/v1/stores/edit') }}" enctype="multipart/form-data">
         {!! csrf_field() !!}
         <div class="panel panel-default">
             <div class="panel-body">
+                <input type="hidden" name="id" value="{{ $data->id }}">
+
                 <div class="col-md-6">
                     <div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
@@ -63,9 +66,8 @@
                             </div>
                             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 no-padding">
                                 <select class="form-control input-half" name="trade_name" value="{{ $data->trade_name }}">
-                                    <option value="{{ $data->trade_name }}">{{ 'Current: ' . $data->getTradeName->description }}</option>
                                     @foreach ($trade_names as $trade_name)
-                                        <option value="{{ $trade_name->id }}">{{ $trade_name->description }}</option>
+                                        <option value="{{ $trade_name->id }}" {{ ($trade_name->id == $data->getTradeName->id) ? 'selected="selected"' : '' }}>{{ $trade_name->description }}</option>
                                     @endforeach
                                 </select>
 
@@ -115,6 +117,21 @@
                             @if ($errors->has('date_opened'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('date_opened') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                        <div class="col-md-12 custom-form">
+                            <span>Upload Image</span>
+                            <i class="glyphicon glyphicon-certificate input-icon"></i>
+                            <input type="file" id="image" class="form-control" name="image" value="{{ $data->image }}">
+                            <span>An image was already uploaded. <a href="">Click here to view the image.</a></span>
+
+                            @if ($errors->has('image'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('image') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -170,9 +187,8 @@
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
                             
                             <select class="form-control" name="region" value="{{ $data->region }}">
-                                <option value="{{ $data->region }}">{{ 'Current: ' . $data->getRegion->title . ' - ' . $data->getRegion->description }}</option>
                                 @foreach ($regions as $region)
-                                    <option value="{{ $region->id }}">{{ $region->title . ' - ' . $region->description }}</option>
+                                    <option value="{{ $region->id }}" {{ ($region->id == $data->getRegion->id) ? 'selected="selected"' : '' }}>{{ $region->title . ' - ' . $region->description }}</option>
                                 @endforeach
                             </select>
                             @if ($errors->has('region'))

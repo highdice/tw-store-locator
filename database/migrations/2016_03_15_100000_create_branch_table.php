@@ -23,9 +23,11 @@ class CreateBranchTable extends Migration
             $table->integer('zip_code');
             $table->integer('region');
             $table->integer('island_group');
+            $table->string('area', 250);
             $table->integer('division');
             $table->float('latitude');
             $table->float('longitude');
+            $table->string('image', 250);
             $table->string('contact_number', 250);
             $table->dateTime('date_opened');
             $table->float('size');

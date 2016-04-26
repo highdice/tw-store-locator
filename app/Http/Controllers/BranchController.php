@@ -13,7 +13,6 @@ class BranchController extends Controller
 {
     /**
      * Create a new controller instance.
-     *
      * @return void
      */
     public function __construct()
@@ -23,15 +22,14 @@ class BranchController extends Controller
 
     /**
      * Get a validator for an incoming post request.
-     *
      * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(array $data, $id = null)
     {
         return Validator::make($data, [
-            'code' => 'required|max:250|unique:branch',
-            'branch_code' => 'required|max:250|unique:branch',
+            'code' => 'required|max:250|unique:branch,code,'.$id,
+            'branch_code' => 'required|max:250|unique:branch,branch_code,'.$id,
             'trade_name_prefix' => 'required|max:100',
             'trade_name' => 'required|integer',
             'name' => 'required|max:250',
@@ -44,21 +42,19 @@ class BranchController extends Controller
             'latitude' => 'required|numeric',
             'area' => 'required|max:250',
             'division' => 'required|integer|between:1,4',
-            'island_group' => 'required'
+            'island_group' => 'required',
+            'image_path' => 'mimes:png,jpeg,jpg'
         ]);
     }
 
     /**
      * Show the application dashboard.
-     *
      * @return \Illuminate\Http\Response
      */
 
     /**
      * Handles view for the locator menu item.
-     *
-     * @param  none
-     * @return Branch
+     * @return view
      */    
     public function locator()
     {
@@ -67,9 +63,7 @@ class BranchController extends Controller
 
     /**
      * Handles view for the stores menu item.
-     *
-     * @param  none
-     * @return Branch
+     * @return view
      */
     public function index()
     {
@@ -81,9 +75,7 @@ class BranchController extends Controller
 
     /**
      * Handles view for adding a branch.
-     *
-     * @param  none
-     * @return Branch
+     * @return view
      */
     public function add()
     {
@@ -95,9 +87,8 @@ class BranchController extends Controller
 
     /**
      * Handles view for editing a branch.
-     *
-     * @param  none
-     * @return Branch
+     * @param  integer $id
+     * @return view
      */
     public function edit($id)
     {
@@ -114,9 +105,8 @@ class BranchController extends Controller
 
     /**
      * Lists all active branches.
-     *
      * @param  array $data
-     * @return Branch
+     * @return array
      */
     public function show(Request $data)
     {
@@ -125,10 +115,22 @@ class BranchController extends Controller
     }
 
     /**
+     * Handles index searching capability.
+     * @return view
+     */
+    public function search($criteria)
+    {
+        $result = new Branch();
+        $data = $result->getPaginatedRecords();
+
+        return view('branch.index', ['data' => $data]);
+    }
+
+    /**
      * Add a new branch.
-     *
      * @param  array $data
-     * @return Branch
+     * @return redirect
+     * @throws exception
      */
     protected function postAdd(Request $data)
     {
@@ -148,6 +150,7 @@ class BranchController extends Controller
         $branch->name = $data['name'];
         $branch->size = $data['size'];
         $branch->date_opened = date('Y-m-d h:i:s', strtotime($data['date_opened']));
+        $branch->contact_number = $data['contact_number'];
         $branch->address = $data['address'];
         $branch->zip_code = $data['zip_code'];
         $branch->region = $data['region'];
@@ -157,6 +160,18 @@ class BranchController extends Controller
         $branch->division = $data['division'];
         $branch->island_group = $data['island_group'];
         $branch->status = 1;
+
+        //image upload
+        if(isset($data['image'])) {
+            //set up image
+            $filename = 'b_' . strtotime(date('Y-m-d h:i:s')) . '.' . $data['image']->getClientOriginalExtension();
+            $move = $data['image']->move(
+                base_path() . '/public/images/', $filename
+            );
+
+            $branch->image = $filename;
+        }
+
         $branch->save();
 
         return redirect('stores');
@@ -164,13 +179,13 @@ class BranchController extends Controller
 
     /**
      * Edit an existing branch.
-     *
      * @param  array $data
-     * @return Branch
+     * @return redirect
+     * @throws exception
      */
     protected function postEdit(Request $data)
     {
-        $validator = $this->validator($data->all());
+        $validator = $this->validator($data->all(), $data['id']);
 
         if ($validator->fails()) {
             $this->throwValidationException(
@@ -178,7 +193,7 @@ class BranchController extends Controller
             );
         }
 
-        $branch = new Branch;
+        $branch = Branch::find($data['id']);
         $branch->code = $data['code'];
         $branch->branch_code = $data['branch_code'];
         $branch->trade_name_prefix = strtoupper($data['trade_name_prefix']);
@@ -186,6 +201,7 @@ class BranchController extends Controller
         $branch->name = $data['name'];
         $branch->size = $data['size'];
         $branch->date_opened = date('Y-m-d h:i:s', strtotime($data['date_opened']));
+        $branch->contact_number = $data['contact_number'];
         $branch->address = $data['address'];
         $branch->zip_code = $data['zip_code'];
         $branch->region = $data['region'];
@@ -194,17 +210,31 @@ class BranchController extends Controller
         $branch->area = $data['area'];
         $branch->division = $data['division'];
         $branch->island_group = $data['island_group'];
-        $branch->where('id', $data['id']);
-        $branch->update();
+        
+        //image upload
+        if(isset($data['image'])) {
+            //delete old image
+            $old_filename = Branch::where('id', $data['id'])->first(['image']);
+            $old_filename_path = base_path() . '/public/images/' . $old_filename->image;
+            unlink($old_filename_path);
+
+            //set up new image
+            $filename = 'b_' . strtotime(date('Y-m-d h:i:s')) . '.' . $data['image']->getClientOriginalExtension();
+            $move = $data['image']->move(
+                base_path() . '/public/images/', $filename
+            );
+
+            $branch->image = $filename;
+        }
+
+        $branch->save();
 
         return redirect('stores');
     }
 
     /**
      * Get branch count per island group.
-     *
-     * @param  none
-     * @return Branch
+     * @return string $data
      */
     public function getIslandGroupsCount()
     {

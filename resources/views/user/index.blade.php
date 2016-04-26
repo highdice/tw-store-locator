@@ -1,69 +1,63 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<aside>
+    <div id="sidebar" class="col-lg-2 col-md-3 col-sm-3 hidden-xs">
+        <div class="sidebar-divider"></div>
+        <p>ACTION</p>
+        <ul>
+            <a href="{{ url('users/add') }}">
+              <li id="sidebar-result" class="sidebar-js-button">
+                  <i class="glyphicon glyphicon-plus"></i>
+                  Add New User
+              </li>
+            </a>
+            <li id="sidebar-result" class="sidebar-js-button">
+                <i class="glyphicon glyphicon-download"></i>
+                Download CSV Report
+            </li>
+        </ul>
+    </div>
+</aside>
+
+<div class="col-lg-offset-2 col-lg-10 col-md-offset-3 col-md-9 col-sm-offset-3 col-sm-9 no-padding">
+<ol class="breadcrumb">
+  <li class="active">Users</li>
+</ol>
+
+<div class="page-title-container">
   <h3>Users</h3>
-  <hr />
-  <a href="{{ url('users/add') }}" class="btn btn-primary add-button">
-      <i class="fa fa-btn fa-user"></i>Add User
-  </a>
-  <a href="javascript:void(0)" class="btn btn-primary show-filter-button">
-      <i class="fa fa-btn fa-search"></i>Show Filter
-  </a>
-  <a href="javascript:void(0)" class="btn btn-primary hide-filter-button">
-      <i class="fa fa-btn fa-search"></i>Hide Filter
-  </a>
-  <div class="panel panel-default search-filter-container">
-      <div class="panel-body">
-          <div class="col-md-6 no-padding">
-              <div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}">
-                  <div class="col-md-12 custom-form">
-                      <span>Search Criteria</span>
-                      <i class="glyphicon glyphicon-certificate input-icon"></i>
-                      <input type="text" class="form-control search-criteria" placeholder="Enter the search value here">
-                  </div>
-              </div>
-            </div>
+  <p>This page shows you a list of existing users</p>
+</div>
 
-            <div class="col-md-6 no-padding">
-                <div class="form-group{{ $errors->has('region') ? ' has-error' : '' }}">
-                  <div class="col-md-12 custom-form">
-                      <span>Search By</span>
-                      <i class="glyphicon glyphicon-certificate input-icon"></i>
-                      
-                      <select class="form-control search-by">
-                          <option value="">Any</option>
-                          <option value="">User ID</option>
-                          <option value="">Email Address</option>
-                      </select>
-                      @if ($errors->has('region'))
-                          <span class="help-block">
-                              <strong>{{ $errors->first('region') }}</strong>
-                          </span>
-                      @endif
-                  </div>
-              </div>
-            </div>
+<div class="inner-container top-30">
+  <div class="col-lg-12 no-padding"> 
+    <div class="input-group"> 
+      <span class="input-group-addon" id="sizing-addon2"><i class="glyphicon glyphicon-search"></i></span>
+      <input type="text" class="form-control" placeholder="Search filter"> 
+      <div class="input-group-btn"> 
+        <button type="button" class="btn btn-primary">SEARCH</button> 
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+          <span class="search-by">By Any</span><span class="caret"></span>
+        </button> 
 
-            <div class="col-md-12 no-padding">
-              <br />
-              <div class="form-group">
-                  <div class="col-md-12">
-                      <a href="" class="btn btn-success guest-button">
-                          <i class="fa fa-btn fa-check"></i>Search
-                      </a>
-                  </div>
-              </div>
-          </div>
-      </div>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li class="filter-item"><a href="javascript:void(0)">Email Address</a></li>
+          <li class="filter-item"><a href="javascript:void(0)">Name</a></li>
+          <li role="separator" class="divider"></li>
+          <li class="filter-item"><a href="javascript:void(0)">Any</a></li>
+        </ul>
+      </div> 
+    </div> 
   </div>
-  <hr />
+
   <div class="table-responsive"> 
     <table class="table">
       <thead>
         <tr>
           <th>User ID</th>
           <th>Email Address</th>
+          <th>Name</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -74,6 +68,7 @@
           <tr class="{{ ($x % 2) ? 'odd' : '' }}">
             <td>{{ $datum->id }}</td>
             <td>{{ $datum->email }}</td>
+            <td>{{ $datum->name }}</td>
             <td>
               <a href="{{ url('/users/' . $datum->id . '/edit' ) }}" title="Update" class="btn btn-info action-button">
                   <i class="fa fa-btn fa-pencil"></i>
@@ -101,5 +96,6 @@
   @if (isset($data) && count($data) > 0 && !empty($data))
     {{ $data->render() }}
   @endif
+</div>
 </div>
 @endsection

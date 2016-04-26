@@ -379,11 +379,16 @@ ul {
     	margin-top: 67px;
     }
 
+    a {
+    	text-decoration: none;
+    }
+
     p {
 	    color: #ffffff;
 	    padding: 10px;
 	    padding-bottom: 5px;
 	    margin-bottom: 0px;
+	    border-bottom: 1px solid #232323;
     }
 
     ul {
@@ -391,6 +396,7 @@ ul {
     		cursor: pointer;
     		color: #9f9f9f;
     		padding: 15px 10px;
+    		background: transparent;
 
     		i {
     			font-size: 13px;

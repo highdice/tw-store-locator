@@ -2402,7 +2402,7 @@ $(document).ready(function() {
  * EVENTS
  */
 
-//event for sidebar animation 
+//sidebar animation
 $('.sidebar-js-button').on('click', function () {
   var container = $('#sidebar-content-container');
   var items = $('.sidebar-js-button');
@@ -2452,6 +2452,12 @@ $('.hide-filter-button').on('click', function() {
   $(this).hide();
   $('.show-filter-button').show();
   $('.search-filter-container').fadeOut(300);
+});
+
+//search category
+$('.filter-item').on('click', function() {
+  var search_by = $(this).children('a').text();
+  $('.search-by').text('By ' + search_by);
 });
 
 /*

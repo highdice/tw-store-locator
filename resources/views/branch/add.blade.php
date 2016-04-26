@@ -12,7 +12,7 @@
 </div>
 
 <div class="container top-30">
-    <form class="form-horizontal" role="form" method="POST" action="{{ url('/api/v1/stores/add') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ url('/api/v1/stores/add') }}" enctype="multipart/form-data">
         {!! csrf_field() !!}
         <div class="panel panel-default">
             <div class="panel-body">
@@ -63,9 +63,12 @@
                             </div>
                             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 no-padding">
                                 <select class="form-control input-half" name="trade_name" value="{{ old('trade_name') }}">
-                                    <option value="">Choose a company</option>
+                                    @if (!old('trade_name'))
+                                        <option value="">Choose a company</option>
+                                    @endif
+                  
                                     @foreach ($trade_names as $trade_name)
-                                        <option value="{{ $trade_name->id }}">{{ $trade_name->description }}</option>
+                                        <option value="{{ $trade_name->id }}" {{ (old('trade_name') == $trade_name->id) ? 'selected="selected"' : '' }}>{{ $trade_name->description }}</option>
                                     @endforeach
                                 </select>
 
@@ -115,6 +118,20 @@
                             @if ($errors->has('date_opened'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('date_opened') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                        <div class="col-md-12 custom-form">
+                            <span>Upload Image</span>
+                            <i class="glyphicon glyphicon-certificate input-icon"></i>
+                            <input type="file" id="image" class="form-control" name="image" value="{{ old('image') }}">
+
+                            @if ($errors->has('image'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('image') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -170,11 +187,15 @@
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
                             
                             <select class="form-control" name="region" value="{{ old('region') }}">
-                                <option value="">Choose a region</option>
+                                @if (!old('region'))
+                                        <option value="">Choose a region</option>
+                                @endif
+
                                 @foreach ($regions as $region)
-                                    <option value="{{ $region->id }}">{{ $region->title . ' - ' . $region->description }}</option>
+                                    <option value="{{ $region->id }}" {{ (old('region') == $region->id) ? 'selected="selected"' : '' }}>{{ $region->title . ' - ' . $region->description }}</option>
                                 @endforeach
                             </select>
+
                             @if ($errors->has('region'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('region') }}</strong>
