@@ -110,8 +110,18 @@ class BranchController extends Controller
      */
     public function show(Request $data)
     {
+        $where = array();
+
         $result = new Branch();
-        return $result->where('status', '1')->get(array('code', 'branch_code', 'trade_name', 'name', 'address', 'region', 'island_group', 'latitude', 'longitude'));
+
+        if(isset($data['search'])) {
+            array_push($where, "name LIKE '%" . $data['search'] . "%'");
+        }
+        
+        array_push($where, "status = 1");
+        $where = implode(" AND ", $where);
+
+        return $result->whereRaw($where)->get(array('code', 'branch_code', 'trade_name', 'name', 'address', 'region', 'island_group', 'latitude', 'longitude'));
     }
 
     /**

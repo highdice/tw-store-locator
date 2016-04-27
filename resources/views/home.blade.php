@@ -6,28 +6,28 @@
         <div class="sidebar-divider"></div>
         <p>GENERAL</p>
         <ul>
-            <li id="sidebar-result" class="sidebar-js-button active">
-                <i class="glyphicon glyphicon-stats"></i>
+            <li class="sidebar-js-button active">
+                <i class="fa fa-btn fa-line-chart"></i>
                 Historical
             </li>
         </ul>
 
         <p>BY CATEGORY</p>
         <ul>
-            <li id="sidebar-result" class="sidebar-js-button">
-                <i class="glyphicon glyphicon-list-alt"></i>
+            <li class="sidebar-js-button">
+                <i class="fa fa-btn fa-pie-chart"></i>
                 Island Group
             </li>
-            <li id="sidebar-result" class="sidebar-js-button">
-                <i class="glyphicon glyphicon-list-alt"></i>
+            <li class="sidebar-js-button">
+                <i class="fa fa-btn fa-pie-chart"></i>
                 Region
             </li>
-            <li id="sidebar-result" class="sidebar-js-button">
-                <i class="glyphicon glyphicon-list-alt"></i>
+            <li class="sidebar-js-button">
+                <i class="fa fa-btn fa-pie-chart"></i>
                 Area
             </li>
-            <li id="sidebar-result" class="sidebar-js-button">
-                <i class="glyphicon glyphicon-list-alt"></i>
+            <li class="sidebar-js-button">
+                <i class="fa fa-btn fa-pie-chart"></i>
                 Division
             </li>
         </ul>
@@ -169,6 +169,22 @@
               </div>
         </div>
     </div>
+</div>
+
+<div id="bottom-nav" class="hidden-lg hidden-md hidden-sm">
+    <ul class="bottom-nav-list">
+        <li>
+          <div class="btn-group dropup">
+            <a class="btn dropdown-toggle" data-toggle="dropdown">
+              <i class="glyphicon glyphicon-option-horizontal"></i>
+            </a>
+            <ul class="dropdown-menu">
+                  <li class="dropdown-submenu"><a>Add New Branch</a></li>
+                  <li class="dropdown-submenu"><a>Download CSV Report</a></li>
+            </ul>
+          </div>
+        </li>
+    </ul>
 </div>
 @endsection
 

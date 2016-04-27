@@ -7,12 +7,12 @@
         <p>ACTION</p>
         <ul>
             <a href="{{ url('stores/' . $branch_id . '/satellite/add') }}">
-              <li id="sidebar-result" class="sidebar-js-button">
+              <li class="sidebar-js-button">
                   <i class="glyphicon glyphicon-plus"></i>
                   Add New Satellite
               </li>
             </a>
-            <li id="sidebar-result" class="sidebar-js-button">
+            <li class="sidebar-js-button">
                 <i class="glyphicon glyphicon-download"></i>
                 Download CSV Report
             </li>
@@ -38,7 +38,7 @@
       <span class="input-group-addon" id="sizing-addon2"><i class="glyphicon glyphicon-search"></i></span>
       <input type="text" class="form-control" placeholder="Search filter"> 
       <div class="input-group-btn"> 
-        <button type="button" class="btn btn-primary">SEARCH</button> 
+        <button type="button" class="btn btn-primary">Search</button> 
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
           <span class="search-by">By Any</span><span class="caret"></span>
         </button> 
@@ -104,5 +104,21 @@
     {{ $data->render() }}
   @endif
 </div>
+</div>
+
+<div id="bottom-nav" class="hidden-lg hidden-md hidden-sm">
+    <ul class="bottom-nav-list">
+        <li>
+          <div class="btn-group dropup">
+            <a class="btn dropdown-toggle" data-toggle="dropdown">
+              <i class="glyphicon glyphicon-option-horizontal"></i>
+            </a>
+            <ul class="dropdown-menu">
+                  <li class="dropdown-submenu"><a>Add New Branch</a></li>
+                  <li class="dropdown-submenu"><a>Download CSV Report</a></li>
+            </ul>
+          </div>
+        </li>
+    </ul>
 </div>
 @endsection
