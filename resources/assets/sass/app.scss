@@ -376,7 +376,7 @@ ul {
     .sidebar-divider {
     	height: 10px;
     	width: 100%;
-    	margin-top: 67px;
+    	margin-top: 42px;
     }
 
     .badge {
@@ -470,10 +470,17 @@ ul {
     i {
         position: absolute;
 	    z-index: 1;
-	    margin-top: 124px;
+	    margin-top: 64px;
 	    margin-left: 10px;
 	    font-size: 13px;
 	    color: #9f9f9f;
+    }
+
+    #search-button {
+    	width: 94%;
+	    border-radius: 0px;
+	    margin-top: -3px;
+	    margin-bottom: 20px;
     }
 }
 

@@ -126,6 +126,7 @@ $(document).ready(function() {
                   var store = data[i];
                   var code = store['code'];
                   var branch_code = store['branch_code'];
+                  var trade_name_prefix = store['trade_name_prefix'];
                   var trade_name = store['trade_name'];
                   var name = store['name'];
                   var address = store['address'];
@@ -165,12 +166,21 @@ $(document).ready(function() {
                   }).openPopup();
 
                   //create result list and add onclick event
-                  var item = $('<li id="result-item-' + i + '" class="sidebar-js-button result-item"><i class="fa fa-btn fa-circle"></i>' + name + '</li>');
+                  var item = $('<li id="result-item-' + i + '" class="sidebar-js-button result-item"><i class="fa fa-btn fa-circle"></i>' + name + '<i class="fa fa-btn fa-check-circle selected hidden"></i></li>');
                   var list = $('#result-list').append(item);
                   item.click(resultZoom(marker, i));
 
                   //add markers to marker cluster group
                   markers.addLayer(marker);
+
+                  //pan to marker if count is only one
+                  if(count == 1) {
+                    $('.result-item').removeClass('active');
+                    $('#result-item-' + i).addClass('active');
+
+                    map.setView(marker.getLatLng(), 12);
+                    marker.openPopup();
+                  }
               }
 
               map.addLayer(markers);
@@ -207,8 +217,8 @@ $(document).ready(function() {
 
   function resultZoom(e, i){
     return function(){
-      $('.result-item').removeClass('active');
-      $('#result-item-' + i).addClass('active');
+      $('.result-item .selected').addClass('hidden');
+      $('#result-item-' + i + ' .selected').removeClass('hidden');
 
       map.setView(e.getLatLng(), 12);
       e.openPopup();
@@ -217,8 +227,8 @@ $(document).ready(function() {
 
   function centerZoom(e, i) {
     return function(){
-      $('.result-item').removeClass('active');
-      $('#result-item-' + i).addClass('active');
+      $('.result-item .selected').addClass('hidden');
+      $('#result-item-' + i + ' .selected').removeClass('hidden');
 
       map.setView(e.getLatLng(), 12);
     }
@@ -233,13 +243,25 @@ $(document).ready(function() {
   /*
    * EVENTS
    */
-  //event for searching location via main search input
-  $('#search-button').on('click', function() {
-    $('#result-list').html('');
-    var data = document.getElementById('search-input').value;
-    markers.clearLayers();
-    showMarkers(data, 8);
+
+  //event for searching a marker upon hitting enter 
+  $('#search-input').on('keydown', function(e) {
+    if(e.keyCode == 13) {
+      $('#result-list').html('');
+      var data = document.getElementById('search-input').value;
+      markers.clearLayers();
+      showMarkers(data, 8);
+    }
   });
+
+  //event for searching a marker on search button click
+  $('#search-button').on('click', function() {
+      $('#result-list').html('');
+      var data = document.getElementById('search-input').value;
+      markers.clearLayers();
+      showMarkers(data, 8);
+  });
+
 
   $('#show-regions').on('click', function() {
       if (map.hasLayer(gj)) {

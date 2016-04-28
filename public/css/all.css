@@ -6101,7 +6101,7 @@ ul {
   #sidebar .sidebar-divider {
     height: 10px;
     width: 100%;
-    margin-top: 67px; }
+    margin-top: 42px; }
   #sidebar .badge {
     margin-left: 5px; }
   #sidebar a {
@@ -6160,10 +6160,16 @@ ul {
 .sidebar-search-container i {
   position: absolute;
   z-index: 1;
-  margin-top: 124px;
+  margin-top: 64px;
   margin-left: 10px;
   font-size: 13px;
   color: #9f9f9f; }
+
+.sidebar-search-container #search-button {
+  width: 94%;
+  border-radius: 0px;
+  margin-top: -3px;
+  margin-bottom: 20px; }
 
 #sidebar-content-container {
   display: none;

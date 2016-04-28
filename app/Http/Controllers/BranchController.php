@@ -111,17 +111,27 @@ class BranchController extends Controller
     public function show(Request $data)
     {
         $where = array();
+        $search_where = array();
 
         $result = new Branch();
 
+        //check if search data is set
         if(isset($data['search'])) {
-            array_push($where, "name LIKE '%" . $data['search'] . "%'");
+            array_push($search_where, "code LIKE '%" . $data['search'] . "%'");
+            array_push($search_where, "branch_code LIKE '%" . $data['search'] . "%'");
+            array_push($search_where, "name LIKE '%" . $data['search'] . "%'");
+            array_push($search_where, "trade_name_prefix LIKE '%" . $data['search'] . "%'");
+            array_push($search_where, "trade_name LIKE '%" . $data['search'] . "%'");
+            array_push($search_where, "address LIKE '%" . $data['search'] . "%'");
+
+            $search_where = implode(" OR ", $search_where);
+            array_push($where, $search_where);
         }
         
         array_push($where, "status = 1");
         $where = implode(" AND ", $where);
 
-        return $result->whereRaw($where)->get(array('code', 'branch_code', 'trade_name', 'name', 'address', 'region', 'island_group', 'latitude', 'longitude'));
+        return $result->whereRaw($where)->get(array('code', 'branch_code', 'trade_name_prefix', 'trade_name', 'name', 'address', 'region', 'island_group', 'latitude', 'longitude'));
     }
 
     /**

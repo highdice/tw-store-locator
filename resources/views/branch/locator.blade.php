@@ -4,11 +4,13 @@
 <aside>
     <div id="sidebar" class="col-lg-2 col-md-3 col-sm-3 hidden-xs">
         <div class="sidebar-divider"></div>
-        <p>SEARCH</p>
+
         <div class="sidebar-search-container">
             <i class="glyphicon glyphicon-search"></i>
             <input type="text" id="search-input" placeholder="Search here" class="form-control">
-            <button id="search-button">search</button>
+            <center>
+                <button id="search-button" class="btn btn-success">SEARCH</button>
+            </center>
         </div>
 
         <p>BY CATEGORY</p>
@@ -16,32 +18,26 @@
             <li class="sidebar-js-button">
                 <i class="glyphicon glyphicon-map-marker"></i>
                 Branch
-                <i class="fa fa-btn fa-check-circle selected hidden"></i>
             </li>
             <li class="sidebar-js-button">
                 <i class="glyphicon glyphicon-map-marker"></i>
                 Satellite
-                <i class="fa fa-btn fa-check-circle selected hidden"></i>
             </li>
             <li class="sidebar-js-button active">
                 <i class="glyphicon glyphicon-map-marker"></i>
                 Island Group
-                <i class="fa fa-btn fa-check-circle selected"></i>
             </li>
             <li id="show-regions" class="sidebar-js-button">
                 <i class="glyphicon glyphicon-map-marker"></i>
                 Region
-                <i class="fa fa-btn fa-check-circle selected hidden"></i>
             </li>
             <li class="sidebar-js-button">
                 <i class="glyphicon glyphicon-map-marker"></i>
                 Area
-                <i class="fa fa-btn fa-check-circle selected hidden"></i>
             </li>
             <li class="sidebar-js-button">
                 <i class="glyphicon glyphicon-map-marker"></i>
                 Division
-                <i class="fa fa-btn fa-check-circle selected hidden"></i>
             </li>
         </ul>
 
