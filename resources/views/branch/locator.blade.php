@@ -40,14 +40,19 @@
                 Division
             </li>
         </ul>
-
-        <p>RESULT <span id="result-count" class="badge"></span></p>
-        <ul id="result-list">
-        </ul>
     </div>
 </aside>
 
 <div id="map" class="col-lg-offset-2 col-lg-10 col-md-offset-3 col-md-9 col-sm-offset-3 col-sm-9 no-padding"></div>
+
+<div id="result-container">
+    <div id="result-inner-container">
+        <i class="glyphicon glyphicon-remove close-button"></i>
+        <p class="result-title">RESULT <span id="result-count" class="badge"></span></p>
+        <ul id="result-list">
+        </ul>
+    </div>
+</div>
 
 <div id="bottom-nav" class="hidden-lg hidden-md hidden-sm">
     <ul class="bottom-nav-list">

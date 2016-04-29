@@ -166,7 +166,7 @@ $(document).ready(function() {
                   }).openPopup();
 
                   //create result list and add onclick event
-                  var item = $('<li id="result-item-' + i + '" class="sidebar-js-button result-item"><i class="fa fa-btn fa-circle"></i>' + name + '<i class="fa fa-btn fa-check-circle selected hidden"></i></li>');
+                  var item = $('<li id="result-item-' + i + '" class="sidebar-js-button result-item"><i class="glyphicon glyphicon-th"></i>' + name + '<i class="fa fa-btn fa-check-circle selected hidden"></i></li>');
                   var list = $('#result-list').append(item);
                   item.click(resultZoom(marker, i));
 
@@ -175,8 +175,8 @@ $(document).ready(function() {
 
                   //pan to marker if count is only one
                   if(count == 1) {
-                    $('.result-item').removeClass('active');
-                    $('#result-item-' + i).addClass('active');
+                    $('.result-item .selected').addClass('hidden');
+                    $('#result-item-' + i + ' .selected').removeClass('hidden');
 
                     map.setView(marker.getLatLng(), 12);
                     marker.openPopup();

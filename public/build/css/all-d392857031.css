@@ -6212,6 +6212,70 @@ ul {
 #map {
   height: 100%; }
 
+#result-container {
+  position: absolute;
+  z-index: 999;
+  height: 100%;
+  width: 250px;
+  padding: 10px;
+  right: 50px; }
+  #result-container #result-inner-container {
+    background: #F79232;
+    color: #fff;
+    box-shadow: 2px 2px 6px #404040;
+    margin-top: 10px; }
+    #result-container #result-inner-container .badge {
+      margin-left: 5px;
+      background: #AB5809; }
+    #result-container #result-inner-container .close-button {
+      float: right;
+      margin-top: -10px;
+      margin-right: -10px;
+      background: #F79232;
+      color: #ffffff;
+      padding: 6px;
+      border-radius: 50%;
+      border: 4px solid #CC6D13; }
+      #result-container #result-inner-container .close-button:hover {
+        color: #CC6D13; }
+    #result-container #result-inner-container .result-title {
+      padding: 10px;
+      background: #CC6D13;
+      margin-bottom: 0px; }
+    #result-container #result-inner-container ul {
+      padding: 10px 0px;
+      overflow-y: auto;
+      max-height: 400px; }
+      #result-container #result-inner-container ul li {
+        cursor: pointer;
+        color: #ffffff;
+        padding: 15px 10px;
+        background: transparent; }
+        #result-container #result-inner-container ul li i {
+          font-size: 13px;
+          color: #CC6F18;
+          margin-right: 10px; }
+        #result-container #result-inner-container ul li p {
+          color: #ffffff;
+          margin-top: 3px;
+          margin-bottom: 0px; }
+        #result-container #result-inner-container ul li .selected {
+          float: right;
+          color: #ffffff;
+          font-size: 18px;
+          margin-top: 1px; }
+        #result-container #result-inner-container ul li:hover {
+          color: #ffffff;
+          background: #F9A657; }
+          #result-container #result-inner-container ul li:hover i {
+            color: #ffffff; }
+          #result-container #result-inner-container ul li:hover .selected {
+            color: #ffffff; }
+          #result-container #result-inner-container ul li:hover p {
+            color: #ffffff; }
+      #result-container #result-inner-container ul .active {
+        background: #202020; }
+
 #search-container {
   display: none;
   width: 500px;
