@@ -16,27 +16,23 @@
         <p>BY CATEGORY</p>
         <ul>
             <li class="sidebar-js-button">
-                <i class="glyphicon glyphicon-map-marker"></i>
+                <i class="glyphicon glyphicon-th"></i>
                 Branch
             </li>
             <li class="sidebar-js-button">
-                <i class="glyphicon glyphicon-map-marker"></i>
+                <i class="glyphicon glyphicon-th"></i>
                 Satellite
             </li>
-            <li class="sidebar-js-button active">
-                <i class="glyphicon glyphicon-map-marker"></i>
+            <li class="sidebar-js-button">
+                <i class="glyphicon glyphicon-th"></i>
                 Island Group
             </li>
             <li id="show-regions" class="sidebar-js-button">
-                <i class="glyphicon glyphicon-map-marker"></i>
+                <i class="glyphicon glyphicon-th"></i>
                 Region
             </li>
             <li class="sidebar-js-button">
-                <i class="glyphicon glyphicon-map-marker"></i>
-                Area
-            </li>
-            <li class="sidebar-js-button">
-                <i class="glyphicon glyphicon-map-marker"></i>
+                <i class="glyphicon glyphicon-th"></i>
                 Division
             </li>
         </ul>

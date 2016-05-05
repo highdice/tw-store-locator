@@ -65,6 +65,8 @@ Route::group(['middleware' => 'web'], function () {
     	Route::post('stores/add', 'BranchController@postAdd');
     	Route::post('stores/edit', 'BranchController@postEdit');
     	Route::get('stores/island_groups', 'BranchController@getIslandGroupsCount');
+        Route::get('stores/regions/{id}', 'BranchController@getStoreByRegion');
+        Route::get('stores/regions', 'LookupController@getRegions'); 
 
     	Route::post('satellite/add', 'SatelliteController@postAdd');
     	Route::post('satellite/edit', 'SatelliteController@postEdit');

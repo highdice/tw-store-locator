@@ -49,4 +49,12 @@ class Branch extends Model
     {
        
     }
+
+    /**
+     * Get branches by region
+     */
+    public function getByRegion($region_id)
+    {
+       return Branch::where('region', '=', $region_id)->get();
+    }
 }

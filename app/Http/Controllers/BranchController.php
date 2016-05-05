@@ -271,4 +271,16 @@ class BranchController extends Controller
 
         return json_encode($data);
     }
+
+    /**
+     * Get branch by region.
+     * @return string $region_id
+     */
+    public function getStoreByRegion($region_id)
+    {
+        $data = array();
+
+        $branch = new Branch();
+        return $branch->getByRegion($region_id);
+    }
 }
