@@ -57,4 +57,12 @@ class Branch extends Model
     {
        return Branch::where('region', '=', $region_id)->get();
     }
+
+    /**
+     * Get branches by island group
+     */
+    public function getByIslandgroup($island_group_id)
+    {
+       return Branch::where('island_group', '=', $island_group_id)->get();
+    }
 }

@@ -13,7 +13,7 @@
             </center>
         </div>
 
-        <p>BY CATEGORY</p>
+        <p>CATEGORIZE BY</p>
         <ul>
             <li class="sidebar-js-button">
                 <i class="glyphicon glyphicon-th"></i>
@@ -23,7 +23,7 @@
                 <i class="glyphicon glyphicon-th"></i>
                 Satellite
             </li>
-            <li class="sidebar-js-button">
+            <li id="show-island-groups" class="sidebar-js-button">
                 <i class="glyphicon glyphicon-th"></i>
                 Island Group
             </li>
@@ -45,8 +45,13 @@
     <div id="result-inner-container">
         <i class="glyphicon glyphicon-remove close-button"></i>
         <p class="result-title">RESULT <span id="result-count" class="badge"></span></p>
-        <ul id="result-list">
-        </ul>
+        <div class="result-body">
+            <div class="result-dropdown">
+                <select class="form-control"></select>
+            </div>
+            <ul id="result-list">
+            </ul>
+        </div>
     </div>
 </div>
 
@@ -67,6 +72,10 @@
 </div>
 
 <input type="hidden" id="regions-path" value="{{ asset('js/regions.json') }}">
+
+<div id="locator-loader">
+    <div class="circles-loader"></div>
+</div>
 @endsection
 
 @section('scripts')

@@ -17,14 +17,6 @@ class Lookup extends Model
     }
 
     /**
-     * Get all trade names
-     */
-    public function getTradeNames()
-    {
-        return Lookup::where('key', 'trade_name')->orderBy('title', 'asc')->get(array('id', 'title', 'description'));
-    }
-
-    /**
      * Get a region by id
      */
     public function getRegion($id)
@@ -32,13 +24,32 @@ class Lookup extends Model
         return Lookup::where('id', $id)->orderBy('title', 'asc')->first(array('id', 'title', 'description'));
     }
 
+    /**
+     * Get all trade names
+     */
+    public function getTradeNames()
+    {
+        return Lookup::where('key', 'trade_name')->orderBy('title', 'asc')->get(array('id', 'title', 'description'));
+    }
+
     public function getSex()
     {
         return Lookup::where('key', 'sex')->get(array('id', 'key', 'title', 'description'));
     }
 
-    public function getIslandGroup()
+    /**
+     * Get all island groups
+     */
+    public function getIslandGroups()
     {
-        return Lookup::where('key', 'island_group')->get(array('id', 'key', 'title', 'description'));
+        return Lookup::where('key', 'island_group')->orderBy('id', 'asc')->get(array('id', 'title', 'description'));
+    }
+
+    /**
+     * Get an island group by id
+     */
+    public function getIslandGroup($id)
+    {
+        return Lookup::where('id', $id)->orderBy('title', 'asc')->get(array('id', 'title', 'description'));
     }
 }

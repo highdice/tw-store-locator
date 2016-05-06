@@ -253,26 +253,6 @@ class BranchController extends Controller
     }
 
     /**
-     * Get branch count per island group.
-     * @return string $data
-     */
-    public function getIslandGroupsCount()
-    {
-        $data = array();
-
-        $luzon = new Branch();
-        array_push($data, $luzon->where('island_group', 1)->count());
-
-        $visayas = new Branch();
-        array_push($data, $visayas->where('island_group', 2)->count());
-
-        $mindanao = new Branch();
-        array_push($data, $mindanao->where('island_group', 3)->count());
-
-        return json_encode($data);
-    }
-
-    /**
      * Get branch by region.
      * @return string $region_id
      */
@@ -282,5 +262,17 @@ class BranchController extends Controller
 
         $branch = new Branch();
         return $branch->getByRegion($region_id);
+    }
+
+    /**
+     * Get branch by region.
+     * @return string $region_id
+     */
+    public function getStoreByIslandGroup($island_group_id)
+    {
+        $data = array();
+
+        $branch = new Branch();
+        return $branch->getByIslandGroup($island_group_id);
     }
 }

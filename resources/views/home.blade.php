@@ -12,22 +12,22 @@
             </li>
         </ul>
 
-        <p>BY CATEGORY</p>
+        <p>CATEGORIZE BY</p>
         <ul>
             <li class="sidebar-js-button">
-                <i class="fa fa-btn fa-pie-chart"></i>
+                <i class="glyphicon glyphicon-th"></i>
                 Island Group
             </li>
             <li class="sidebar-js-button">
-                <i class="fa fa-btn fa-pie-chart"></i>
+                <i class="glyphicon glyphicon-th"></i>
                 Region
             </li>
             <li class="sidebar-js-button">
-                <i class="fa fa-btn fa-pie-chart"></i>
+                <i class="glyphicon glyphicon-th"></i>
                 Area
             </li>
             <li class="sidebar-js-button">
-                <i class="fa fa-btn fa-pie-chart"></i>
+                <i class="glyphicon glyphicon-th"></i>
                 Division
             </li>
         </ul>

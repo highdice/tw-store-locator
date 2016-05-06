@@ -64,7 +64,9 @@ Route::group(['middleware' => 'web'], function () {
     	Route::post('stores', 'BranchController@show');
     	Route::post('stores/add', 'BranchController@postAdd');
     	Route::post('stores/edit', 'BranchController@postEdit');
-    	Route::get('stores/island_groups', 'BranchController@getIslandGroupsCount');
+    	Route::get('stores/island_groups/{id}', 'BranchController@getStoreByIslandGroup');
+        Route::get('stores/island_groups', 'LookupController@getIslandGroups');
+        //Route::get('stores/island_groups', 'BranchController@getIslandGroupsCount');
         Route::get('stores/regions/{id}', 'BranchController@getStoreByRegion');
         Route::get('stores/regions', 'LookupController@getRegions'); 
 

@@ -75,14 +75,7 @@ $(document).ready(function() {
   var zipLayer;
   var gj;
   var label;
-
-  var region1_swatch = '#e74c3c';
-  var region2_swatch = '#167439';
-  var region3_swatch = '#e8522e';
-  var region4a_swatch = '#b81a41';
-  var region4b_swatch = '#f5812a';
-  var region6_swatch = '#3498db';
-  var region9_swatch = '#ffb32f';
+  var marker_color = ['#203c73', '#002f2f', '#d9a441', '#e2c7b5', '#7a1b36', '#FF6633', '#00B88A', '#3366FF'];
 
   //initialize mapbox
   L.mapbox.accessToken = 'pk.eyJ1IjoiaGlnaGRpY2UiLCJhIjoiY2lmcWxrcDB6am05MXN4bTdiZGlzcWtzeiJ9.HowS8sLtivG7hhhcWYZdig';
@@ -90,6 +83,27 @@ $(document).ready(function() {
   var map = L.mapbox.map('map', 'mapbox.light', { zoomControl: false, minZoom: 6, maxBounds: [[-90,-180],[90,180]] }).setView([13, 122], 6);
 
   new L.Control.Zoom({ position: 'topright' }).addTo(map);
+
+  $.getJSON('/js/regions.50m.json', function(data) {
+      //zipLayer = L.mapbox.featureLayer(data);
+
+      gj = L.geoJson(data, {
+          style: function(feature) {
+              switch (feature.properties.name) {
+                  case 'Ilocos Region (Region I)': return {color: marker_color[0], opacity: 1, fillOpacity: 0.1, weight: 1};
+                  case 'Cagayan Valley (Region II)': return {color: marker_color[1], opacity: 1, fillOpacity: 0.1, weight: 1};
+                  case 'Central Luzon (Region III)': return {color: marker_color[2], opacity: 1, fillOpacity: 0.1, weight: 1};
+                  case 'CALABARZON (Region IV-A)': return {color: marker_color[3], opacity: 1, fillOpacity: 0.1, weight: 1};
+                  case 'MIMAROPA (Region IV-B)': return {color: marker_color[4], opacity: 1, fillOpacity: 0.1, weight: 1};
+                  case 'Western Visayas (Region VI)': return {color: marker_color[5], opacity: 1, fillOpacity: 0.1, weight: 1};
+                  case 'Caraga (Region XIII)': return {color: marker_color[6], opacity: 1, fillOpacity: 0.1, weight: 1};
+                  default: return {color: randomColor(), opacity: 1, fillOpacity: 0.1, weight: 1};
+              }
+          },
+          onEachFeature: function (feature, layer) {
+          }
+      });
+  });
 
   function getGroup(category, callback) {
     $.ajax({
@@ -103,12 +117,13 @@ $(document).ready(function() {
     });
   }
 
-  function insertMarkers(category, id, group, callback) {
+  function insertMarkers(category, id, group, color, callback) {
     $.ajax({
         url: "/api/v1/stores/" + category + "/" + id,
         type: "GET",
         success: function (data) {
           var count = data.length;
+
           if (count != 0) {
             for (var i = 0, len = count; i < len; i++) {
               var store = data[i];
@@ -121,17 +136,12 @@ $(document).ready(function() {
               var region = store['region'];
               var island_group = store['island_group'];
 
-              var icon_color = '#0044FF';
-              if(island_group == '2') { icon_color = '#D635AC'; }
-              if(island_group == '3') { icon_color = '#DC3A3A'; }
-
               //set icon
-              var icon = L.icon({
-                            iconUrl: '/build/css/images/tomsworld-marker-min.png',
-                            iconSize: [52, 77],
-                            iconAnchor: [26, 33.5],
-                            popupAnchor: [0, -40]
-                          })
+              var icon = L.mapbox.marker.icon({
+                  'marker-size': 'large',
+                  'marker-symbol': 'circle-stroked',
+                  'marker-color': color
+              });
 
               //add markers
               var marker = L.marker(new L.LatLng(store['latitude'], store['longitude']), {
@@ -154,22 +164,15 @@ $(document).ready(function() {
               }).openPopup();
 
               //create result list and add onclick event
-              var item = $('<li id="result-item-' + code + '" class="sidebar-js-button result-item"><i class="glyphicon glyphicon-th"></i>' + name + '<i class="fa fa-btn fa-check-circle selected hidden"></i></li>');
+              var item = $('<li id="result-item-' + code + '" class="sidebar-js-button result-item result-category-' + id + '"><i class="glyphicon glyphicon-th"></i>' + name + '<i class="fa fa-btn fa-check-circle selected hidden"></i></li>');
               var list = $('#result-list').append(item);
               item.click(resultZoom(marker, code));
 
               //add markers to marker cluster group
               group.addLayer(marker);
-
-              //pan to marker if count is only one
-              if(count == 1) {
-                resultItemAnimation(code);
-
-                map.setView(marker.getLatLng(), 12);
-                marker.openPopup();
-              }
             }
           }
+
           callback();
         },
         error: function (xhr, ajaxOptions, thrownError) { //Add these parameters to display the required response
@@ -179,6 +182,7 @@ $(document).ready(function() {
 
   //show all markers
   function showMarkers(search, zoom) {
+      /*
       var group = new L.MarkerClusterGroup({
                     polygonOptions: {
                         fillColor: '#3887be',
@@ -190,13 +194,13 @@ $(document).ready(function() {
                     iconCreateFunction: function(cluster) {
                       return L.mapbox.marker.icon({
                         'marker-size': 'large',
-                        //'marker-symbol': 'bus',
                         'marker-symbol': cluster.getChildCount(),
                         'marker-color': '#545cef'
                       });
                     },
                     zoomToBoundsOnClick: true
                 });
+      */
 
       $.ajax({
           url: "/api/v1/stores",
@@ -206,92 +210,113 @@ $(document).ready(function() {
               var count = data.length;
               $('#result-count').text(count);
 
-              for (var i = 0, len = count; i < len; i++) {
-                  var store = data[i];
-                  var code = store['code'];
-                  var branch_code = store['branch_code'];
-                  var trade_name_prefix = store['trade_name_prefix'];
-                  var trade_name = store['trade_name'];
-                  var name = store['name'];
-                  var address = store['address'];
-                  var region = store['region'];
-                  var island_group = store['island_group'];
+              if (count != 0) {
+                for (var i = 0, len = count; i < len; i++) {
+                    var store = data[i];
+                    var code = store['code'];
+                    var branch_code = store['branch_code'];
+                    var trade_name_prefix = store['trade_name_prefix'];
+                    var trade_name = store['trade_name'];
+                    var name = store['name'];
+                    var address = store['address'];
+                    var region = store['region'];
+                    var island_group = store['island_group'];
 
-                  var icon_color = '#0044FF';
-                  if(island_group == '2') { icon_color = '#D635AC'; }
-                  if(island_group == '3') { icon_color = '#DC3A3A'; }
+                    //set icon
+                    var icon = L.icon({
+                                  iconUrl: '/build/css/images/tomsworld-marker-min.png',
+                                  iconSize: [52, 77],
+                                  iconAnchor: [26, 33.5],
+                                  popupAnchor: [0, -40]
+                                });
 
-                  //set icon
-                  var icon = L.icon({
-                                iconUrl: '/build/css/images/tomsworld-marker-min.png',
-                                iconSize: [52, 77],
-                                iconAnchor: [26, 33.5],
-                                popupAnchor: [0, -40]
-                              })
+                    //add markers
+                    var marker = L.marker(new L.LatLng(store['latitude'], store['longitude']), {
+                        icon: icon,
+                        title: name
+                    });
 
-                  //add markers
-                  var marker = L.marker(new L.LatLng(store['latitude'], store['longitude']), {
-                      icon: icon,
-                      title: name
-                  });
+                    //add marker onclick event
+                    marker.on('click', centerZoom(marker, i));
 
-                  //add marker onclick event
-                  marker.on('click', centerZoom(marker, i));
+                    //set popup
+                    var popup = L.popup({
+                      autoPan: true
+                    }).setContent('<div class="popup-header"><h1>'+name+'</h1><p>'+address+', '+region+'</p></div><div class="popup-body"><p>Store Code: '+code+'</p><p>Branch Code: '+branch_code+'</p><p>Trade Name: '+trade_name+'</p><p>Open From: 10:00 AM to 9:00 PM</p></div>');
 
-                  //set popup
-                  var popup = L.popup({
-                    autoPan: true
-                  }).setContent('<div class="popup-header"><h1>'+name+'</h1><p>'+address+', '+region+'</p></div><div class="popup-body"><p>Store Code: '+code+'</p><p>Branch Code: '+branch_code+'</p><p>Trade Name: '+trade_name+'</p><p>Open From: 10:00 AM to 9:00 PM</p></div>');
+                    //bind popup to marker
+                    marker.bindPopup(popup, {
+                      //closeButton: false,
+                      minWidth: 320
+                    }).openPopup();
 
-                  //bind popup to marker
-                  marker.bindPopup(popup, {
-                    //closeButton: false,
-                    minWidth: 320
-                  }).openPopup();
+                    //create result list and add onclick event
+                    var item = $('<li id="result-item-' + i + '" class="sidebar-js-button result-item"><i class="glyphicon glyphicon-th"></i>' + name + '<i class="fa fa-btn fa-check-circle selected hidden"></i></li>');
+                    var list = $('#result-list').append(item);
+                    item.click(resultZoom(marker, i));
 
-                  //create result list and add onclick event
-                  var item = $('<li id="result-item-' + i + '" class="sidebar-js-button result-item"><i class="glyphicon glyphicon-th"></i>' + name + '<i class="fa fa-btn fa-check-circle selected hidden"></i></li>');
-                  var list = $('#result-list').append(item);
-                  item.click(resultZoom(marker, i));
+                    //add markers to marker cluster group
+                    //group.addLayer(marker);
 
-                  //add markers to marker cluster group
-                  group.addLayer(marker);
-                  //createGroup(marker, region);
+                    //pan to marker if count is only one
+                    if(count == 1) {
+                      resultItemAnimation(i);
 
-                  //pan to marker if count is only one
-                  if(count == 1) {
-                    resultItemAnimation(i);
+                      map.setView(marker.getLatLng(), 12);
+                      marker.openPopup();
+                    }
 
-                    map.setView(marker.getLatLng(), 12);
-                    marker.openPopup();
-                  }
+                    map.addLayer(marker);
+                }
               }
-
-              map.addLayer(group);
+              else {
+                var item = $('<li class="sidebar-js-button result-item none">No records found</li>');
+                var list = $('#result-list').append(item);
+              }
+              //map.addLayer(group);
           },
           error: function (xhr, ajaxOptions, thrownError) { //Add these parameters to display the required response
           }
       });
+  }
 
-      $.getJSON('/js/regions.50m.json', function(data) {
-        //zipLayer = L.mapbox.featureLayer(data);
+  function showMarkersByCategory(category) {
+    //reset sidebar and result
+    reset();
 
-        gj = L.geoJson(data, {
-            style: function(feature) {
-                switch (feature.properties.name) {
-                    case 'Ilocos Region (Region I)': return {color: region1_swatch, opacity: 1, fillOpacity: 0.1, weight: 1};
-                    case 'Cagayan Valley (Region II)': return {color: region2_swatch, opacity: 1, fillOpacity: 0.1, weight: 1};
-                    case 'Central Luzon (Region III)': return {color: region3_swatch, opacity: 1, fillOpacity: 0.1, weight: 1};
-                    case 'CALABARZON (Region IV-A)': return {color: region4a_swatch, opacity: 1, fillOpacity: 0.1, weight: 1};
-                    case 'MIMAROPA (Region IV-B)': return {color: region4b_swatch, opacity: 1, fillOpacity: 0.1, weight: 1};
-                    case 'Western Visayas (Region VI)': return {color: region6_swatch, opacity: 1, fillOpacity: 0.1, weight: 1};
-                    case 'Caraga (Region XIII)': return {color: region9_swatch, opacity: 1, fillOpacity: 0.1, weight: 1};
-                    default: return {color: randomColor(), opacity: 1, fillOpacity: 0.1, weight: 1};
-                }
-            },
-            onEachFeature: function (feature, layer) {
-            }
-        });
+    //clear all layers and set to default location and zoom
+    map.setView([13, 122], 6);
+    clearAllLayers();
+
+    getGroup(category, function(data) {
+      //show result dropdown
+      $('.result-dropdown select').show();
+      for (var i = 0, len = data.length; i < len; i++) {
+        $('.result-dropdown select').append('<option value="' + data[i]['id'] + '">' + data[i]['description'] + '</option>');
+      }
+
+      //add markers to every group
+      asyncLoop(data.length, function(loop) {
+        var index = loop.iteration();
+        var group = new L.MarkerClusterGroup({
+                  iconCreateFunction: function(cluster) {
+                    return L.mapbox.marker.icon({
+                      'marker-size': 'large',
+                      'marker-symbol': cluster.getChildCount(),
+                      'marker-color': marker_color[index]
+                    });
+                  },
+                  zoomToBoundsOnClick: true,
+                  spiderfyOnMaxZoom: true
+              });
+
+        insertMarkers(category, data[index]['id'], group, marker_color[index], function(result) {
+            map.addLayer(group);
+            loop.next();
+        })}, function(){
+          $('#locator-loader').hide();
+          $('.result-body').show();
+      });
     });
   }
 
@@ -308,7 +333,7 @@ $(document).ready(function() {
     return function(){
       resultItemAnimation(i);
 
-      map.setView(e.getLatLng(), 12);
+      //map.setView(e.getLatLng(), 12);
     }
   }
 
@@ -317,18 +342,25 @@ $(document).ready(function() {
     $('#result-item-' + i + ' .selected').removeClass('hidden');
   }
 
-  function randomColor(format)
-  {
+  function randomColor(format) {
       var randomizer = Math.round(0xffffff * Math.random());
       return ('#0' + randomizer.toString(16)).replace(/^#0([0-9a-f]{6})$/i, '#$1');
   }
 
   function clearAllLayers() {
     map.eachLayer(function(layer) {
-      if (layer instanceof L.MarkerClusterGroup) {
+      if (layer instanceof L.MarkerClusterGroup || layer instanceof L.Marker) {
         map.removeLayer(layer);
       }
     });
+  }
+
+  function reset() {
+    $('#locator-loader').show();
+    $('.sidebar-js-button').removeClass('active');
+    $('.result-body').hide();
+    $('#result-list').html('');
+    $('.result-dropdown select').html('');
   }
 
   function asyncLoop(iterations, func, callback) {
@@ -370,71 +402,44 @@ $(document).ready(function() {
   //event for searching a marker upon hitting enter 
   $('#search-input').on('keydown', function(e) {
     if(e.keyCode == 13) {
-      $('.sidebar-js-button').removeClass('active');
-      $('#result-list').html('');
       var data = document.getElementById('search-input').value;
-      clearAllLayers();
-      showMarkers(data, 8);
+      if(data.length != 0) {
+        $('.sidebar-js-button').removeClass('active');
+        $('.result-dropdown select').hide();
+        $('.result-dropdown select').html('');
+        $('#result-list').html('');
+        clearAllLayers();
+        showMarkers(data, 8);
+      }
     }
   });
 
   //event for searching a marker on search button click
   $('#search-button').on('click', function() {
-      $('.sidebar-js-button').removeClass('active');
-      $('#result-list').html('');
       var data = document.getElementById('search-input').value;
-      clearAllLayers();
-      showMarkers(data, 8);
+      if(data.length != 0) {
+        $('.sidebar-js-button').removeClass('active');
+        $('.result-dropdown select').hide();
+        $('.result-dropdown select').html('');
+        $('#result-list').html('');
+        clearAllLayers();
+        showMarkers(data, 8);
+      }
   });
 
   $('#show-regions').on('click', function() {
-      //reset sidebar and result list
-      $('.sidebar-js-button').removeClass('active');
-      $(this).addClass('active');
-      $('#result-list').html('');
+    showMarkersByCategory('regions');
+    $(this).addClass('active');
+  });
 
-      //for category color separator
-      //if (map.hasLayer(gj)) {
-      //  map.removeLayer(gj);
-      //} else {
-      //  map.addLayer(gj);
-      //}
+  $('#show-island-groups').on('click', function() {
+    showMarkersByCategory('island_groups');
+    $(this).addClass('active');
+  });
 
-      clearAllLayers();
-
-      color = ['#6633FF', '#CC33FF', '#FF33CC', '#FF3366', '#F5003D', '#FF6633', '#00B88A', '#3366FF'];
-
-      var category = 'regions'
-      getGroup(category, function(data) {
-        asyncLoop(data.length, function(loop) {
-          var index = loop.iteration();
-          var group = new L.MarkerClusterGroup({
-                    polygonOptions: {
-                        fillColor: '#3887be',
-                        color: '#3887be',
-                        weight: 2,
-                        opacity: 0.7,
-                        fillOpacity: 0.3
-                    },
-                    iconCreateFunction: function(cluster) {
-                      return L.mapbox.marker.icon({
-                        'marker-size': 'large',
-                        'marker-symbol': cluster.getChildCount(),
-                        'marker-color': color[index]
-                      });
-                    },
-                    zoomToBoundsOnClick: true,
-                    spiderfyOnMaxZoom: true
-                });
-
-          insertMarkers(category, data[index]['id'], group, function(result) {
-              map.addLayer(group);
-              loop.next();
-          })}, function(){
-            console.log('cycle ended')
-        });
-      });
-
+  $('.result-dropdown select').on('change', function() {
+    $('.result-item').hide();
+    $('.result-category-' + $(this).val()).show();
   });
 
   //create marker groups

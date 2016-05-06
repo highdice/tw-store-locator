@@ -441,6 +441,10 @@ ul {
     	.active {
     		background: #202020;
     	}
+
+    	.disabled {
+			pointer-events: none;
+		}
     }
 }
 
@@ -572,6 +576,17 @@ ul {
 		    }
 	    }
 
+	    .result-dropdown {
+	    	select {
+	    		display: none;
+		    	border-radius: 0px;
+		    	border: 0px;
+			    background: #CA6300;
+			    color: #ffffff;
+			    height: 45px;
+		    }
+	    }
+
 	    .result-title {
 	    	padding: 10px;
 	    	background: #CC6D13;
@@ -628,6 +643,10 @@ ul {
 
 	    	.active {
 	    		background: #202020;
+	    	}
+
+	    	.none {
+	    		text-align: center;
 	    	}
 	    }
 	}
@@ -697,6 +716,25 @@ ul {
 .sub-header {
 	margin-left: 52px;
     margin-top: -10px;
+}
+
+#locator-loader {
+	display: none;
+	position: fixed;
+    z-index: 999;
+    top: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    width: 100%;
+    height: 100%;
+    transition: background 1s ease-out;
+    -webkit-transition: background 1s ease-out;
+
+	.circles-loader {
+    	position:fixed;
+	    left:50%;
+	    top:50%;
+    }
 }
 
 #loader {

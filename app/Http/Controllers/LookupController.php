@@ -39,6 +39,18 @@ class LookupController extends Controller
         return $result->getRegion($id);
     }
 
+    public function getIslandGroups()
+    {
+        $result = new Lookup();
+        return $result->getIslandGroups();
+    }
+
+    public function getIslandGroup($id)
+    {
+        $result = new Lookup();
+        return $result->getIslandGroup($id);
+    }
+
     public function getTradeNames()
     {
         $result = new Lookup();
