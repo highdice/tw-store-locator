@@ -39,12 +39,30 @@
     </div>
 </aside>
 
+<div id="legend">
+    <div class="legend-inner-container" class="hidden-xs">
+      <strong>Legend</strong>
+      <div class="table-responsive legend-table"> 
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Color</th>
+              <th>Description</th>
+              <th>Count</th>
+            </tr>
+          </thead>
+          <tbody class="legend-body"></tbody>
+        </table>
+      </div>
+    </div>
+</div>
+
 <div id="map" class="col-lg-offset-2 col-lg-10 col-md-offset-3 col-md-9 col-sm-offset-3 col-sm-9 no-padding"></div>
 
-<div id="result-container">
+<div id="result-container" class="hidden-xs">
     <div id="result-inner-container">
         <i class="glyphicon glyphicon-remove close-button"></i>
-        <p class="result-title">RESULT <span id="result-count" class="badge"></span></p>
+        <p class="result-title">Result Navigation <!--<span id="result-count" class="badge">--></span></p>
         <div class="result-body">
             <div class="result-dropdown">
                 <select class="form-control"></select>

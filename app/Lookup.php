@@ -13,7 +13,13 @@ class Lookup extends Model
      */
     public function getRegions()
     {
-        return Lookup::where('key', 'region')->orderBy('title', 'asc')->get(array('id', 'title', 'description'));
+        return Lookup::leftJoin('Branch', 'Lookup.id', '=', 'Branch.region')
+          ->selectRaw('Lookup.*, count(Branch.id) as store_count')
+          ->where('key', 'region')
+          ->groupBy('Lookup.id')
+          ->get();
+
+        //return Lookup::where('key', 'region')->orderBy('title', 'asc')->get(array('id', 'title', 'description'));
     }
 
     /**
@@ -42,7 +48,13 @@ class Lookup extends Model
      */
     public function getIslandGroups()
     {
-        return Lookup::where('key', 'island_group')->orderBy('id', 'asc')->get(array('id', 'title', 'description'));
+        return Lookup::leftJoin('Branch', 'Lookup.id', '=', 'Branch.island_group')
+          ->selectRaw('Lookup.*, count(Branch.id) as store_count')
+          ->where('key', 'island_group')
+          ->groupBy('Lookup.id')
+          ->get();
+
+        //return Lookup::where('key', 'island_group')->orderBy('id', 'asc')->get(array('id', 'title', 'description'));
     }
 
     /**

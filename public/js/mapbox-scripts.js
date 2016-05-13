@@ -1,14 +1,13 @@
 $(document).ready(function() {
-  var zipLayer;
-  var gj;
-  var label;
-  var marker_color = ['#203c73', '#002f2f', '#d9a441', '#e2c7b5', '#7a1b36', '#FF6633', '#00B88A', '#3366FF'];
+  var zipLayer,
+  gj,
+  label,
+  marker_color = ['#203c73', '#002f2f', '#d9a441', '#e2c7b5', '#7a1b36', '#FF6633', '#00B88A', '#3366FF'];
 
   //initialize mapbox
   L.mapbox.accessToken = 'pk.eyJ1IjoiaGlnaGRpY2UiLCJhIjoiY2lmcWxrcDB6am05MXN4bTdiZGlzcWtzeiJ9.HowS8sLtivG7hhhcWYZdig';
-
   var map = L.mapbox.map('map', 'mapbox.light', { zoomControl: false, minZoom: 6, maxBounds: [[-90,-180],[90,180]] }).setView([13, 122], 6);
-
+  map.legendControl.addLegend(document.getElementById('legend').innerHTML).setPosition('topleft');
   new L.Control.Zoom({ position: 'topright' }).addTo(map);
 
   $.getJSON('/js/regions.50m.json', function(data) {
@@ -53,15 +52,15 @@ $(document).ready(function() {
 
           if (count != 0) {
             for (var i = 0, len = count; i < len; i++) {
-              var store = data[i];
-              var code = store['code'];
-              var branch_code = store['branch_code'];
-              var trade_name_prefix = store['trade_name_prefix'];
-              var trade_name = store['trade_name'];
-              var name = store['name'];
-              var address = store['address'];
-              var region = store['region'];
-              var island_group = store['island_group'];
+              var store = data[i],
+              code = store['code'],
+              branch_code = store['branch_code'],
+              trade_name_prefix = store['trade_name_prefix'],
+              trade_name = store['trade_name'],
+              name = store['name'],
+              address = store['address'],
+              region = store['region'],
+              island_group = store['island_group'];
 
               //set icon
               var icon = L.mapbox.marker.icon({
@@ -134,28 +133,63 @@ $(document).ready(function() {
           type: "POST",
           data: {'search': search},
           success: function (data) {
-              var count = data.length;
+              var count = data.length,
+              tw_color = '#BB3535',
+              tw_description = "Tom's World",
+              tw_count = 0,
+              al_color = '#35BB41',
+              al_description = "Austin Land",
+              al_count = 0,
+              jp_color = '#B8BB35',
+              jp_description = "Joy's Planet",
+              jp_count = 0;
+
               $('#result-count').text(count);
 
               if (count != 0) {
                 for (var i = 0, len = count; i < len; i++) {
-                    var store = data[i];
-                    var code = store['code'];
-                    var branch_code = store['branch_code'];
-                    var trade_name_prefix = store['trade_name_prefix'];
-                    var trade_name = store['trade_name'];
-                    var name = store['name'];
-                    var address = store['address'];
-                    var region = store['region'];
-                    var island_group = store['island_group'];
+                    var store = data[i],
+                    code = store['code'],
+                    branch_code = store['branch_code'],
+                    trade_name_prefix = store['trade_name_prefix'],
+                    trade_name = store['trade_name'],
+                    name = store['name'],
+                    address = store['address'],
+                    region = store['region'],
+                    island_group = store['island_group'];
+
+                    var color,
+                    legend_description;
+
+                    if(trade_name == 23) {
+                      color = tw_color;
+                      legend_description = tw_description;
+                      tw_count++;
+                    }
+                    else if(trade_name == 24) {
+                      color = al_color;
+                      legend_description = al_description;
+                      al_count++;
+                    }
+                    else {
+                      color = jp_color;
+                      legend_description = jp_description;
+                      jp_count++;
+                    }
 
                     //set icon
-                    var icon = L.icon({
+                    /* var icon = L.icon({
                                   iconUrl: '/build/css/images/tomsworld-marker-min.png',
                                   iconSize: [52, 77],
                                   iconAnchor: [26, 33.5],
                                   popupAnchor: [0, -40]
-                                });
+                                }); */
+
+                    var icon = L.mapbox.marker.icon({
+                        'marker-size': 'large',
+                        'marker-symbol': 'circle-stroked',
+                        'marker-color': color
+                    });
 
                     //add markers
                     var marker = L.marker(new L.LatLng(store['latitude'], store['longitude']), {
@@ -201,6 +235,16 @@ $(document).ready(function() {
                 var list = $('#result-list').append(item);
               }
               //map.addLayer(group);
+              setLegend(tw_color, tw_description, tw_count);
+              $('.result-dropdown select').append('<option value="' + tw_color + '">' + tw_description + '</option>');
+
+              setLegend(al_color, al_description, al_count);
+              $('.result-dropdown select').append('<option value="' + al_color + '">' + al_description + '</option>');
+
+              setLegend(jp_color, jp_description, jp_count);
+              $('.result-dropdown select').append('<option value="' + jp_color + '">' + jp_description + '</option>');
+              
+              $('.legend-inner-container').show();
           },
           error: function (xhr, ajaxOptions, thrownError) { //Add these parameters to display the required response
           }
@@ -218,9 +262,6 @@ $(document).ready(function() {
     getGroup(category, function(data) {
       //show result dropdown
       $('.result-dropdown select').show();
-      for (var i = 0, len = data.length; i < len; i++) {
-        $('.result-dropdown select').append('<option value="' + data[i]['id'] + '">' + data[i]['description'] + '</option>');
-      }
 
       //add markers to every group
       asyncLoop(data.length, function(loop) {
@@ -237,14 +278,25 @@ $(document).ready(function() {
                   spiderfyOnMaxZoom: true
               });
 
+        setLegend(marker_color[index], data[index]['title'], data[index]['store_count']);
+
+        if(data[index]['store_count'] > 0) {
+          $('.result-dropdown select').append('<option value="' + data[index]['id'] + '">' + data[index]['description'] + '</option>');
+        }
+
         insertMarkers(category, data[index]['id'], group, marker_color[index], function(result) {
             map.addLayer(group);
             loop.next();
         })}, function(){
           $('#locator-loader').hide();
           $('.result-body').show();
+          $('.legend-inner-container').show();
       });
     });
+  }
+
+  function setLegend(color, description, count) {
+    $('.legend-body').append('<tr><td><div class="legend-icon legend-content" style="background: ' + color + ';"></div></td><td>' + description + '</td><td>' + count + '</td></tr>');
   }
 
   function resultZoom(e, i){
@@ -286,36 +338,35 @@ $(document).ready(function() {
     $('#locator-loader').show();
     $('.sidebar-js-button').removeClass('active');
     $('.result-body').hide();
+    $('.legend-inner-container').hide();
+    $('.legend-body').html('');
     $('#result-list').html('');
     $('.result-dropdown select').html('');
   }
 
   function asyncLoop(iterations, func, callback) {
-    var index = 0;
-    var done = false;
-    var loop = {
+    var index = 0,
+    done = false,
+    loop = {
         next: function() {
-            if (done) {
-                return;
-            }
-
-            if (index < iterations) {
-                index++;
-                func(loop);
-
-            } else {
-                done = true;
-                callback();
-            }
-        },
-
-        iteration: function() {
-            return index - 1;
-        },
-
-        break: function() {
+          if(done) {
+            return;
+          }
+          if(index < iterations) {
+            index++;
+            func(loop);
+          }
+          else {
             done = true;
             callback();
+          }
+        },
+        iteration: function() {
+          return index - 1;
+        },
+        break: function() {
+          done = true;
+          callback();
         }
     };
     loop.next();
@@ -329,48 +380,58 @@ $(document).ready(function() {
   //event for searching a marker upon hitting enter 
   $('#search-input').on('keydown', function(e) {
     if(e.keyCode == 13) {
+      clearAllLayers();
+      $('.sidebar-js-button').removeClass('active');
+      $('.result-dropdown select').hide();
+      $('.result-dropdown select').html('');
+      $('#result-list').html('');
+      $('.legend-body').html('');
+
       var data = document.getElementById('search-input').value;
       if(data.length != 0) {
-        $('.sidebar-js-button').removeClass('active');
-        $('.result-dropdown select').hide();
-        $('.result-dropdown select').html('');
-        $('#result-list').html('');
-        clearAllLayers();
         showMarkers(data, 8);
+      }
+      else {
+        showMarkers();
       }
     }
   });
 
   //event for searching a marker on search button click
   $('#search-button').on('click', function() {
+      clearAllLayers();
+      $('.sidebar-js-button').removeClass('active');
+      $('.result-dropdown select').hide();
+      $('.result-dropdown select').html('');
+      $('#result-list').html('');
+      $('.legend-body').html('');
+
       var data = document.getElementById('search-input').value;
       if(data.length != 0) {
-        $('.sidebar-js-button').removeClass('active');
-        $('.result-dropdown select').hide();
-        $('.result-dropdown select').html('');
-        $('#result-list').html('');
-        clearAllLayers();
         showMarkers(data, 8);
+      }
+      else {
+        showMarkers();
       }
   });
 
+  //event for showing markers based on region
   $('#show-regions').on('click', function() {
     showMarkersByCategory('regions');
     $(this).addClass('active');
   });
 
+  //event for showing markers based on island groups
   $('#show-island-groups').on('click', function() {
     showMarkersByCategory('island_groups');
     $(this).addClass('active');
   });
 
+  //event for result dropdown on change
   $('.result-dropdown select').on('change', function() {
-    $('.result-item').hide();
-    $('.result-category-' + $(this).val()).show();
+    $('.result-item').addClass('hidden');
+    $('.result-category-' + $(this).val()).removeClass('hidden');
   });
-
-  //create marker groups
-  //createGroups();
 
   //show all markers on load
   showMarkers();
