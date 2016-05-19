@@ -61,14 +61,20 @@ Route::group(['middleware' => 'web'], function () {
      * This contains all api routes, disabled auth first
      */
     Route::group(['prefix' => 'api/v1'], function() {
-    	Route::post('stores', 'BranchController@show');
+    	Route::post('stores', 'BranchController@showAll');
     	Route::post('stores/add', 'BranchController@postAdd');
     	Route::post('stores/edit', 'BranchController@postEdit');
-    	Route::get('stores/island_groups/{id}', 'BranchController@getStoreByIslandGroup');
+    	Route::get('stores/island_groups/{id}', 'BranchController@getStoresByIslandGroup');
         Route::get('stores/island_groups', 'LookupController@getIslandGroups');
-        //Route::get('stores/island_groups', 'BranchController@getIslandGroupsCount');
-        Route::get('stores/regions/{id}', 'BranchController@getStoreByRegion');
+
+        Route::get('stores/regions/{id}', 'BranchController@getStoresByRegion');
         Route::get('stores/regions', 'LookupController@getRegions'); 
+
+        Route::get('stores/branch/{id}', 'BranchController@getBranch');
+        Route::get('stores/branch', 'BranchController@getBranches');
+
+        Route::get('stores/satellite/{id}', 'BranchController@getSatellite');
+        Route::get('stores/satellite', 'BranchController@getSatellites');
 
     	Route::post('satellite/add', 'SatelliteController@postAdd');
     	Route::post('satellite/edit', 'SatelliteController@postEdit');

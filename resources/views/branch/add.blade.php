@@ -137,7 +137,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group{{ $errors->has('date_opened') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('contact_number') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
                             <span>Contact Number/s</span>
                             <i class="glyphicon glyphicon-certificate input-icon"></i>

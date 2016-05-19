@@ -13,13 +13,22 @@ class Lookup extends Model
      */
     public function getRegions()
     {
-        return Lookup::leftJoin('Branch', 'Lookup.id', '=', 'Branch.region')
-          ->selectRaw('Lookup.*, count(Branch.id) as store_count')
-          ->where('key', 'region')
-          ->groupBy('Lookup.id')
-          ->get();
-
-        //return Lookup::where('key', 'region')->orderBy('title', 'asc')->get(array('id', 'title', 'description'));
+        return \DB::select(\DB::raw("SELECT lookup.*, 
+                                            IFNULL(b_count, 0) + IFNULL(s_count, 0) as store_count 
+                                    FROM lookup 
+                                    LEFT JOIN (SELECT region, 
+                                                      COUNT(*) as b_count 
+                                              FROM branch 
+                                              GROUP BY region) b 
+                                    ON lookup.id = b.region 
+                                    LEFT JOIN (SELECT region, 
+                                                      COUNT(*) as s_count 
+                                              FROM satellite
+                                              GROUP BY region) s
+                                    ON lookup.id = s.region 
+                                    WHERE lookup.key = 'region'
+                                    GROUP BY lookup.id")
+                          );
     }
 
     /**
@@ -38,6 +47,9 @@ class Lookup extends Model
         return Lookup::where('key', 'trade_name')->orderBy('title', 'asc')->get(array('id', 'title', 'description'));
     }
 
+    /**
+     * Get sex
+     */
     public function getSex()
     {
         return Lookup::where('key', 'sex')->get(array('id', 'key', 'title', 'description'));
@@ -48,13 +60,22 @@ class Lookup extends Model
      */
     public function getIslandGroups()
     {
-        return Lookup::leftJoin('Branch', 'Lookup.id', '=', 'Branch.island_group')
-          ->selectRaw('Lookup.*, count(Branch.id) as store_count')
-          ->where('key', 'island_group')
-          ->groupBy('Lookup.id')
-          ->get();
-
-        //return Lookup::where('key', 'island_group')->orderBy('id', 'asc')->get(array('id', 'title', 'description'));
+        return \DB::select(\DB::raw("SELECT lookup.*, 
+                                            IFNULL(b_count, 0) + IFNULL(s_count, 0) as store_count 
+                                    FROM lookup 
+                                    LEFT JOIN (SELECT island_group, 
+                                                      COUNT(*) as b_count 
+                                              FROM branch 
+                                              GROUP BY island_group) b 
+                                    ON lookup.id = b.island_group 
+                                    LEFT JOIN (SELECT island_group, 
+                                                      COUNT(*) as s_count 
+                                              FROM satellite
+                                              GROUP BY island_group) s
+                                    ON lookup.id = s.island_group 
+                                    WHERE lookup.key = 'island_group'
+                                    GROUP BY lookup.id")
+                          );
     }
 
     /**

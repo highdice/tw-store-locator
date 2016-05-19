@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 
 use App\Branch;
+use App\Satellite;
 use App\Http\Controllers\Controller;
 use Response;
 
@@ -104,34 +105,60 @@ class BranchController extends Controller
     }
 
     /**
-     * Lists all active branches.
+     * Lists all active stores.
      * @param  array $data
      * @return array
      */
-    public function show(Request $data)
-    {
-        $where = array();
-        $search_where = array();
-
-        $result = new Branch();
+    public function showAll(Request $data) {
+        $branch_where = array();
+        $branch_search = array();
+        $satellite_where = array();
+        $satellite_search = array();
 
         //check if search data is set
         if(isset($data['search'])) {
-            array_push($search_where, "code LIKE '%" . $data['search'] . "%'");
-            array_push($search_where, "branch_code LIKE '%" . $data['search'] . "%'");
-            array_push($search_where, "name LIKE '%" . $data['search'] . "%'");
-            array_push($search_where, "trade_name_prefix LIKE '%" . $data['search'] . "%'");
-            array_push($search_where, "trade_name LIKE '%" . $data['search'] . "%'");
-            array_push($search_where, "address LIKE '%" . $data['search'] . "%'");
+            //branch search
+            array_push($branch_search, "code LIKE '%" . $data['search'] . "%'");
+            array_push($branch_search, "branch_code LIKE '%" . $data['search'] . "%'");
+            array_push($branch_search, "name LIKE '%" . $data['search'] . "%'");
+            array_push($branch_search, "trade_name_prefix LIKE '%" . $data['search'] . "%'");
+            array_push($branch_search, "trade_name LIKE '%" . $data['search'] . "%'");
+            array_push($branch_search, "address LIKE '%" . $data['search'] . "%'");
 
-            $search_where = implode(" OR ", $search_where);
-            array_push($where, $search_where);
+            $branch_search = implode(" OR ", $branch_search);
+            array_push($branch_where, $branch_search);
+
+            //satellite search
+            array_push($satellite_search, "Branch.code LIKE '%" . $data['search'] . "%'");
+            array_push($satellite_search, "Satellite.satellite_code LIKE '%" . $data['search'] . "%'");
+            array_push($satellite_search, "Satellite.name LIKE '%" . $data['search'] . "%'");
+            array_push($satellite_search, "Satellite.trade_name_prefix LIKE '%" . $data['search'] . "%'");
+            array_push($satellite_search, "Satellite.trade_name LIKE '%" . $data['search'] . "%'");
+            array_push($satellite_search, "Satellite.address LIKE '%" . $data['search'] . "%'");
+
+            $satellite_search = implode(" OR ", $satellite_search);
+            array_push($satellite_where, $satellite_search);
         }
         
-        array_push($where, "status = 1");
-        $where = implode(" AND ", $where);
+        array_push($branch_where, "status = 1");
+        $branch_where = implode(" AND ", $branch_where);
 
-        return $result->whereRaw($where)->get(array('code', 'branch_code', 'trade_name_prefix', 'trade_name', 'name', 'address', 'region', 'island_group', 'latitude', 'longitude'));
+        array_push($satellite_where, "Satellite.status = 1");
+        $satellite_where = implode(" AND ", $satellite_where);
+
+        $branch = new Branch();
+
+        //check if category is set
+        if(isset($data['category'])) {
+            if($data['category'] == "branch") {
+                return $branch->getBranches($branch_where);
+            }
+            else {
+                return $branch->getSatellites($satellite_where);
+            }
+        }
+
+        return $branch->getStores($branch_where, $satellite_where);
     }
 
     /**
@@ -253,26 +280,63 @@ class BranchController extends Controller
     }
 
     /**
-     * Get branch by region.
-     * @return string $region_id
+     * Lists all active branches.
+     * @param  array $data
+     * @return array
      */
-    public function getStoreByRegion($region_id)
+    public function getBranches(Request $data)
     {
-        $data = array();
+        $where = array();
+        $search_where = array();
 
         $branch = new Branch();
-        return $branch->getByRegion($region_id);
+
+        //check if search data is set
+        if(isset($data['search'])) {
+            array_push($search_where, "code LIKE '%" . $data['search'] . "%'");
+            array_push($search_where, "branch_code LIKE '%" . $data['search'] . "%'");
+            array_push($search_where, "name LIKE '%" . $data['search'] . "%'");
+            array_push($search_where, "trade_name_prefix LIKE '%" . $data['search'] . "%'");
+            array_push($search_where, "trade_name LIKE '%" . $data['search'] . "%'");
+            array_push($search_where, "address LIKE '%" . $data['search'] . "%'");
+
+            $search_where = implode(" OR ", $search_where);
+            array_push($where, $search_where);
+        }
+        
+        array_push($where, "status = 1");
+        $where = implode(" AND ", $where);
+
+        return $branch->getBranches($where);
+    }
+
+    /**
+     * Get branch by ID.
+     * @return integer $branch_id
+     */
+    public function getBranch($branch_id)
+    {
+        $branch = new Branch();
+        return $branch->getBranch($branch_id);
     }
 
     /**
      * Get branch by region.
-     * @return string $region_id
+     * @return integer $region_id
      */
-    public function getStoreByIslandGroup($island_group_id)
+    public function getStoresByRegion($region_id)
     {
-        $data = array();
-
         $branch = new Branch();
-        return $branch->getByIslandGroup($island_group_id);
+        return $branch->getStoresByRegion($region_id);
+    }
+
+    /**
+     * Get branch by region.
+     * @return integer $region_id
+     */
+    public function getStoresByIslandGroup($island_group_id)
+    {
+        $branch = new Branch();
+        return $branch->getStoresByIslandGroup($island_group_id);
     }
 }

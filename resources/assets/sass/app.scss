@@ -379,9 +379,41 @@ ul {
 	padding: 0px;
 }
 
+.map-legends {
+	background: transparent;
+    box-shadow: none;
+}
+
+.leaflet-top {
+	z-index: 1;
+
+	.leaflet-control {
+		margin-top: 10px;
+	}
+}
+
 .legend-inner-container {
 	display: none;
 	padding: 10px;
+	margin-top: 10px;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+
+    .close-button {
+    	float: right;
+    	cursor: pointer;
+	    margin-top: -20px;
+	    margin-right: -20px;
+	    background: #a2a2a2;
+	    color: #ffffff;
+	    padding: 6px;
+	    border-radius: 50%;
+	    border: 4px solid #ffffff;
+
+	    &:hover {
+	    	color: #808080;
+	    }
+    }
 
 	thead {
 		display: block; 
@@ -592,7 +624,7 @@ ul {
 
 #result-container {
 	position: absolute;
-    z-index: 999;
+    z-index: 1;
     height: -webkit-calc(100% - 50px);
     height:    -moz-calc(100% - 50px);
     height:         calc(100% - 50px);
@@ -613,6 +645,7 @@ ul {
 
 	    .close-button {
 	    	float: right;
+	    	cursor: pointer;
 		    margin-top: -10px;
 		    margin-right: -10px;
 		    background: #F79232;

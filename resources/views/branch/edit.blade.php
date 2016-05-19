@@ -8,7 +8,7 @@
 </ol>
 
 <div class="page-title-container">
-  <h3>Edit Branch</h3>
+  <h3>Edit Branch Details</h3>
   <p>Fields with <i class="glyphicon glyphicon-certificate required"></i> are required.
 </div>
 
@@ -127,7 +127,10 @@
                             <span>Upload Image</span>
                             <i class="glyphicon glyphicon-certificate input-icon"></i>
                             <input type="file" id="image" class="form-control" name="image" value="{{ $data->image }}">
-                            <span>An image was already uploaded. <a href="">Click here to view the image.</a></span>
+                            
+                            @if ($data->image)
+                                <span>An image was already uploaded. <a href="">Click here to view the image.</a></span>
+                            @endif
 
                             @if ($errors->has('image'))
                                 <span class="help-block">
@@ -137,7 +140,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group{{ $errors->has('date_opened') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('contact_number') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
                             <span>Contact Number/s</span>
                             <i class="glyphicon glyphicon-certificate input-icon"></i>

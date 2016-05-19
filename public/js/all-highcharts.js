@@ -365,51 +365,70 @@ i/2,c.symbolY-i/2,i,i).attr(q(m,{"stroke-width":c.symbolStrokeWidth||1,zIndex:1}
 a.exportDivElements[b]=e.onmouseout=e.onmouseover=e.ontouchstart=e.onclick=null,s(e)}});I.menu=function(a,b,e,c){return["M",a,b+2.5,"L",a+e,b+2.5,"M",a,b+c/2+0.5,"L",a+e,b+c/2+0.5,"M",a,b+c-1.5,"L",a+e,b+c-1.5]};A.prototype.callbacks.push(function(a){var b,e=a.options.exporting,c=e.buttons;z=0;if(e.enabled!==!1){for(b in c)a.addButton(c[b]);t(a,"destroy",a.destroyExport)}})});
 
 $(document).ready(function() {
-    $('#historical-chart').highcharts({
-        chart: {
-            backgroundColor: 'rgba(255, 255, 255, 0)'
-        },
-        title: {
-            text: '',
-            x: -20 //center
-        },
-        subtitle: {
-            text: '',
-            x: -20
-        },
-        credits: {
-            enabled: false
-        },
-        xAxis: {
-            categories: ['1985-1990', '1990-1995', '1995-2000', '2000-2005', '2005-2010', '2010-2015',
-                '2015-2020']
-        },
-        yAxis: {
-            title: {
-                text: 'Number of Stores'
-            },
-            plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
-            }]
-        },
-        tooltip: {
-            valueSuffix: ''
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle',
-            borderWidth: 0
-        },
-        series: [{
-            name: 'Branch',
-            data: [7.0, 6.0, 9.0, 14.0, 18.0, 21.0, 25.0]
-        }, {
-            name: 'Satellite',
-            data: [3.0, 2.0, 5.0, 11.0, 17.0, 22.0, 24.0]
-        }]
+    $(function () {
+        $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.json&callback=?', function (data) {
+
+            $('#historical-chart').highcharts({
+                chart: {
+                    zoomType: 'x'
+                },
+                title: {
+                    text: ''
+                },
+                subtitle: {
+                    text: document.ontouchstart === undefined ?
+                            'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+                },
+                xAxis: {
+                    type: 'datetime'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Number of Stores'
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    borderWidth: 0
+                },
+                plotOptions: {
+                    area: {
+                        fillColor: {
+                            linearGradient: {
+                                x1: 0,
+                                y1: 0,
+                                x2: 0,
+                                y2: 1
+                            },
+                            stops: [
+                                [0, Highcharts.getOptions().colors[0]],
+                                [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                            ]
+                        },
+                        marker: {
+                            radius: 2
+                        },
+                        lineWidth: 1,
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        },
+                        threshold: null
+                    }
+                },
+
+                series: [{
+                    name: 'Branch',
+                    data: data
+                }, {
+                    name: 'Satellite',
+                    data: [3.0, 2.0, 5.0, 11.0, 17.0, 22.0, 24.0]
+                }]
+            });
+        });
     });
 
     $('#island-group-chart').highcharts({

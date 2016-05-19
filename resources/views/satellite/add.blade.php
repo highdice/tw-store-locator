@@ -1,18 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h3><i class="glyphicon glyphicon-plus header-icon"></i> Add New Satellite</h3>
-    <p class="sub-header">Fields with <i class="glyphicon glyphicon-certificate required"></i> are required.
-    <hr />
+<ol class="breadcrumb">
+  <li><a href="/stores/{{ $branch_id }}/satellite">Satellites</a></li>
+  <li class="active">Add</li>
+</ol>
 
-    <form class="form-horizontal" role="form" method="POST" action="{{ url('/api/v1/satellite/add') }}">
+<div class="page-title-container">
+  <h3>Add Satellite</h3>
+  <p>Fields with <i class="glyphicon glyphicon-certificate required"></i> are required.
+</div>
+
+<div class="container top-30">
+    <form class="form-horizontal" role="form" method="POST" action="{{ url('/api/v1/satellite/add') }}" enctype="multipart/form-data">
         {!! csrf_field() !!}
         <div class="panel panel-default">
             <div class="panel-body">
-                <div class="col-md-6">
-                    <input type="hidden" readonly="readonly" class="form-control" name="branch_id" value="{{ $branch_id }}">
+                <input type="hidden" name="branch_id" value="{{ $branch_id }}">
 
+                <div class="col-md-6">
                     <div class="form-group{{ $errors->has('satellite_code') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
                             <span>Satellite Code</span>
@@ -27,23 +33,45 @@
                         </div>
                     </div>
 
-                    <div class="form-group{{ $errors->has('trade_name') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('trade_name_prefix') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
                             <span>Trade Name</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter the trade name here" name="trade_name" value="{{ old('trade_name') }}">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                <input type="text" class="form-control" placeholder="Enter the trade name here" name="trade_name_prefix" value="{{ old('trade_name_prefix') }}">
 
-                            @if ($errors->has('trade_name'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('trade_name') }}</strong>
-                                </span>
-                            @endif
+                                @if ($errors->has('trade_name_prefix'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('trade_name_prefix') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-padding">
+                                <span class="input-divider">-</span>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 no-padding">
+                                <select class="form-control input-half" name="trade_name" value="{{ old('trade_name') }}">
+                                    @if (!old('trade_name'))
+                                        <option value="">Choose a company</option>
+                                    @endif
+                  
+                                    @foreach ($trade_names as $trade_name)
+                                        <option value="{{ $trade_name->id }}" {{ (old('trade_name') == $trade_name->id) ? 'selected="selected"' : '' }}>{{ $trade_name->description }}</option>
+                                    @endforeach
+                                </select>
+
+                                @if ($errors->has('trade_name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('trade_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
-                            <span>satellite Name</span>
+                            <span>Satellite Name</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
                             <input type="text" class="form-control" placeholder="Enter the satellite name here" name="name" value="{{ old('name') }}">
 
@@ -69,20 +97,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group{{ $errors->has('division') ? ' has-error' : '' }}">
-                        <div class="col-md-12 custom-form">
-                            <span>Division</span>
-                            <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter division number here" name="division" value="{{ old('division') }}">
-
-                            @if ($errors->has('division'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('division') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
                     <div class="form-group{{ $errors->has('date_opened') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
                             <span>Date Opened</span>
@@ -92,6 +106,34 @@
                             @if ($errors->has('date_opened'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('date_opened') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                        <div class="col-md-12 custom-form">
+                            <span>Upload Image</span>
+                            <i class="glyphicon glyphicon-certificate input-icon"></i>
+                            <input type="file" id="image" class="form-control" name="image" value="{{ old('image') }}">
+
+                            @if ($errors->has('image'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('image') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('contact_number') ? ' has-error' : '' }}">
+                        <div class="col-md-12 custom-form">
+                            <span>Contact Number/s</span>
+                            <i class="glyphicon glyphicon-certificate input-icon"></i>
+                            <input type="text" id="contact_number" class="form-control" placeholder="Enter the contact number here" name="contact_number" value="{{ old('contact_number') }}">
+
+                            @if ($errors->has('contact_number'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('contact_number') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -133,11 +175,15 @@
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
                             
                             <select class="form-control" name="region" value="{{ old('region') }}">
-                                <option value="">Choose a region</option>
+                                @if (!old('region'))
+                                        <option value="">Choose a region</option>
+                                @endif
+
                                 @foreach ($regions as $region)
-                                    <option value="{{ $region->id }}">{{ $region->title . ' - ' . $region->description }}</option>
+                                    <option value="{{ $region->id }}" {{ (old('region') == $region->id) ? 'selected="selected"' : '' }}>{{ $region->title . ' - ' . $region->description }}</option>
                                 @endforeach
                             </select>
+
                             @if ($errors->has('region'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('region') }}</strong>
@@ -157,6 +203,34 @@
                             @if ($errors->has('island_group'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('island_group') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('area') ? ' has-error' : '' }}">
+                        <div class="col-md-12 custom-form">
+                            <span>Area</span>
+                            <i class="glyphicon glyphicon-certificate input-icon required"></i>
+                            <input type="text" class="form-control" placeholder="Enter the area here" name="area" value="{{ old('area') }}">
+
+                            @if ($errors->has('area'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('area') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('division') ? ' has-error' : '' }}">
+                        <div class="col-md-12 custom-form">
+                            <span>Division</span>
+                            <i class="glyphicon glyphicon-certificate input-icon required"></i>
+                            <input type="text" class="form-control" placeholder="Enter division number here" name="division" value="{{ old('division') }}">
+
+                            @if ($errors->has('division'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('division') }}</strong>
                                 </span>
                             @endif
                         </div>

@@ -15,11 +15,11 @@
 
         <p>CATEGORIZE BY</p>
         <ul>
-            <li class="sidebar-js-button">
+            <li id="show-branches" class="sidebar-js-button">
                 <i class="glyphicon glyphicon-th"></i>
                 Branch
             </li>
-            <li class="sidebar-js-button">
+            <li id="show-satellites" class="sidebar-js-button">
                 <i class="glyphicon glyphicon-th"></i>
                 Satellite
             </li>
@@ -41,6 +41,7 @@
 
 <div id="legend">
     <div class="legend-inner-container" class="hidden-xs">
+        <i class="glyphicon glyphicon-remove close-button"></i>
       <strong>Legend</strong>
       <div class="table-responsive legend-table"> 
         <table class="table">
