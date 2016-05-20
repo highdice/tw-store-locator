@@ -149,11 +149,18 @@ $(document).ready(function() {
         url: "/api/v1/stores/" + category + "/" + id,
         type: "GET",
         success: function (data) {
-          var count = data.length;
+          var count = data.length,
+          store,
+          marker,
+          icon,
+          popup,
+          item_id,
+          item,
+          list;
 
           if (count != 0) {
             for (var i = 0, len = count; i < len; i++) {
-              var store = data[i],
+              store = data[i],
               code = store['code'],
               store_code = store['store_code'],
               trade_name_prefix = store['trade_name_prefix'],
@@ -165,14 +172,14 @@ $(document).ready(function() {
               store_category = store['category'];
 
               //set icon
-              var icon = L.mapbox.marker.icon({
+              icon = L.mapbox.marker.icon({
                   'marker-size': 'large',
                   'marker-symbol': 'circle-stroked',
                   'marker-color': color
               });
 
               //add markers
-              var marker = L.marker(new L.LatLng(store['latitude'], store['longitude']), {
+              marker = L.marker(new L.LatLng(store['latitude'], store['longitude']), {
                   icon: icon,
                   title: name
               });
@@ -181,7 +188,7 @@ $(document).ready(function() {
               marker.on('click', centerZoom(marker, code));
 
               //set popup
-              var popup = L.popup({
+              popup = L.popup({
                 autoPan: true
               }).setContent('<div class="popup-header">'
                               +'<h1>'+name+'</h1>'
@@ -201,9 +208,9 @@ $(document).ready(function() {
               }).openPopup();
 
               //create result list and add onclick event
-              var item_id = id + "-" + i;
-              var item = $('<li id="result-item-' + item_id + '" class="sidebar-js-button result-item result-category-' + id + '"><i class="glyphicon glyphicon-th"></i>' + name + '<i class="fa fa-btn fa-check-circle selected hidden"></i></li>');
-              var list = $('#result-list').append(item);
+              item_id = id + "-" + i;
+              item = $('<li id="result-item-' + item_id + '" class="sidebar-js-button result-item result-category-' + id + '"><i class="glyphicon glyphicon-th"></i>' + name + '<i class="fa fa-btn fa-check-circle selected hidden"></i></li>');
+              list = $('#result-list').append(item);
               item.click(resultZoom(marker, item_id));
 
               //add markers to marker cluster group
@@ -235,6 +242,14 @@ $(document).ready(function() {
           data: {'search': search, 'category': category},
           success: function (data) {
             var count = data.length,
+            store,
+            marker,
+            icon,
+            popup,
+            color,
+            item,
+            list,
+            legend_description,
             tw_id = 23,
             tw_color = '#BB3535',
             tw_description = "Tom's World",
@@ -254,7 +269,7 @@ $(document).ready(function() {
             //add markers
             asyncLoop(count, function(loop) {
               var i = loop.iteration();
-              var store = data[i],
+              store = data[i],
               code = store['code'],
               store_code = store['store_code'],
               trade_name_prefix = store['trade_name_prefix'],
@@ -264,9 +279,6 @@ $(document).ready(function() {
               region = store['region'],
               island_group = store['island_group'],
               store_category = store['category'];
-
-              var color,
-              legend_description;
 
               if(trade_name == 23) {
                 color = tw_color;
@@ -292,14 +304,14 @@ $(document).ready(function() {
                             popupAnchor: [0, -40]
                           }); */
 
-              var icon = L.mapbox.marker.icon({
+              icon = L.mapbox.marker.icon({
                   'marker-size': 'large',
                   'marker-symbol': 'circle-stroked',
                   'marker-color': color
               });
 
               //add markers
-              var marker = L.marker(new L.LatLng(store['latitude'], store['longitude']), {
+              marker = L.marker(new L.LatLng(store['latitude'], store['longitude']), {
                   icon: icon,
                   title: name
               });
@@ -308,7 +320,7 @@ $(document).ready(function() {
               marker.on('click', centerZoom(marker, i));
 
               //set popup
-              var popup = L.popup({
+              popup = L.popup({
                 autoPan: true
               }).setContent('<div class="popup-header">'
                               +'<h1>'+name+'</h1>'
@@ -328,8 +340,8 @@ $(document).ready(function() {
               }).openPopup();
 
               //create result list and add onclick event
-              var item = $('<li id="result-item-' + i + '" class="sidebar-js-button result-item result-category-' + trade_name + '"><i class="glyphicon glyphicon-th"></i>' + name + '<i class="fa fa-btn fa-check-circle selected hidden"></i></li>');
-              var list = $('#result-list').append(item);
+              item = $('<li id="result-item-' + i + '" class="sidebar-js-button result-item result-category-' + trade_name + '"><i class="glyphicon glyphicon-th"></i>' + name + '<i class="fa fa-btn fa-check-circle selected hidden"></i></li>');
+              list = $('#result-list').append(item);
               item.click(resultZoom(marker, i));
 
               map.addLayer(marker);
@@ -337,26 +349,43 @@ $(document).ready(function() {
               loop.next();
 
             }, function(){
-                //pan to marker if count is only one
-                if(count == 1) {
-                  resultItemAnimation(0);
-
-                  map.setView(marker.getLatLng(), 12);
-                  marker.openPopup();
-                }
-                else {
-                  //clear all layers and set to default location and zoom
-                  map.setView([13, 122], 6);
-                }
-
                 //set legends
                 setLegend(tw_color, tw_description, tw_count);
                 setLegend(al_color, al_description, al_count);
                 setLegend(jp_color, jp_description, jp_count);
 
-                $('.result-dropdown select').append('<option value="' + tw_id + '">' + tw_description + '</option>')
-                                            .append('<option value="' + al_id + '">' + al_description + '</option>')
-                                            .append('<option value="' + jp_id + '">' + jp_description + '</option>');
+                if(count > 0) {
+                  //pan to marker if count is only one
+                  if(count == 1) {
+                    resultItemAnimation(0);
+
+                    map.setView(marker.getLatLng(), 12);
+                    marker.openPopup();
+                  }
+                  else {
+                    //set to default location and zoom
+                    map.setView([13, 122], 6);
+                  }
+
+                  //set result dropdown items
+                  $('.result-dropdown select').append('<option value="all">All</option>');
+
+                  if(tw_count > 0) {
+                    $('.result-dropdown select').append('<option value="' + tw_id + '">' + tw_description + '</option>');
+                  }
+
+                  if(al_count > 0) {
+                    $('.result-dropdown select').append('<option value="' + al_id + '">' + al_description + '</option>');
+                  }
+
+                  if(jp_count > 0) {
+                    $('.result-dropdown select').append('<option value="' + jp_id + '">' + jp_description + '</option>');
+                  }                  
+                }
+                else {
+                  //set to default location and zoom
+                  map.setView([13, 122], 6);
+                }
                 
                 //hide loader, show result and legend containers
                 $('#locator-loader').hide();
@@ -384,8 +413,11 @@ $(document).ready(function() {
     clearAllLayers();
 
     getGroup(category, function(data) {
-      //show result dropdown
-      $('.result-dropdown select').show();
+      if(data.length > 0) {
+        //show result dropdown
+        $('.result-dropdown select').show();
+        $('.result-dropdown select').append('<option value="all">All</option>');
+      }
 
       //add markers to every group
       asyncLoop(data.length, function(loop) {
@@ -607,8 +639,40 @@ $(document).ready(function() {
    * Event for result dropdown on change
    */
   $('.result-dropdown select').on('change', function() {
-    $('.result-item').addClass('hidden');
-    $('.result-category-' + $(this).val()).removeClass('hidden');
+    if($(this).val() == 'all') {
+      $('.result-item').removeClass('hidden');
+    }
+    else {
+      $('.result-item').addClass('hidden');
+      $('.result-category-' + $(this).val()).removeClass('hidden');
+    }
+  });
+
+  /**
+   * Initialize locator control buttons tooltip
+   */
+  $('[data-toggle="tooltip"]').tooltip({
+     container: 'body',
+     trigger: 'hover'
+  });
+
+  /**
+   * Events for locator control
+   */
+  $( ".result-hide-show" ).click(function() {
+    $( "#result-container" ).toggle();
+  });
+
+  $( ".legend-hide-show" ).click(function() {
+    $( ".map-legends" ).toggle();
+  });
+
+  $( ".highlights-hide-show" ).click(function() {
+    if (map.hasLayer(gj)) {
+        map.removeLayer(gj);
+    } else {
+        map.addLayer(gj);
+    }
   });
 
   /**

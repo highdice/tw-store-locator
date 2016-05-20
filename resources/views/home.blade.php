@@ -12,7 +12,7 @@
             </li>
         </ul>
 
-        <p>CATEGORIZE BY</p>
+        <p>CATEGORIES</p>
         <ul>
             <li class="sidebar-js-button">
                 <i class="glyphicon glyphicon-th"></i>
