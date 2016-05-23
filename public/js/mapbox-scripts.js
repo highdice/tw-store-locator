@@ -5,7 +5,7 @@ $(document).ready(function() {
   var zipLayer,
   gj,
   label,
-  marker_color = ['#203c73', '#002f2f', '#d9a441', '#e2c7b5', '#7a1b36', '#FF6633', '#00B88A', '#3366FF'];
+  marker_color = ['#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4', '#203c73', '#002f2f', '#d9a441', '#e2c7b5', '#7a1b36', '#FF6633', '#00B88A', '#3366FF'];
 
   /**
    * Initialize mapbox

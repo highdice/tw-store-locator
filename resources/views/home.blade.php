@@ -6,7 +6,7 @@
         <div class="sidebar-divider"></div>
         <p>GENERAL</p>
         <ul>
-            <li class="sidebar-js-button active">
+            <li id="show-historical-chart" class="sidebar-js-button active">
                 <i class="fa fa-btn fa-line-chart"></i>
                 Historical
             </li>
@@ -14,22 +14,22 @@
 
         <p>CATEGORIES</p>
         <ul>
-            <li class="sidebar-js-button">
+            <li id="show-island-groups-chart" class="sidebar-js-button">
                 <i class="glyphicon glyphicon-th"></i>
                 Island Group
             </li>
-            <li class="sidebar-js-button">
+            <li id="show-regions-chart" class="sidebar-js-button">
                 <i class="glyphicon glyphicon-th"></i>
                 Region
             </li>
-            <li class="sidebar-js-button">
-                <i class="glyphicon glyphicon-th"></i>
-                Area
-            </li>
-            <li class="sidebar-js-button">
+            <li id="show-divisions-chart" class="sidebar-js-button">
                 <i class="glyphicon glyphicon-th"></i>
                 Division
             </li>
+            <li id="show-area-chart" class="sidebar-js-button">
+                <i class="glyphicon glyphicon-th"></i>
+                Area
+            </li>      
         </ul>
     </div>
 </aside>
@@ -40,131 +40,105 @@
         <p>This page contains a list of statistical charts and tables</p>
     </div>
 
-    <div class="col-md-12 inner-container">
+    <div class="col-md-12 inner-container historical-chart-container">
         <div id="historical-chart" class="line-chart"></div>
     </div>
 
-    <div class="col-md-12 inner-container">
+    <div class="col-md-12 inner-container island-groups-chart-container">
+        <div class="col-md-12 no-padding chart-title">
+            <h4>Island Groups</h4>
+        </div>
+
         <div class="col-md-4 no-padding">
-            <div id="island-group-chart" class="pie-chart"></div>
+            <div id="island-groups-chart" class="pie-chart"></div>
         </div>
 
         <div class="col-md-8 no-padding">
-            <div class="table-responsive"> 
+            <div class="table-responsive island-groups-table"> 
                 <table class="table">
                   <thead>
                     <tr>
+                      <th>Legend</th>
                       <th>Description</th>
-                      <th>Total Number</th>
-                      <th>Percentage</th>
+                      <th>Total Count</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                        <td>Luzon</td>
-                        <td>100</td>
-                        <td>30%</td>
-                    </tr>
-                    <tr>
-                        <td>Visayas</td>
-                        <td>100</td>
-                        <td>30%</td>
-                    </tr>
-                    <tr>
-                        <td>Mindanao</td>
-                        <td>100</td>
-                        <td>30%</td>
-                    </tr>
-                  </tbody>
+                  <tbody></tbody>
                 </table>
               </div>
         </div>
     </div>
 
-    <div class="col-md-12 inner-container">
+    <div class="col-md-12 inner-container regions-chart-container">
+        <div class="col-md-12 no-padding chart-title">
+            <h4>Regions</h4>
+        </div>
+
         <div class="col-md-4 no-padding">
-            <div id="region-chart" class="pie-chart"></div>
+            <div id="regions-chart" class="pie-chart"></div>
         </div>
 
         <div class="col-md-8 no-padding">
-            <div class="table-responsive"> 
+            <div class="table-responsive regions-table"> 
                 <table class="table">
                   <thead>
                     <tr>
+                      <th>Legend</th>
                       <th>Description</th>
-                      <th>Total Number</th>
-                      <th>Percentage</th>
+                      <th>Total Count</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                        <td>Region I</td>
-                        <td>100</td>
-                        <td>30%</td>
-                    </tr>
-                    <tr>
-                        <td>Region II</td>
-                        <td>100</td>
-                        <td>30%</td>
-                    </tr>
-                    <tr>
-                        <td>Region III</td>
-                        <td>100</td>
-                        <td>30%</td>
-                    </tr>
-                    <tr>
-                        <td>Region IV</td>
-                        <td>100</td>
-                        <td>30%</td>
-                    </tr>
-                    <tr>
-                        <td>Region V</td>
-                        <td>100</td>
-                        <td>30%</td>
-                    </tr>
-                  </tbody>
+                  <tbody></tbody>
                 </table>
               </div>
         </div>
     </div>
 
-    <div class="col-md-12 inner-container">
+    <div class="col-md-12 inner-container divisions-chart-container">
+        <div class="col-md-12 no-padding chart-title">
+            <h4>Divisions</h4>
+        </div>
+
         <div class="col-md-4 no-padding">
-            <div id="division-chart" class="pie-chart"></div>
+            <div id="divisions-chart" class="pie-chart"></div>
         </div>
 
         <div class="col-md-8 no-padding">
-            <div class="table-responsive"> 
+            <div class="table-responsive divisions-table"> 
                 <table class="table">
                   <thead>
                     <tr>
+                      <th>Legend</th>
                       <th>Description</th>
-                      <th>Total Number</th>
-                      <th>Percentage</th>
+                      <th>Total Count</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody></tbody>
+                </table>
+              </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 inner-container area-chart-container">
+        <div class="col-md-12 no-padding chart-title">
+            <h4>Areas</h4>
+        </div>
+
+        <div class="col-md-4 no-padding">
+            <div id="area-chart" class="pie-chart"></div>
+        </div>
+
+        <div class="col-md-8 no-padding">
+            <div class="table-responsive area-table"> 
+                <table class="table">
+                  <thead>
                     <tr>
-                        <td>Division 1</td>
-                        <td>100</td>
-                        <td>30%</td>
+                      <th>Legend</th>
+                      <th>Description</th>
+                      <th>Total Count</th>
                     </tr>
-                    <tr>
-                        <td>Division 2</td>
-                        <td>100</td>
-                        <td>30%</td>
-                    </tr>
-                    <tr>
-                        <td>Division 3</td>
-                        <td>100</td>
-                        <td>30%</td>
-                    </tr>
-                    <tr>
-                        <td>Division 4</td>
-                        <td>100</td>
-                        <td>30%</td>
-                    </tr>
-                  </tbody>
+                  </thead>
+                  <tbody></tbody>
                 </table>
               </div>
         </div>

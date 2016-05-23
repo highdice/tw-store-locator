@@ -70,9 +70,13 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('stores/regions/{id}', 'BranchController@getStoresByRegion');
         Route::get('stores/regions', 'LookupController@getRegions'); 
 
+        Route::get('stores/branch/date_opened', 'BranchController@getBranchByDateOpened');
         Route::get('stores/branch/{id}', 'BranchController@getBranch');
         Route::get('stores/branch', 'BranchController@getBranches');
 
+        Route::get('stores/divisions', 'LookupController@getDivisions');
+
+        Route::get('stores/satellite/date_opened', 'SatelliteController@getSatelliteByDateOpened');
         Route::get('stores/satellite/{id}', 'BranchController@getSatellite');
         Route::get('stores/satellite', 'BranchController@getSatellites');
 

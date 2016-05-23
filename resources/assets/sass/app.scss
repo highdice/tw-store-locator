@@ -920,6 +920,12 @@ ul {
 	border-bottom: none;
 }
 
+.chart-title {
+	background: #ffffff;
+    border: 3px solid #e3e3e3;
+    padding: 8px 10px 10px 16px !important
+}
+
 .line-chart {
 	min-width: 310px;
 	height: 400px;
@@ -933,7 +939,6 @@ ul {
 .pie-chart {
 	min-width: 310px;
 	height: 400px;
-	max-width: 600px;
 	margin: 0 auto;
 	background: #ffffff;
 	border: 3px solid #e3e3e3;

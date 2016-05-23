@@ -279,4 +279,24 @@ class SatelliteController extends Controller
         $satellite = new Satellite();
         return $satellite->getByIslandGroup($island_group_id);
     }
+
+    /**
+     * Get satellites by opening date.
+     */
+    public function getSatelliteByDateOpened()
+    {
+        $values = array();
+        $result = array();
+        $satellite = new Satellite();
+        $data = $satellite->getSatelliteByDateOpened();
+
+        foreach($data as $row) {
+            array_push($values, $row->date_opened * 1000);
+            array_push($values, $row->count);
+            array_push($result, $values);
+            $values = array();
+        }
+
+        return $result;
+    }
 }

@@ -212,5 +212,37 @@ class LookupTableSeeder extends Seeder
 	            'created_at' => date('Y-m-d h:i:s'),
 	            'updated_at' => date('Y-m-d h:i:s')
 	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'division',
+	            'title' => 'Division 1',
+	            'description' => '1',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'division',
+	            'title' => 'Division 2',
+	            'description' => '2',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'division',
+	            'title' => 'Division 3',
+	            'description' => '3',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'division',
+	            'title' => 'Division 4',
+	            'description' => '4',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
     }
 }

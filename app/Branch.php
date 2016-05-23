@@ -66,6 +66,16 @@ class Branch extends Model
     }
 
     /**
+     * Get branches by date opened
+     */
+    public function getBranchByDateOpened()
+    {
+       return Branch::groupBy('date_opened')
+                        ->orderBy('date_opened', 'asc')
+                        ->get(array(\DB::raw('COUNT(*) as count'), \DB::raw('UNIX_TIMESTAMP(DATE_ADD(date_opened, INTERVAL 1 DAY)) as date_opened')));
+    }
+
+    /**
      * Get all satellites
      * @param string $where
      * @return json

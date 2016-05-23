@@ -56,4 +56,10 @@ class LookupController extends Controller
         $result = new Lookup();
         return $result->getTradeNames();
     }
+
+    public function getDivisions()
+    {
+        $result = new Lookup();
+        return $result->getDivisions();
+    }
 }

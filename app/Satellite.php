@@ -48,4 +48,15 @@ class Satellite extends Model
     {
        return Satellite::where('island_group', '=', $island_group_id)->get();
     }
+
+    /**
+     * Get satellites by date opened
+     * @return json
+     */
+    public function getSatelliteByDateOpened()
+    {
+       return Satellite::groupBy('date_opened')
+                        ->orderBy('date_opened', 'asc')
+                        ->get(array(\DB::raw('COUNT(*) as count'), \DB::raw('UNIX_TIMESTAMP(DATE_ADD(date_opened, INTERVAL 1 DAY)) as date_opened')));
+    }
 }

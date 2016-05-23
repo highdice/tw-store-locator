@@ -339,4 +339,24 @@ class BranchController extends Controller
         $branch = new Branch();
         return $branch->getStoresByIslandGroup($island_group_id);
     }
+
+    /**
+     * Get branches by opening date.
+     */
+    public function getBranchByDateOpened()
+    {
+        $values = array();
+        $result = array();
+        $branch = new Branch();
+        $data = $branch->getBranchByDateOpened();
+
+        foreach($data as $row) {
+            array_push($values, $row->date_opened * 1000);
+            array_push($values, $row->count);
+            array_push($result, $values);
+            $values = array();
+        }
+
+        return $result;
+    }
 }

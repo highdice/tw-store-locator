@@ -85,4 +85,27 @@ class Lookup extends Model
     {
         return Lookup::where('id', $id)->orderBy('title', 'asc')->get(array('id', 'title', 'description'));
     }
+
+    /**
+     * Get all divisions
+     */
+    public function getDivisions()
+    {
+        return \DB::select(\DB::raw("SELECT lookup.*, 
+                                            IFNULL(b_count, 0) + IFNULL(s_count, 0) as store_count 
+                                    FROM lookup 
+                                    LEFT JOIN (SELECT division, 
+                                                      COUNT(*) as b_count 
+                                              FROM branch 
+                                              GROUP BY division) b 
+                                    ON lookup.description = b.division 
+                                    LEFT JOIN (SELECT division, 
+                                                      COUNT(*) as s_count 
+                                              FROM satellite
+                                              GROUP BY division) s
+                                    ON lookup.description = s.division 
+                                    WHERE lookup.key = 'division'
+                                    GROUP BY lookup.id")
+                          );
+    }
 }
