@@ -9,6 +9,7 @@ use App\Branch;
 use App\Satellite;
 use App\Http\Controllers\Controller;
 use Response;
+use Redirect;
 
 class BranchController extends Controller
 {
@@ -63,13 +64,48 @@ class BranchController extends Controller
     }
 
     /**
-     * Handles view for the stores menu item.
+     * Handles view for the branches page.
      * @return view
      */
     public function index()
     {
         $result = new Branch();
         $data = $result->getPaginatedRecords();
+
+        return view('branch.index', ['data' => $data]);
+    }
+
+    /**
+     * Handles view for the branches search page.
+     *
+     * @param  none
+     * @return Branch
+     */
+    public function search(Request $data)
+    {  
+        $search = array();
+        $where = array();
+
+        //check if search data is set
+        if(isset($data['search'])) {
+            //branch search
+            array_push($search, "code LIKE '%" . $data['search'] . "%'");
+            array_push($search, "branch_code LIKE '%" . $data['search'] . "%'");
+            array_push($search, "trade_name_prefix LIKE '%" . $data['search'] . "%'");
+            array_push($search, "trade_name LIKE '%" . $data['search'] . "%'");
+            array_push($search, "name LIKE '%" . $data['search'] . "%'");
+            array_push($search, "division LIKE '%" . $data['search'] . "%'");
+            array_push($search, "area LIKE '%" . $data['search'] . "%'");
+
+            $search = implode(" OR ", $search);
+            array_push($where, $search);
+        }
+        
+        array_push($where, "status = 1");
+        $where = implode(" AND ", $where);
+
+        $result = new Branch();
+        $data = $result->getPaginatedRecordsBySearch($where);
 
         return view('branch.index', ['data' => $data]);
     }
@@ -159,18 +195,6 @@ class BranchController extends Controller
         }
 
         return $branch->getStores($branch_where, $satellite_where);
-    }
-
-    /**
-     * Handles index searching capability.
-     * @return view
-     */
-    public function search($criteria)
-    {
-        $result = new Branch();
-        $data = $result->getPaginatedRecords();
-
-        return view('branch.index', ['data' => $data]);
     }
 
     /**
@@ -276,7 +300,7 @@ class BranchController extends Controller
 
         $branch->save();
 
-        return redirect('stores');
+        return Redirect::back()->with('success_message', 'Success! Branch details have been updated.');
     }
 
     /**

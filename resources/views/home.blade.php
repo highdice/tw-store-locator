@@ -8,7 +8,7 @@
         <ul>
             <li id="show-historical-chart" class="sidebar-js-button active">
                 <i class="fa fa-btn fa-line-chart"></i>
-                Historical
+                Development
             </li>
         </ul>
 

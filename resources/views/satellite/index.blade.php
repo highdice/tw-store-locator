@@ -33,28 +33,18 @@
 </div>
 
 <div class="inner-container top-30">
-  <div class="col-lg-12 no-padding"> 
-    <div class="input-group"> 
-      <span class="input-group-addon" id="sizing-addon2"><i class="glyphicon glyphicon-search"></i></span>
-      <input type="text" class="form-control" placeholder="Search filter"> 
-      <div class="input-group-btn"> 
-        <button type="button" class="btn btn-primary">Search</button> 
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-          <span class="search-by">By Any</span><span class="caret"></span>
-        </button> 
-
-        <ul class="dropdown-menu dropdown-menu-right">
-          <li class="filter-item"><a href="javascript:void(0)">Satellite Code</a></li>
-          <li class="filter-item"><a href="javascript:void(0)">Trade Name</a></li>
-          <li class="filter-item"><a href="javascript:void(0)">Satellite Name</a></li>
-          <li class="filter-item"><a href="javascript:void(0)">Area</a></li> 
-          <li class="filter-item"><a href="javascript:void(0)">Division</a></li>
-          <li role="separator" class="divider"></li>
-          <li class="filter-item"><a href="javascript:void(0)">Any</a></li>
-        </ul>
+  <form class="form-horizontal" role="form" method="POST" action="{{ url('stores/' . $branch_id . '/satellite') }}">
+    {!! csrf_field() !!}
+    <div class="col-lg-12 no-padding">
+      <div class="input-group"> 
+        <span class="input-group-addon" id="sizing-addon2"><i class="glyphicon glyphicon-search"></i></span>
+        <input type="text" class="form-control" name="search" placeholder="Search filter"> 
+        <div class="input-group-btn"> 
+          <button type="submit" class="btn btn-primary">Search</button> 
+        </div> 
       </div> 
-    </div> 
-  </div>
+    </div>
+  </form>
 
   <div class="table-responsive"> 
     <table class="table">
@@ -73,7 +63,7 @@
         @foreach ($data as $datum)
           <tr class="{{ ($x % 2) ? 'odd' : '' }}">
             <td>{{ $datum->satellite_code }}</td>
-            <td>{{ $datum->trade_name }}</td>
+            <td>{{ $datum->trade_name_prefix . ' - ' . $datum->getTradeName->description }}</td>
             <td>{{ $datum->name }}</td>
             <td>{{ $datum->division }}</td>
             <td>

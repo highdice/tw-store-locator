@@ -37,6 +37,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/dashboard', 'HomeController@index');
 
     Route::group(['prefix' => 'users'], function() {    
+        Route::post('/', 'UserController@search');
 		Route::get('/', 'UserController@index');
 		Route::get('/add', 'UserController@add');
 		Route::get('/{id}/edit', 'UserController@edit');
@@ -45,14 +46,16 @@ Route::group(['middleware' => 'web'], function () {
 		Route::get('/{id}/change_password', 'UserController@changePassword');
 	});
 
-    Route::group(['prefix' => 'stores'], function() {    
+    Route::group(['prefix' => 'stores'], function() {   
+        Route::post('/', 'BranchController@search'); 
 		Route::get('/', 'BranchController@index');
 		Route::get('/locator', 'BranchController@locator');
 		Route::get('/add', 'BranchController@add');
 		Route::get('/{id}/edit', 'BranchController@edit');
 		Route::get('/{id}/status', 'BranchController@status');
 
-		Route::group(['prefix' => '/{branch_id}/satellite'], function() { 
+		Route::group(['prefix' => '/{branch_id}/satellite'], function() {
+            Route::post('/', 'SatelliteController@search');
 			Route::get('/', 'SatelliteController@index');
 			Route::get('/add', 'SatelliteController@add');
 			Route::get('/{id}/edit', 'SatelliteController@edit');
@@ -88,5 +91,6 @@ Route::group(['middleware' => 'web'], function () {
     	Route::post('users/add', 'UserController@postAdd');
     	Route::post('users/edit', 'UserController@postEdit');
     	Route::post('users/profile', 'UserController@postProfile');
+        Route::post('users/change_password', 'UserController@postChangePassword');
     });
 });

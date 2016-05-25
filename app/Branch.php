@@ -28,6 +28,16 @@ class Branch extends Model
     }
 
     /**
+     * Get all branches with pagination on search.
+     * @param string $where
+     * @return json
+     */
+    public function getPaginatedRecordsBySearch($where = null)
+    {
+        return Branch::whereRaw($where)->orderBy('id', 'desc')->paginate(10);
+    }
+
+    /**
      * Get all stores
      * @param string $branch_where, string $satellite_where
      * @return json

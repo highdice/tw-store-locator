@@ -2,16 +2,17 @@
 
 @section('content')
 <ol class="breadcrumb">
-  <li class="active">Profile</li>
+  <li><a href="/users">Users</a></li>
+  <li class="active">Change Password</li>
 </ol>
 
 <div class="page-title-container">
-  <h3>Edit User Profile</h3>
+  <h3>Change Password</h3>
   <p>Fields with <i class="glyphicon glyphicon-certificate required"></i> are required.
 </div>
 
 <div class="container top-30">
-    <form class="form-horizontal" role="form" method="POST" action="{{ url('/api/v1/users/profile') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ url('/api/v1/users/change_password') }}">
         {!! csrf_field() !!}
         <div class="panel panel-default">
             <div class="panel-body">
@@ -24,38 +25,45 @@
                 <input type="hidden" name="id" value="{{ $data->id }}">
 
                 <div class="col-md-12">
-                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('old_password') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
-                            <span>Email Address</span>
+                            <span>Old Password</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter the email address here" name="email" value="{{ $data->email }}">
+                            <input type="password" class="form-control" placeholder="Enter your old password here" name="old_password">
 
-                            @if ($errors->has('email'))
+                            @if ($errors->has('old_password'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('email') }}</strong>
+                                    <strong>{{ $errors->first('old_password') }}</strong>
                                 </span>
                             @endif
                         </div>
                     </div>
 
-                    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
-                            <span>Name</span>
-                            <i class="glyphicon glyphicon-certificate input-icon"></i>
-                            <input type="text" class="form-control" placeholder="Enter your name here" name="name" value="{{ $data->name }}">
+                            <span>New Password</span>
+                            <i class="glyphicon glyphicon-certificate input-icon required"></i>
+                            <input type="password" class="form-control" placeholder="Enter your new password here" name="password">
 
-                            @if ($errors->has('name'))
+                            @if ($errors->has('password'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('name') }}</strong>
+                                    <strong>{{ $errors->first('password') }}</strong>
                                 </span>
                             @endif
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
-                            <span>User Level</span>
-                            <span class="required">{{ $data->getUserLevel->title }}</span>
+                            <span>Confirm Password</span>
+                            <i class="glyphicon glyphicon-certificate input-icon required"></i>
+                            <input type="password" class="form-control" placeholder="Confirm your password here" name="password_confirmation">
+
+                            @if ($errors->has('password_confirmation'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                </span>
+                            @endif
                         </div>
                     </div>
                 </div>

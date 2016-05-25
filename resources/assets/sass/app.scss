@@ -159,7 +159,7 @@ ul {
 			}
 
 			&:focus {
-				color: #ffffff;
+				color: #2674ce;
 			}
 		}
 	}
@@ -175,6 +175,8 @@ ul {
 
 		li {
 			a {
+				padding: 10px 15px;
+
 				&:hover {
 					background: #52a7fe;
 					color: #ffffff !important;
@@ -918,6 +920,10 @@ ul {
 	border: 10px solid #e3e3e3;
 	border-top: none;
 	border-bottom: none;
+
+	.input-group {
+		padding: 3px;
+	}
 }
 
 .chart-title {

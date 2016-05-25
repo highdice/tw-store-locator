@@ -8,6 +8,7 @@ use Validator;
 use App\Satellite;
 use App\Http\Controllers\Controller;
 use Response;
+use Redirect;
 
 class SatelliteController extends Controller
 {
@@ -61,13 +62,46 @@ class SatelliteController extends Controller
     }
 
     /**
-     * Handles view for the stores menu item.
+     * Handles view for the satellites page.
      * @return view
      */
     public function index($branch_id)
     {
         $result = new Satellite();
         $data = $result->getPaginatedRecords($branch_id);
+
+        return view('satellite.index', ['data' => $data, 'branch_id' => $branch_id]);
+    }
+
+    /**
+     * Handles view for the satellites search page.
+     * @return view
+     */
+    public function search($branch_id, Request $data)
+    {
+        $search = array();
+        $where = array();
+
+        //check if search data is set
+        if(isset($data['search'])) {
+            //satellite search
+            array_push($search, "satellite_code LIKE '%" . $data['search'] . "%'");
+            array_push($search, "trade_name_prefix LIKE '%" . $data['search'] . "%'");
+            array_push($search, "trade_name LIKE '%" . $data['search'] . "%'");
+            array_push($search, "name LIKE '%" . $data['search'] . "%'");
+            array_push($search, "division LIKE '%" . $data['search'] . "%'");
+            array_push($search, "area LIKE '%" . $data['search'] . "%'");
+
+            $search = implode(" OR ", $search);
+            array_push($where, $search);
+        }
+        
+        array_push($where, "status = 1");
+        array_push($where, "branch_id = " . $branch_id);
+        $where = implode(" AND ", $where);
+
+        $result = new Satellite();
+        $data = $result->getPaginatedRecordsBySearch($where);
 
         return view('satellite.index', ['data' => $data, 'branch_id' => $branch_id]);
     }
@@ -133,18 +167,6 @@ class SatelliteController extends Controller
 
         return $result->leftJoin('Branch', 'Satellite.branch_id', '=', 'Branch.id')
                       ->whereRaw($where)->get(array('Branch.code', 'Satellite.satellite_code', 'Satellite.trade_name_prefix', 'Satellite.trade_name', 'Satellite.name', 'Satellite.address', 'Satellite.region', 'Satellite.island_group', 'Satellite.latitude', 'Satellite.longitude'));
-    }
-
-    /**
-     * Handles index searching capability.
-     * @return view
-     */
-    public function search($criteria)
-    {
-        $result = new Satellite();
-        $data = $result->getPaginatedRecords();
-
-        return view('satellite.index', ['data' => $data]);
     }
 
     /**
@@ -253,7 +275,7 @@ class SatelliteController extends Controller
 
         $satellite->save();
 
-        return redirect('stores/' . $data['branch_id'] . '/satellite');
+        return Redirect::back()->with('success_message', 'Success! Satellite details have been updated.');
     }
 
     /**

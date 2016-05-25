@@ -8,6 +8,8 @@ use Validator;
 use App\User;
 use App\Http\Controllers\Controller;
 use Response;
+use Hash;
+use Redirect;
 
 class UserController extends Controller
 {
@@ -30,7 +32,8 @@ class UserController extends Controller
     protected function validator(array $data, $id = null)
     {
         return Validator::make($data, [
-            'email' => 'required|max:255|email|unique:users,email,'.$id,
+            'email' => 'sometimes|required|max:255|email|unique:users,email,'.$id,
+            'old_password' => 'sometimes|required',
             'password' => 'sometimes|required|confirmed|max:16|min:6',
             'password_confirmation' => 'sometimes|required',
             'name' => 'max:255|min:3',
@@ -39,7 +42,7 @@ class UserController extends Controller
     }
 
     /**
-     * Handles view for the users menu item.
+     * Handles view for the users index page.
      *
      * @param  none
      * @return User
@@ -48,6 +51,37 @@ class UserController extends Controller
     {
         $result = new User();
         $data = $result->getPaginatedRecords();
+        
+        return view('user.index', ['data' => $data]);
+    }
+
+    /**
+     * Handles view for the users search page.
+     *
+     * @param  none
+     * @return User
+     */
+    public function search(Request $data)
+    {  
+        $search = array();
+        $where = array();
+
+        //check if search data is set
+        if(isset($data['search'])) {
+            //user search
+            array_push($search, "id LIKE '%" . $data['search'] . "%'");
+            array_push($search, "email LIKE '%" . $data['search'] . "%'");
+            array_push($search, "name LIKE '%" . $data['search'] . "%'");
+
+            $search = implode(" OR ", $search);
+            array_push($where, $search);
+        }
+        
+        array_push($where, "status = 1");
+        $where = implode(" AND ", $where);
+
+        $result = new User();
+        $data = $result->getPaginatedRecordsBySearch($where);
         
         return view('user.index', ['data' => $data]);
     }
@@ -110,10 +144,12 @@ class UserController extends Controller
     {
         $result = new User();
         $data = $result->where('id', $id)->first();
+
+        return view('user.change_password', ['data' => $data]);
     }
 
     /**
-     * Add a new user.
+     * Add a new user on post.
      *
      * @param  array $data
      * @return User
@@ -130,7 +166,7 @@ class UserController extends Controller
 
         $user = new User;
         $user->email = $data['email'];
-        $user->password = $data['password'];
+        $user->password = Hash::make('t0m$w0rld');
         $user->name = $data['name'];
         $user->user_level = $data['user_level'];
         $user->status = 1;
@@ -140,7 +176,7 @@ class UserController extends Controller
     }
 
     /**
-     * Edit an existing user.
+     * Edit an existing user on post.
      *
      * @param  array $data
      * @return User
@@ -162,11 +198,11 @@ class UserController extends Controller
         $user->where('id', $data['id']);
         $user->update();
 
-        return redirect('users');
+        return Redirect::back()->with('success_message', 'Success! User details have been updated.');
     }
 
     /**
-     * Edit profile.
+     * Edit profile on post.
      *
      * @param  array $data
      * @return User
@@ -187,6 +223,40 @@ class UserController extends Controller
         $user->where('id', $data['id']);
         $user->update();
 
-        return redirect('users/' . $data['id'] . '/profile');
+        return Redirect::back()->with('success_message', 'Success! Your profile has been updated.');
+    }
+
+    /**
+     * Change password on post.
+     *
+     * @param  array $data
+     * @return User
+     */
+    protected function postChangePassword(Request $data)
+    {
+        $validator = $this->validator($data->all(), $data['id']);
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $data, $validator
+            );
+        }
+
+        $user = User::find($data['id']);
+
+        //check if old password is correct
+        if(isset($data['old_password'])) {
+            $old_password = $user['password'];
+
+            if (!Hash::check($data['old_password'], $old_password)) {
+                return Redirect::back()->with('error_message', 'Failed! Old password is incorrect.');
+            }
+        }
+
+        $user->password = Hash::make($data['password']);
+        $user->where('id', $data['id']);
+        $user->update();
+
+        return Redirect::back()->with('success_message', 'Success! Your password has been updated.');
     }
 }

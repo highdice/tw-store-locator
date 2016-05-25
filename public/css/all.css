@@ -5956,15 +5956,17 @@ ul {
   background: #52a7fe !important; }
 
 .navbar-nav li a:focus {
-  color: #ffffff; }
+  color: #2674ce; }
 
 .navbar-nav .open {
   background: #2674ce; }
   .navbar-nav .open a:focus {
     background: #2674ce !important; }
-  .navbar-nav .open li a:hover {
-    background: #52a7fe;
-    color: #ffffff !important; }
+  .navbar-nav .open li a {
+    padding: 10px 15px; }
+    .navbar-nav .open li a:hover {
+      background: #52a7fe;
+      color: #ffffff !important; }
 
 .navbar-nav .active a {
   background: #2674ce !important; }
@@ -6479,6 +6481,8 @@ ul {
   border: 10px solid #e3e3e3;
   border-top: none;
   border-bottom: none; }
+  .inner-container .input-group {
+    padding: 3px; }
 
 .chart-title {
   background: #ffffff;

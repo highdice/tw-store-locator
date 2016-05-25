@@ -45,6 +45,7 @@
                         </div>
                     </div>
 
+                    <!--
                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
                             <span>Password</span>
@@ -72,6 +73,7 @@
                             @endif
                         </div>
                     </div>
+                    -->
 
                     <div class="form-group{{ $errors->has('user_level') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">

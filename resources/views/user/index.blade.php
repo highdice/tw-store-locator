@@ -31,25 +31,18 @@
 </div>
 
 <div class="inner-container top-30">
-  <div class="col-lg-12 no-padding"> 
-    <div class="input-group"> 
-      <span class="input-group-addon" id="sizing-addon2"><i class="glyphicon glyphicon-search"></i></span>
-      <input type="text" class="form-control" placeholder="Search filter"> 
-      <div class="input-group-btn"> 
-        <button type="button" class="btn btn-primary">Search</button> 
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-          <span class="search-by">By Any</span><span class="caret"></span>
-        </button> 
-
-        <ul class="dropdown-menu dropdown-menu-right">
-          <li class="filter-item"><a href="javascript:void(0)">Email Address</a></li>
-          <li class="filter-item"><a href="javascript:void(0)">Name</a></li>
-          <li role="separator" class="divider"></li>
-          <li class="filter-item"><a href="javascript:void(0)">Any</a></li>
-        </ul>
+  <form class="form-horizontal" role="form" method="POST" action="{{ url('/users') }}">
+    {!! csrf_field() !!}
+    <div class="col-lg-12 no-padding"> 
+      <div class="input-group"> 
+        <span class="input-group-addon" id="sizing-addon2"><i class="glyphicon glyphicon-search"></i></span>
+        <input type="text" class="form-control" name="search" placeholder="Search filter"> 
+        <div class="input-group-btn"> 
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div> 
       </div> 
-    </div> 
-  </div>
+    </div>
+  </form>
 
   <div class="table-responsive"> 
     <table class="table">

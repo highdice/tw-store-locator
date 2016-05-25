@@ -27,10 +27,22 @@ class Satellite extends Model
 
     /**
      * Get all satellites with pagination.
+     * @param integer $branch_id
+     * @return json
      */
     public function getPaginatedRecords($branch_id)
     {
         return Satellite::where('branch_id', $branch_id)->orderBy('id', 'desc')->paginate(10);
+    }
+
+    /**
+     * Get all satellites with pagination on search.
+     * @param string $where
+     * @return json
+     */
+    public function getPaginatedRecordsBySearch($where = null)
+    {
+        return Satellite::whereRaw($where)->orderBy('id', 'desc')->paginate(10);
     }
 
     /**

@@ -28,7 +28,9 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get all satellites with pagination.
+     * Get all users with pagination.
+     * @param string $search
+     * @return json
      */
     public function getPaginatedRecords()
     {
@@ -36,7 +38,18 @@ class User extends Authenticatable
     }
 
     /**
+     * Get all users with pagination on search.
+     * @param string $where
+     * @return json
+     */
+    public function getPaginatedRecordsBySearch($where = null)
+    {
+        return User::whereRaw($where)->orderBy('id', 'desc')->paginate(10);
+    }
+
+    /**
      * Get the user level value from lookup table.
+     * @return json
      */
     public function getUserLevel()
     {
