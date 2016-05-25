@@ -6,6 +6,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    protected $table = 'users';
+    protected $lookup_table  = 'App\Lookup';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,5 +33,13 @@ class User extends Authenticatable
     public function getPaginatedRecords()
     {
         return User::orderBy('id', 'desc')->paginate(10);
+    }
+
+    /**
+     * Get the user level value from lookup table.
+     */
+    public function getUserLevel()
+    {
+        return $this->hasOne($this->lookup_table, 'id', 'user_level');
     }
 }

@@ -59,7 +59,7 @@
                                 <button type="submit" class="btn btn-primary guest-button">
                                     <i class="fa fa-btn fa-sign-in"></i>Login
                                 </button>
-                                <a href="{{ url('/register') }}" class="btn btn-primary guest-button">
+                                <a href="{{ url('/register') }}" class="btn btn-primary guest-button hidden">
                                     <i class="fa fa-btn fa-user"></i>Register
                                 </a>
                             </div>

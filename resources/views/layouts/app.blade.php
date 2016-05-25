@@ -40,7 +40,7 @@
                     <li class="{{ (Request::is('dashboard') || Request::is('/')) ? 'active' : '' }}"><a href="{{ url('/dashboard') }}"><i class="fa fa-btn fa-dashboard"></i>Dashboard</a></li>
                     <li class="{{ (Request::is('stores/locator')) ? 'active' : '' }}"><a href="{{ url('/stores/locator') }}"><i class="fa fa-btn fa-map-marker"></i>Locator</a></li>
                     <li class="{{ (Request::is('stores') || Request::is('stores/add') || Request::is('stores/*/edit')) ? 'active' : '' }}"><a href="{{ url('/stores') }}"><i class="fa fa-btn fa-building"></i>Stores</a></li>
-                    <li class="{{ (Request::is('users') || Request::is('users/*')) ? 'active' : '' }}"><a href="{{ url('/users') }}"><i class="fa fa-btn fa-user"></i>Users</a></li>
+                    <li class="{{ (Request::is('users') || Request::is('users/add') || Request::is('users/*/edit')) ? 'active' : '' }}"><a href="{{ url('/users') }}"><i class="fa fa-btn fa-user"></i>Users</a></li>
                 </ul>
                 @endif
 
@@ -51,13 +51,14 @@
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
-                        <li class="dropdown">
+                        <li class="dropdown {{ (Request::is('users/*/profile')) ? 'active' : '' }}">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 Welcome {{ ucwords(Auth::user()->name) }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/user/edit') }}"><i class="fa fa-btn fa-user"></i>Profile</a></li>
+                                <li><a href="{{ url('/users/' . Auth::user()->id . '/profile') }}"><i class="fa fa-btn fa-user"></i>Profile</a></li>
+                                <li><a href="{{ url('/users/' . Auth::user()->id . '/change_password') }}"><i class="fa fa-btn fa-lock"></i>Change Password</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>

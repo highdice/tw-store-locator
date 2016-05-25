@@ -27,40 +27,15 @@ class UserController extends Controller
      * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(array $data, $id = null)
     {
         return Validator::make($data, [
-            'code' => 'required|max:250|unique:branch',
-            'branch_code' => 'required|max:250|unique:branch',
-            'trade_name' => 'required||max:250',
-            'name' => 'required|max:250',
-            'size' => 'required',
-            'date_opened' => 'required|date',
-            'address' => 'required',
-            'zip_code' => 'integer',
-            'region' => 'required',
-            'longitude' => 'required|numeric',
-            'latitude' => 'required|numeric',
-            'division' => 'required|integer|between:1,4',
-            'island_group' => 'required'
+            'email' => 'required|max:255|email|unique:users,email,'.$id,
+            'password' => 'sometimes|required|confirmed|max:16|min:6',
+            'password_confirmation' => 'sometimes|required',
+            'name' => 'max:255|min:3',
+            'user_level' => 'sometimes|required'
         ]);
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    /**
-     * Handles view for the locator menu item.
-     *
-     * @param  none
-     * @return Branch
-     */    
-    public function locator()
-    {
-        return view('branch.locator');
     }
 
     /**
@@ -81,56 +56,67 @@ class UserController extends Controller
      * Handles view for adding a user.
      *
      * @param  none
-     * @return Branch
+     * @return User
      */
     public function add()
     {
-        return view('user.add');
+        $result = new LookupController();
+        $user_levels = $result->getUserLevels();
+
+        return view('user.add', ['user_levels' => $user_levels]);
     }
 
     /**
-     * Handles view for editing a branch.
+     * Handles view for editing a user.
      *
      * @param  none
-     * @return Branch
+     * @return User
      */
     public function edit($id)
     {
-        $result = new Branch();
+        $result = new User();
         $data = $result->where('id', $id)->first();
-        $data->date_opened = date('m/d/Y', strtotime($data->date_opened));
 
         $result = new LookupController();
-        $regions = $result->getRegions();
+        $user_levels = $result->getUserLevels();
 
-        $result = new LookupController();
-        $region = $result->getRegion($data->region);
-
-        return view('branch.edit', ['regions' => $regions, 'region' => $region, 'data' => $data]);
+        return view('user.edit', ['user_levels' => $user_levels, 'data' => $data]);
     }
 
     /**
-     * Lists all active branches.
+     * Handles view for user profile.
      *
-     * @param  array $data
-     * @return Branch
+     * @param  none
+     * @return User
      */
-    public function show(Request $data)
+    public function profile($id)
     {
-        if(empty($data)) {
-            $result = new Branch();
-            return $result->where('status', '1')->get(array('name', 'address', 'region', 'island_group', 'latitude', 'longitude'));
-        }
-        else {
-            return 1;
-        }
+        $result = new User();
+        $data = $result->where('id', $id)->first();
+
+        $result = new LookupController();
+        $user_levels = $result->getUserLevels();
+
+        return view('user.profile', ['user_levels' => $user_levels, 'data' => $data]);
     }
 
     /**
-     * Add a new branch.
+     * Handles view for editing a user.
+     *
+     * @param  none
+     * @return User
+     */
+    public function changePassword($id)
+    {
+        $result = new User();
+        $data = $result->where('id', $id)->first();
+    }
+
+    /**
+     * Add a new user.
      *
      * @param  array $data
-     * @return Branch
+     * @return User
      */
     protected function postAdd(Request $data)
     {
@@ -142,35 +128,26 @@ class UserController extends Controller
             );
         }
 
-        $branch = new Branch;
-        $branch->code = $data['code'];
-        $branch->branch_code = $data['branch_code'];
-        $branch->trade_name = $data['trade_name'];
-        $branch->name = $data['name'];
-        $branch->size = $data['size'];
-        $branch->date_opened = date('Y-m-d h:i:s', strtotime($data['date_opened']));
-        $branch->address = $data['address'];
-        $branch->zip_code = $data['zip_code'];
-        $branch->region = $data['region'];
-        $branch->longitude = $data['longitude'];
-        $branch->latitude = $data['latitude'];
-        $branch->division = $data['division'];
-        $branch->island_group = $data['island_group'];
-        $branch->status = 1;
-        $branch->save();
+        $user = new User;
+        $user->email = $data['email'];
+        $user->password = $data['password'];
+        $user->name = $data['name'];
+        $user->user_level = $data['user_level'];
+        $user->status = 1;
+        $user->save();
 
-        return redirect('stores');
+        return redirect('users');
     }
 
     /**
-     * Edit an existing branch.
+     * Edit an existing user.
      *
      * @param  array $data
-     * @return Branch
+     * @return User
      */
     protected function postEdit(Request $data)
     {
-        $validator = $this->validator($data->all());
+        $validator = $this->validator($data->all(), $data['id']);
 
         if ($validator->fails()) {
             $this->throwValidationException(
@@ -178,45 +155,38 @@ class UserController extends Controller
             );
         }
 
-        $branch = new Branch;
-        $branch->code = $data['code'];
-        $branch->branch_code = $data['branch_code'];
-        $branch->trade_name = $data['trade_name'];
-        $branch->name = $data['name'];
-        $branch->size = $data['size'];
-        $branch->date_opened = date('Y-m-d h:i:s', strtotime($data['date_opened']));
-        $branch->address = $data['address'];
-        $branch->zip_code = $data['zip_code'];
-        $branch->region = $data['region'];
-        $branch->longitude = $data['longitude'];
-        $branch->latitude = $data['latitude'];
-        $branch->division = $data['division'];
-        $branch->island_group = $data['island_group'];
-        $branch->where('id', $data['id']);
-        $branch->update();
+        $user = User::find($data['id']);
+        $user->email = $data['email'];
+        $user->name = $data['name'];
+        $user->user_level = $data['user_level'];
+        $user->where('id', $data['id']);
+        $user->update();
 
-        return redirect('stores');
+        return redirect('users');
     }
 
     /**
-     * Get branch count per island group.
+     * Edit profile.
      *
-     * @param  none
-     * @return Branch
+     * @param  array $data
+     * @return User
      */
-    public function getIslandGroupsCount()
+    protected function postProfile(Request $data)
     {
-        $data = array();
+        $validator = $this->validator($data->all(), $data['id']);
 
-        $luzon = new Branch();
-        array_push($data, $luzon->where('island_group', 1)->count());
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $data, $validator
+            );
+        }
 
-        $visayas = new Branch();
-        array_push($data, $visayas->where('island_group', 2)->count());
+        $user = User::find($data['id']);
+        $user->email = $data['email'];
+        $user->name = $data['name'];
+        $user->where('id', $data['id']);
+        $user->update();
 
-        $mindanao = new Branch();
-        array_push($data, $mindanao->where('island_group', 3)->count());
-
-        return json_encode($data);
+        return redirect('users/' . $data['id'] . '/profile');
     }
 }

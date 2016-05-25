@@ -2,22 +2,21 @@
 
 @section('content')
 <ol class="breadcrumb">
-  <li><a href="/users">Users</a></li>
-  <li class="active">Edit</li>
+  <li class="active">Profile</li>
 </ol>
 
 <div class="page-title-container">
-  <h3>Edit User Details</h3>
+  <h3>Edit User Profile</h3>
   <p>Fields with <i class="glyphicon glyphicon-certificate required"></i> are required.
 </div>
 
 <div class="container top-30">
-    <form class="form-horizontal" role="form" method="POST" action="{{ url('/api/v1/users/edit') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ url('/api/v1/users/profile') }}">
         {!! csrf_field() !!}
         <div class="panel panel-default">
             <div class="panel-body">
                 <input type="hidden" name="id" value="{{ $data->id }}">
-                
+
                 <div class="col-md-12">
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
@@ -47,22 +46,10 @@
                         </div>
                     </div>
 
-                    <div class="form-group{{ $errors->has('user_level') ? ' has-error' : '' }}">
+                    <div class="form-group">
                         <div class="col-md-12 custom-form">
                             <span>User Level</span>
-                            <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            
-                            <select class="form-control" name="user_level" value="{{ $data->user_level }}">
-                                @foreach ($user_levels as $user_level)
-                                    <option value="{{ $user_level->id }}" {{ ($user_level->id == $data->getUserLevel->id) ? 'selected="selected"' : '' }}>{{ $user_level->title }}</option>
-                                @endforeach
-                            </select>
-
-                            @if ($errors->has('user_level'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('user_level') }}</strong>
-                                </span>
-                            @endif
+                            <span class="required">{{ $data->getUserLevel->title }}</span>
                         </div>
                     </div>
                 </div>
@@ -74,9 +61,6 @@
                             <button type="submit" class="btn btn-primary guest-button">
                                 <i class="fa fa-btn fa-check"></i>Submit
                             </button>
-                            <a href="{{ url('/users') }}" class="btn btn-primary guest-button">
-                                <i class="fa fa-btn fa-arrow-left"></i>Back
-                            </a>
                         </div>
                     </div>
                 </div>

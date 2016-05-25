@@ -244,5 +244,29 @@ class LookupTableSeeder extends Seeder
 	            'created_at' => date('Y-m-d h:i:s'),
 	            'updated_at' => date('Y-m-d h:i:s')
 	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'user_level',
+	            'title' => 'Super Admin',
+	            'description' => 'super admin',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'user_level',
+	            'title' => 'Admin',
+	            'description' => 'admin',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'user_level',
+	            'title' => 'User',
+	            'description' => 'user',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
     }
 }

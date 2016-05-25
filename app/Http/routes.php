@@ -40,7 +40,9 @@ Route::group(['middleware' => 'web'], function () {
 		Route::get('/', 'UserController@index');
 		Route::get('/add', 'UserController@add');
 		Route::get('/{id}/edit', 'UserController@edit');
+		Route::get('/{id}/profile', 'UserController@profile');
 		Route::get('/{id}/status', 'UserController@status');
+		Route::get('/{id}/change_password', 'UserController@changePassword');
 	});
 
     Route::group(['prefix' => 'stores'], function() {    
@@ -85,5 +87,6 @@ Route::group(['middleware' => 'web'], function () {
 
     	Route::post('users/add', 'UserController@postAdd');
     	Route::post('users/edit', 'UserController@postEdit');
+    	Route::post('users/profile', 'UserController@postProfile');
     });
 });

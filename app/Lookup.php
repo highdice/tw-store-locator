@@ -108,4 +108,12 @@ class Lookup extends Model
                                     GROUP BY lookup.id")
                           );
     }
+
+    /**
+     * Get user levels
+     */
+    public function getUserLevels()
+    {
+        return Lookup::where('key', 'user_level')->orderBy('id', 'asc')->get(array('id', 'title', 'description'));
+    }
 }
