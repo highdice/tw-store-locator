@@ -5,6 +5,13 @@ $(document).ready(function() {
   var zipLayer,
   gj,
   label,
+  legend_description,
+  tw_description = "Tom's World",
+  al_description = "Austin Land",
+  fh_description = "Fun House",
+  tw_image = "tomsworld-marker.png",
+  al_image = "austinland-marker.png",
+  fh_image = "funhouse-marker.png",
   marker_color = ['#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4', '#203c73', '#002f2f', '#d9a441', '#e2c7b5', '#7a1b36', '#FF6633', '#00B88A', '#3366FF'];
 
   /**
@@ -77,7 +84,6 @@ $(document).ready(function() {
         type: "GET",
         success: function (data) {
           var count = data.length,
-          store,
           marker,
           icon,
           popup,
@@ -87,16 +93,38 @@ $(document).ready(function() {
 
           if (count != 0) {
             for (var i = 0, len = count; i < len; i++) {
-              store = data[i],
+              var store = data[i],
               code = store['code'],
+              modal,
+              modal_logo,
+              modal_color,
               store_code = store['store_code'],
               trade_name_prefix = store['trade_name_prefix'],
               trade_name = store['trade_name'],
               name = store['name'],
               address = store['address'],
               region = store['region'],
-              island_group = store['island_group'];
+              island_group = store['island_group'],
+              contact_number = store['contact_number'],
+              date_opened = store['date_opened'],
+              image = store['image'],
               store_category = store['category'];
+
+              if(trade_name == 23) {
+                legend_description = tw_description;
+                modal_logo = tw_image;
+                modal_color = '#ee4623';
+              }
+              else if(trade_name == 24) {
+                legend_description = al_description;
+                modal_logo = al_image;
+                modal_color = '#37bb96';
+              }
+              else {
+                legend_description = fh_description;
+                modal_logo = fh_image;
+                modal_color = '#f7ac1a';
+              }
 
               //set icon
               icon = L.mapbox.marker.icon({
@@ -114,19 +142,22 @@ $(document).ready(function() {
               //add marker onclick event
               marker.on('click', centerZoom(marker, code));
 
+              //setup modal
+              modal = createModal(modal_color, modal_logo, name, trade_name_prefix + ' - ' + legend_description, code, store_code, address, date_opened, contact_number, image);
+
               //set popup
               popup = L.popup({
                 autoPan: true
-              }).setContent('<div class="popup-header">'
+              }).setContent('<div class="popup-header" style="background: ' + color + '">'
                               +'<h1>'+name+'</h1>'
-                              +'<p>'+address+', '+region+'</p>'
+                              +'<p>'+trade_name_prefix+' - '+legend_description+'</p>'
                             +'</div>'
                             +'<div class="popup-body">'
-                              +'<p>Store Code: '+code+'</p>'
-                              +'<p>Branch Code: '+store_code+'</p>'
-                              +'<p>Trade Name: '+trade_name+'</p>'
-                              +'<p>Open From: 10:00 AM to 9:00 PM</p>'
-                            +'</div>');
+                              +'<center><button type="button" id="marker-button' + i + '" class="btn btn-primary btn-lg marker-button">View Details</button></center>'
+                            +'</div>'
+                            +'<div id="content-marker-button' + i + '" class="hidden">'
+                            +modal
+                            +'<div>');
 
               //bind popup to marker
               marker.bindPopup(popup, {
@@ -176,27 +207,26 @@ $(document).ready(function() {
             color,
             item,
             list,
-            legend_description,
             tw_id = 23,
             tw_color = '#BB3535',
-            tw_description = "Tom's World",
             tw_count = 0,
             al_id = 24,
             al_color = '#35BB41',
-            al_description = "Austin Land",
             al_count = 0,
-            jp_id = 25,
-            jp_color = '#B8BB35',
-            jp_description = "Joy's Planet",
-            jp_count = 0;
+            fh_id = 25,
+            fh_color = '#B8BB35',
+            fh_count = 0;
 
             //show result dropdown
             $('.result-dropdown select').show();
               
             //add markers
             asyncLoop(count, function(loop) {
-              var i = loop.iteration();
+              var i = loop.iteration(),
               store = data[i],
+              modal,
+              modal_logo,
+              modal_color,
               code = store['code'],
               store_code = store['store_code'],
               trade_name_prefix = store['trade_name_prefix'],
@@ -205,22 +235,31 @@ $(document).ready(function() {
               address = store['address'],
               region = store['region'],
               island_group = store['island_group'],
+              contact_number = store['contact_number'],
+              date_opened = store['date_opened'],
+              image = store['image'],
               store_category = store['category'];
 
               if(trade_name == 23) {
                 color = tw_color;
                 legend_description = tw_description;
+                modal_logo = tw_image;
+                modal_color = '#ee4623';
                 tw_count++;
               }
               else if(trade_name == 24) {
                 color = al_color;
                 legend_description = al_description;
+                modal_logo = al_image;
+                modal_color = '#37bb96';
                 al_count++;
               }
               else {
-                color = jp_color;
-                legend_description = jp_description;
-                jp_count++;
+                color = fh_color;
+                legend_description = fh_description;
+                modal_logo = fh_image;
+                modal_color = '#f7ac1a';
+                fh_count++;
               }
 
               //set icon
@@ -246,19 +285,22 @@ $(document).ready(function() {
               //add marker onclick event
               marker.on('click', centerZoom(marker, i));
 
+              //setup modal
+              modal = createModal(modal_color, modal_logo, name, trade_name_prefix + ' - ' + legend_description, code, store_code, address, date_opened, contact_number, image);
+
               //set popup
               popup = L.popup({
                 autoPan: true
-              }).setContent('<div class="popup-header">'
+              }).setContent('<div class="popup-header" style="background: ' + color + '">'
                               +'<h1>'+name+'</h1>'
-                              +'<p>'+address+', '+region+'</p>'
+                              +'<p>'+trade_name_prefix+' - '+legend_description+'</p>'
                             +'</div>'
                             +'<div class="popup-body">'
-                              +'<p>Store Code: '+code+'</p>'
-                              +'<p>Branch Code: '+store_code+'</p>'
-                              +'<p>Trade Name: '+trade_name+'</p>'
-                              +'<p>Open From: 10:00 AM to 9:00 PM</p>'
-                            +'</div>');
+                              +'<center><button type="button" id="marker-button' + i + '" class="btn btn-primary btn-lg marker-button">View Details</button></center>'
+                            +'</div>'
+                            +'<div id="content-marker-button' + i + '" class="hidden">'
+                            +modal
+                            +'<div>');
 
               //bind popup to marker
               marker.bindPopup(popup, {
@@ -279,7 +321,7 @@ $(document).ready(function() {
                 //set legends
                 setLegend(tw_color, tw_description, tw_count);
                 setLegend(al_color, al_description, al_count);
-                setLegend(jp_color, jp_description, jp_count);
+                setLegend(fh_color, fh_description, fh_count);
 
                 if(count > 0) {
                   //pan to marker if count is only one
@@ -305,8 +347,8 @@ $(document).ready(function() {
                     $('.result-dropdown select').append('<option value="' + al_id + '">' + al_description + '</option>');
                   }
 
-                  if(jp_count > 0) {
-                    $('.result-dropdown select').append('<option value="' + jp_id + '">' + jp_description + '</option>');
+                  if(fh_count > 0) {
+                    $('.result-dropdown select').append('<option value="' + fh_id + '">' + fh_description + '</option>');
                   }                  
                 }
                 else {
@@ -455,6 +497,58 @@ $(document).ready(function() {
   }
 
   /**
+   * Create modal content
+   * @param {string} color, {string} logo, {string} name, {string} trade_name, {string} store_code
+   * @param {string} code, {string} address, {date} date_opened, {string} contact_number, {string} image
+   * @return {string} content
+   */
+  function createModal(color, logo, name, trade_name, store_code, code, address, date_opened, contact_number, image) {
+    var content = '<div class="marker-modal-header modal-header" style="background: ' + color + '">'
+              +'<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+              +'<center>'
+                  +'<img src="../build/css/images/' + logo + '" alt="" class="modal-logo img-responsive">'
+                  +'<h3 class="modal-title" id="myModalLabel">' + name + '</h3>'
+                  +'<p>' + trade_name + '</p>'
+              +'</center>'
+            +'</div>'
+            +'<div class="marker-modal-body modal-body">'
+              +'<p class="title">'
+                  +'Store Code:'
+              +'</p>'
+              +'<div class="well well-sm description">' + store_code + '</div>'
+              +'<p class="title">'
+                  +'Branch Code:'
+              +'</p>'
+              +'<div class="well well-sm description">' + code + '</div>'
+              +'<p class="title">'
+                  +'Address:'
+              +'</p>'
+              +'<div class="well well-sm description">' + address + '</div>'
+              +'<p class="title">'
+                  +'Date Opened:'
+              +'</p>'
+              +'<div class="well well-sm description">' + date_opened.substring(0, 10) + '</div>';
+
+    if(contact_number) {
+      content += '<p class="title">'
+                  +'Contact Number:'
+              +'</p>'
+              +'<div class="well well-sm description">' + contact_number + '</div>';
+    }
+
+    if(image) {
+      content += '<p class="title">'
+                  +'Image:'
+              +'</p>'
+              +'<div class="well well-sm description"><img src="../images/' + image + '" alt="" class="img-responsive"></div>';
+    }
+    
+    content += '</div>';
+
+    return content;
+  }
+
+  /**
    * Aynchronous loop
    * @param {number} iterations, {function} func, {undefined} callback
    * @return {function} loop
@@ -487,6 +581,18 @@ $(document).ready(function() {
     loop.next();
     return loop;
   }
+
+  /**
+   * Event for showing modal
+   */
+  $('#map').on('click', '.marker-button', function() {
+    var marker_id = $(this).attr('id');
+    var content = $('#content-' + marker_id).html();
+    
+    $('.modal-inner-content').html('').html(content);
+
+    $("#marker-modal").modal('show');
+  });
 
   /**
    * Event for searching a marker upon hitting enter

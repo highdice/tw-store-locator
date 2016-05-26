@@ -46,13 +46,49 @@ class Branch extends Model
     {
        $satellite = new $this->satellite_table();
 
-       $branch_result = Branch::select('code', 'branch_code as store_code', 'trade_name_prefix', 'trade_name', 'name', 'address', 'region', 'island_group', 'latitude', 'longitude', \DB::raw('"branch" as category'))
+       $branch_result = Branch::select('code', 'branch_code as store_code', 'trade_name_prefix', 'trade_name', 'name', 'address', 'region', 'island_group', 'latitude', 'longitude', 'date_opened', 'contact_number', 'image', \DB::raw('"branch" as category'))
                                 ->whereRaw($branch_where);
 
         return $satellite->leftJoin('Branch', 'Satellite.branch_id', '=', 'Branch.id')
                         ->whereRaw($satellite_where)
                         ->union($branch_result)
-                        ->get(array('Branch.code', 'Satellite.satellite_code as store_code', 'Satellite.trade_name_prefix', 'Satellite.trade_name', 'Satellite.name', 'Satellite.address', 'Satellite.region', 'Satellite.island_group', 'Satellite.latitude', 'Satellite.longitude', \DB::raw('"satellite" as category')));
+                        ->get(array('Branch.code', 'Satellite.satellite_code as store_code', 'Satellite.trade_name_prefix', 'Satellite.trade_name', 'Satellite.name', 'Satellite.address', 'Satellite.region', 'Satellite.island_group', 'Satellite.latitude', 'Satellite.longitude', 'Satellite.date_opened', 'Satellite.contact_number', 'Satellite.image', \DB::raw('"satellite" as category')));
+    }
+
+    /**
+     * Get stores by region
+     * @param integer $region_id
+     * @return json
+     */
+    public function getStoresByRegion($region_id)
+    {
+       $satellite = new $this->satellite_table();
+
+       $branch_result = Branch::select('code', 'branch_code as store_code', 'trade_name_prefix', 'trade_name', 'name', 'address', 'region', 'island_group', 'latitude', 'longitude', 'date_opened', 'contact_number', 'image', \DB::raw('1 as category'))
+                                ->where('region', '=', $region_id);
+
+       return $satellite->leftJoin('Branch', 'Satellite.branch_id', '=', 'Branch.id')
+                        ->where('Satellite.region', '=', $region_id)
+                        ->union($branch_result)
+                        ->get(array('Branch.code', 'Satellite.satellite_code as store_code', 'Satellite.trade_name_prefix', 'Satellite.trade_name', 'Satellite.name', 'Satellite.address', 'Satellite.region', 'Satellite.island_group', 'Satellite.latitude', 'Satellite.longitude', 'Satellite.date_opened', 'Satellite.contact_number', 'Satellite.image', \DB::raw('2 as category')));
+    }
+
+    /**
+     * Get stores by island group
+     * @param integer $island_group_id
+     * @return json
+     */
+    public function getStoresByIslandgroup($island_group_id)
+    {
+       $satellite = new $this->satellite_table();
+
+       $branch_result = Branch::select('code', 'branch_code as store_code', 'trade_name_prefix', 'trade_name', 'name', 'address', 'region', 'island_group', 'latitude', 'longitude', 'date_opened', 'contact_number', 'image', \DB::raw('1 as category'))
+                                ->where('island_group', '=', $island_group_id);
+
+       return $satellite->leftJoin('Branch', 'Satellite.branch_id', '=', 'Branch.id')
+                        ->where('Satellite.island_group', '=', $island_group_id)
+                        ->union($branch_result)
+                        ->get(array('Branch.code', 'Satellite.satellite_code as store_code', 'Satellite.trade_name_prefix', 'Satellite.trade_name', 'Satellite.name', 'Satellite.address', 'Satellite.region', 'Satellite.island_group', 'Satellite.latitude', 'Satellite.longitude', 'Satellite.date_opened', 'Satellite.contact_number', 'Satellite.image', \DB::raw('2 as category')));
     }
 
     /**
@@ -62,7 +98,7 @@ class Branch extends Model
      */
     public function getBranches($where)
     {
-       return Branch::whereRaw($where)->get(array('code', 'branch_code as store_code', 'trade_name_prefix', 'trade_name', 'name', 'address', 'region', 'island_group', 'latitude', 'longitude', \DB::raw('"branch" as category')));
+       return Branch::whereRaw($where)->get(array('code', 'branch_code as store_code', 'trade_name_prefix', 'trade_name', 'name', 'address', 'region', 'island_group', 'latitude', 'longitude', 'date_opened', 'contact_number', 'image', \DB::raw('"branch" as category')));
     }
 
     /**
@@ -96,7 +132,7 @@ class Branch extends Model
 
        return $satellite->leftJoin('Branch', 'Satellite.branch_id', '=', 'Branch.id')
                         ->whereRaw($where)
-                        ->get(array('Branch.code', 'Satellite.satellite_code as store_code', 'Satellite.trade_name_prefix', 'Satellite.trade_name', 'Satellite.name', 'Satellite.address', 'Satellite.region', 'Satellite.island_group', 'Satellite.latitude', 'Satellite.longitude', \DB::raw('"satellite" as category')));
+                        ->get(array('Branch.code', 'Satellite.satellite_code as store_code', 'Satellite.trade_name_prefix', 'Satellite.trade_name', 'Satellite.name', 'Satellite.address', 'Satellite.region', 'Satellite.island_group', 'Satellite.latitude', 'Satellite.longitude', 'Satellite.date_opened', 'Satellite.contact_number', 'Satellite.image', \DB::raw('"satellite" as category')));
     }
 
     /**
@@ -113,41 +149,5 @@ class Branch extends Model
     public function getRegion()
     {
         return $this->hasOne($this->lookup_table, 'id', 'region');
-    }
-
-    /**
-     * Get stores by region
-     * @param integer $region_id
-     * @return json
-     */
-    public function getStoresByRegion($region_id)
-    {
-       $satellite = new $this->satellite_table();
-
-       $branch_result = Branch::select('code', 'branch_code as store_code', 'trade_name_prefix', 'trade_name', 'name', 'address', 'region', 'island_group', 'latitude', 'longitude', \DB::raw('1 as category'))
-                                ->where('region', '=', $region_id);
-
-       return $satellite->leftJoin('Branch', 'Satellite.branch_id', '=', 'Branch.id')
-                        ->where('Satellite.region', '=', $region_id)
-                        ->union($branch_result)
-                        ->get(array('Branch.code', 'Satellite.satellite_code as store_code', 'Satellite.trade_name_prefix', 'Satellite.trade_name', 'Satellite.name', 'Satellite.address', 'Satellite.region', 'Satellite.island_group', 'Satellite.latitude', 'Satellite.longitude', \DB::raw('2 as category')));
-    }
-
-    /**
-     * Get stores by island group
-     * @param integer $island_group_id
-     * @return json
-     */
-    public function getStoresByIslandgroup($island_group_id)
-    {
-       $satellite = new $this->satellite_table();
-
-       $branch_result = Branch::select('code', 'branch_code as store_code', 'trade_name_prefix', 'trade_name', 'name', 'address', 'region', 'island_group', 'latitude', 'longitude', \DB::raw('1 as category'))
-                                ->where('island_group', '=', $island_group_id);
-
-       return $satellite->leftJoin('Branch', 'Satellite.branch_id', '=', 'Branch.id')
-                        ->where('Satellite.island_group', '=', $island_group_id)
-                        ->union($branch_result)
-                        ->get(array('Branch.code', 'Satellite.satellite_code as store_code', 'Satellite.trade_name_prefix', 'Satellite.trade_name', 'Satellite.name', 'Satellite.address', 'Satellite.region', 'Satellite.island_group', 'Satellite.latitude', 'Satellite.longitude', \DB::raw('2 as category')));
     }
 }

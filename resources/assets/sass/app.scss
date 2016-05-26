@@ -327,6 +327,42 @@ ul {
 	}
 }
 
+.modal {
+	.modal-dialog {
+		margin-top: 60px;
+
+		.modal-header {
+			background: #ee4623;
+		    color: #fff;
+
+		    .modal-logo {
+				max-width: 130px;
+			    margin-top: -55px;
+			}
+		}
+
+		.modal-title {
+			margin-top: -40px;
+			text-transform: uppercase;
+		}
+
+		.modal-body {
+			.title {
+				font-size: 16px;
+			}
+
+			.description {
+				margin-top: -5px;
+			}
+
+			img {
+				max-height: 200px;
+    			margin: 0px auto;
+			}
+		}
+	}
+}
+
 #locator-sidebar {
 	position: absolute;
 	left: 0;
@@ -906,12 +942,18 @@ ul {
 	}
 
 	p {
-		color: #BDCEFB;
+		color: #ffffff;
 	}
 }
 
 .popup-body {
 	padding: 20px 15px 10px 15px;
+
+	button {
+		width: 100%;
+    	margin-bottom: 15px;
+    	border-radius: 3px;
+	}
 }
 
 .inner-container {
