@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Response;
 use Hash;
 use Redirect;
+use Excel;
 
 class UserController extends Controller
 {
@@ -149,6 +150,63 @@ class UserController extends Controller
     }
 
     /**
+     * Handles excel export of users.
+     */
+    public function export() {
+        $filename = 'users_' . date('Ymd-his') . '_export';
+        
+        Excel::create($filename, function ($excel) {
+
+            $excel->sheet('Users', function ($sheet) {
+
+                //first row styling and writing content
+                $sheet->mergeCells('A1:W1');
+                $sheet->row(1, function ($row) {
+                    $row->setFontFamily('Verdana');
+                    $row->setFontSize(14);
+                });
+
+                $sheet->row(1, array("Tom's World Philippines"));
+
+                //second row styling and writing content
+                $sheet->row(2, function ($row) {
+
+                    //call cell manipulation methods
+                    $row->setFontFamily('Verdana');
+                    $row->setFontSize(10);
+
+                });
+
+                $sheet->row(2, array('List of all the users'));
+
+                $users = User::get()->toArray();
+
+                if((count($users) > 0)) {
+                    //setting column names
+                    $sheet->appendRow(array_keys($users[0])); // column names
+
+                    //getting last row number
+                    $sheet->row($sheet->getHighestRow(), function ($row) {
+                        $row->setFontFamily('Verdana');
+                        $row->setFontSize(10);
+                        $row->setBackground('#2674ce');
+                        $row->setFontColor('#ffffff');
+                    });
+
+                    //putting data as next rows
+                    foreach ($users as $user) {
+                        $sheet->appendRow($user);
+                    }
+                }
+                else {
+                    $sheet->row(3, array('No records available'));
+                }
+            });
+
+        })->export('xls');
+    }
+
+    /**
      * Add a new user on post.
      *
      * @param  array $data
@@ -199,6 +257,47 @@ class UserController extends Controller
         $user->update();
 
         return Redirect::back()->with('success_message', 'Success! User details have been updated.');
+    }
+
+    /**
+     * Update user status.
+     *
+     * @param  integer $id, integer $status
+     * @return User
+     */
+    protected function postStatus($id, $status)
+    {
+        $message = '';
+
+        $user = User::find($id);
+        $user->status = $status;
+        $user->where('id', $id);
+        $user->update();
+
+        if($status == 0) {
+            $message = 'Success! User with ID ' . $id .' has been deactivated.';
+        }
+        else {
+            $message = 'Success! User with ID ' . $id .' has been activated.';
+        }
+
+        return Redirect::back()->with('success_message', $message);
+    }
+
+    /**
+     * Reset user password.
+     *
+     * @param  integer $id
+     * @return User
+     */
+    protected function postReset($id)
+    {
+        $user = User::find($id);
+        $user->password = Hash::make('t0m$w0rld');
+        $user->where('id', $id);
+        $user->update();
+
+        return Redirect::back()->with('success_message', 'Success! Password for user with ID ' . $id .' has been reset.');
     }
 
     /**

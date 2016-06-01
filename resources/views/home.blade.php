@@ -6,7 +6,7 @@
         <div class="sidebar-divider"></div>
         <p>GENERAL</p>
         <ul>
-            <li id="show-historical-chart" class="sidebar-js-button active">
+            <li class="show-historical-chart sidebar-js-button active">
                 <i class="fa fa-btn fa-line-chart"></i>
                 Development
             </li>
@@ -14,19 +14,19 @@
 
         <p>CATEGORIES</p>
         <ul>
-            <li id="show-island-groups-chart" class="sidebar-js-button">
+            <li class="show-island-groups-chart sidebar-js-button">
                 <i class="glyphicon glyphicon-th"></i>
                 Island Group
             </li>
-            <li id="show-regions-chart" class="sidebar-js-button">
+            <li class="show-regions-chart sidebar-js-button">
                 <i class="glyphicon glyphicon-th"></i>
                 Region
             </li>
-            <li id="show-divisions-chart" class="sidebar-js-button">
+            <li class="show-divisions-chart sidebar-js-button">
                 <i class="glyphicon glyphicon-th"></i>
                 Division
             </li>
-            <li id="show-area-chart" class="sidebar-js-button">
+            <li class="show-area-chart sidebar-js-button">
                 <i class="glyphicon glyphicon-th"></i>
                 Area
             </li>      
@@ -60,7 +60,7 @@
                     <tr>
                       <th>Legend</th>
                       <th>Description</th>
-                      <th>Total Count</th>
+                      <th>Store Count</th>
                     </tr>
                   </thead>
                   <tbody></tbody>
@@ -85,7 +85,7 @@
                     <tr>
                       <th>Legend</th>
                       <th>Description</th>
-                      <th>Total Count</th>
+                      <th>Store Count</th>
                     </tr>
                   </thead>
                   <tbody></tbody>
@@ -110,7 +110,7 @@
                     <tr>
                       <th>Legend</th>
                       <th>Description</th>
-                      <th>Total Count</th>
+                      <th>Store Count</th>
                     </tr>
                   </thead>
                   <tbody></tbody>
@@ -125,17 +125,17 @@
         </div>
 
         <div class="col-md-4 no-padding">
-            <div id="area-chart" class="pie-chart"></div>
+            <div id="areas-chart" class="pie-chart"></div>
         </div>
 
         <div class="col-md-8 no-padding">
-            <div class="table-responsive area-table"> 
+            <div class="table-responsive areas-table"> 
                 <table class="table">
                   <thead>
                     <tr>
                       <th>Legend</th>
                       <th>Description</th>
-                      <th>Total Count</th>
+                      <th>Store Count</th>
                     </tr>
                   </thead>
                   <tbody></tbody>
@@ -153,8 +153,11 @@
               <i class="glyphicon glyphicon-option-horizontal"></i>
             </a>
             <ul class="dropdown-menu">
-                  <li class="dropdown-submenu"><a>Add New Branch</a></li>
-                  <li class="dropdown-submenu"><a>Download CSV Report</a></li>
+                <li class="dropdown-submenu"><a class="show-historical-chart">Development</a></li>
+                <li class="dropdown-submenu"><a class="show-island-groups-chart">Island Group</a></li>
+                <li class="dropdown-submenu"><a class="show-regions-chart">Region</a></li>
+                <li class="dropdown-submenu"><a class="show-divisions-chart">Division</a></li>
+                <li class="dropdown-submenu"><a class="show-area-chart">Area</a></li>
             </ul>
           </div>
         </li>

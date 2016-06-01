@@ -26,6 +26,22 @@ class Satellite extends Model
     }
 
     /**
+     * Get the division value from lookup table.
+     */
+    public function getDivision()
+    {
+        return $this->hasOne($this->lookup_table, 'id', 'division');
+    }
+
+    /**
+     * Get the area value from lookup table.
+     */
+    public function getArea()
+    {
+        return $this->hasOne($this->lookup_table, 'id', 'area');
+    }
+
+    /**
      * Get all satellites with pagination.
      * @param integer $branch_id
      * @return json

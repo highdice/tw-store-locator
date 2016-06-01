@@ -98,15 +98,54 @@ class Lookup extends Model
                                                       COUNT(*) as b_count 
                                               FROM branch 
                                               GROUP BY division) b 
-                                    ON lookup.description = b.division 
+                                    ON lookup.id = b.division 
                                     LEFT JOIN (SELECT division, 
                                                       COUNT(*) as s_count 
                                               FROM satellite
                                               GROUP BY division) s
-                                    ON lookup.description = s.division 
+                                    ON lookup.id = s.division 
                                     WHERE lookup.key = 'division'
                                     GROUP BY lookup.id")
                           );
+    }
+
+    /**
+     * Get a division by id
+     */
+    public function getDivision($id)
+    {
+        return Lookup::where('id', $id)->orderBy('title', 'asc')->first(array('id', 'title', 'description'));
+    }
+
+    /**
+     * Get all areas
+     */
+    public function getAreas()
+    {
+        return \DB::select(\DB::raw("SELECT lookup.*, 
+                                            IFNULL(b_count, 0) + IFNULL(s_count, 0) as store_count 
+                                    FROM lookup 
+                                    LEFT JOIN (SELECT area, 
+                                                      COUNT(*) as b_count 
+                                              FROM branch 
+                                              GROUP BY area) b 
+                                    ON lookup.id = b.area 
+                                    LEFT JOIN (SELECT area, 
+                                                      COUNT(*) as s_count 
+                                              FROM satellite
+                                              GROUP BY area) s
+                                    ON lookup.id = s.area 
+                                    WHERE lookup.key = 'area'
+                                    GROUP BY lookup.id")
+                          );
+    }
+
+    /**
+     * Get a area by id
+     */
+    public function getArea($id)
+    {
+        return Lookup::where('id', $id)->orderBy('title', 'asc')->first(array('id', 'title', 'description'));
     }
 
     /**

@@ -6031,6 +6031,9 @@ ul {
   box-shadow: 1px 2px 3px #505050;
   border-radius: 50%; }
 
+.legend-default {
+  box-shadow: none; }
+
 .map-legends .map-legend {
   padding: 0px; }
 
@@ -6411,7 +6414,8 @@ ul {
   padding-left: 0px;
   border: 10px solid #e3e3e3;
   border-top: none;
-  border-bottom: none; }
+  border-bottom: none;
+  margin-bottom: 100px; }
   .inner-container .input-group {
     padding: 3px; }
 
@@ -6444,7 +6448,7 @@ ul {
   margin-bottom: 10px; }
 
 #bottom-nav {
-  position: absolute;
+  position: fixed;
   z-index: 2;
   bottom: 0;
   width: 100%;

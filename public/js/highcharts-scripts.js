@@ -1,14 +1,16 @@
 $(document).ready(function() {
     var colors = ['#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4', '#203c73', '#002f2f', '#d9a441', '#e2c7b5', '#7a1b36', '#FF6633', '#00B88A', '#3366FF'],
-    default_color = '#c0c0c0',
+    default_color = '#d0d0d0',
     hchartSeriesOptions = [],
     igchartSeriesOptions = [],
     rchartSeriesOptions = [],
     dchartSeriesOptions = [],
+    achartSeriesOptions = [],
     hchartCounter = 0,
     igchartCounter = 0,
     rchartCounter = 0,
     dchartCounter = 0,
+    achartCounter = 0,
     hchart = ['Branch', 'Satellite'];
 
     Highcharts.setOptions({
@@ -35,10 +37,11 @@ $(document).ready(function() {
 
         $.each(data, function (i, row) {
             var store_count = (row['store_count']) ? row['store_count'] : null,
+            is_default = (store_count == null) ? 'legend-default' : '',
             color = (store_count == null) ? default_color : colors[i] ;
 
             $('.island-groups-table tbody').append('<tr>'
-                            + '<td><div class="legend-icon legend-content" style="background: ' + color + ';"></div></td>'
+                            + '<td><div class="legend-icon legend-content ' + is_default + '" style="background: ' + color + ';"></div></td>'
                             + '<td>' + row['title'] + '</td>'
                             + '<td>' + row['store_count'] + '</td>'
                         + '</tr>');
@@ -61,10 +64,11 @@ $(document).ready(function() {
 
         $.each(data, function (i, row) {
             var store_count = (row['store_count']) ? row['store_count'] : null,
+            is_default = (store_count == null) ? 'legend-default' : '',
             color = (store_count == null) ? default_color : colors[i] ;
 
             $('.regions-table tbody').append('<tr>'
-                            + '<td><div class="legend-icon legend-content" style="background: ' + color + ';"></div></td>'
+                            + '<td><div class="legend-icon legend-content ' + is_default + '" style="background: ' + color + ';"></div></td>'
                             + '<td>' + row['title'] + '</td>'
                             + '<td>' + row['store_count'] + '</td>'
                         + '</tr>');
@@ -87,10 +91,11 @@ $(document).ready(function() {
 
         $.each(data, function (i, row) {
             var store_count = (row['store_count']) ? row['store_count'] : null,
+            is_default = (store_count == null) ? 'legend-default' : '',
             color = (store_count == null) ? default_color : colors[i] ;
 
             $('.divisions-table tbody').append('<tr>'
-                            + '<td><div class="legend-icon legend-content" style="background: ' + color + ';"></div></td>'
+                            + '<td><div class="legend-icon legend-content ' + is_default + '" style="background: ' + color + ';"></div></td>'
                             + '<td>' + row['title'] + '</td>'
                             + '<td>' + row['store_count'] + '</td>'
                         + '</tr>');
@@ -104,6 +109,33 @@ $(document).ready(function() {
 
             if (dchartCounter === count) {
                 createPieChart('divisions', dchartSeriesOptions);
+            }
+        });
+    });
+
+    $.getJSON('api/v1/stores/areas', function (data) {
+        count = data.length;
+
+        $.each(data, function (i, row) {
+            var store_count = (row['store_count']) ? row['store_count'] : null,
+            is_default = (store_count == null) ? 'legend-default' : '',
+            color = (store_count == null) ? default_color : colors[i];
+
+            $('.areas-table tbody').append('<tr>'
+                            + '<td><div class="legend-icon legend-content ' + is_default + '" style="background: ' + color + ';"></div></td>'
+                            + '<td>' + row['title'] + '</td>'
+                            + '<td>' + row['store_count'] + '</td>'
+                        + '</tr>');
+
+            achartSeriesOptions[i] = {
+                name: row['title'],
+                y: store_count
+            };
+
+            achartCounter += 1;
+
+            if (achartCounter === count) {
+                createPieChart('areas', achartSeriesOptions);
             }
         });
     });
@@ -212,13 +244,13 @@ $(document).ready(function() {
         });
     }
 
-    $('#show-historical-chart').on('click', function() {
+    $('.show-historical-chart').on('click', function() {
         $('.sidebar-js-button').removeClass('active');
         $(this).addClass('active');
         $('html, body').animate({scrollTop: 0}, 200);
     });
 
-    $('#show-island-groups-chart').on('click', function() {
+    $('.show-island-groups-chart').on('click', function() {
         var position = $('.island-groups-chart-container').position();
 
         $('.sidebar-js-button').removeClass('active');
@@ -226,7 +258,7 @@ $(document).ready(function() {
         $('html, body').animate({scrollTop: position.top + 50}, 200);
     });
 
-    $('#show-regions-chart').on('click', function() {
+    $('.show-regions-chart').on('click', function() {
         var position = $('.regions-chart-container').position();
 
         $('.sidebar-js-button').removeClass('active');
@@ -234,7 +266,7 @@ $(document).ready(function() {
         $('html, body').animate({scrollTop: position.top + 50}, 200);
     });
 
-    $('#show-divisions-chart').on('click', function() {
+    $('.show-divisions-chart').on('click', function() {
         var position = $('.divisions-chart-container').position();
 
         $('.sidebar-js-button').removeClass('active');
@@ -242,7 +274,7 @@ $(document).ready(function() {
         $('html, body').animate({scrollTop: position.top + 50}, 200);
     });
 
-    $('#show-area-chart').on('click', function() {
+    $('.show-area-chart').on('click', function() {
         var position = $('.area-chart-container').position();
 
         $('.sidebar-js-button').removeClass('active');

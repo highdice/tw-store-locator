@@ -63,6 +63,24 @@ class LookupController extends Controller
         return $result->getDivisions();
     }
 
+    public function getDivision($id)
+    {
+        $result = new Lookup();
+        return $result->getDivision($id);
+    }
+
+    public function getAreas()
+    {
+        $result = new Lookup();
+        return $result->getAreas();
+    }
+
+    public function getArea($id)
+    {
+        $result = new Lookup();
+        return $result->getArea($id);
+    }
+
     public function getUserLevels()
     {
         $result = new Lookup();

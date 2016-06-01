@@ -268,5 +268,101 @@ class LookupTableSeeder extends Seeder
 	            'created_at' => date('Y-m-d h:i:s'),
 	            'updated_at' => date('Y-m-d h:i:s')
 	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'area',
+	            'title' => 'North 1',
+	            'description' => 'North 1',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'area',
+	            'title' => 'North 2',
+	            'description' => 'North 2',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'area',
+	            'title' => 'North 3',
+	            'description' => 'North 3',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'area',
+	            'title' => 'North 4',
+	            'description' => 'North 4',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'area',
+	            'title' => 'North 5',
+	            'description' => 'North 5',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'area',
+	            'title' => 'Central 1',
+	            'description' => 'Central 1',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'area',
+	            'title' => 'Central 2',
+	            'description' => 'Central 2',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'area',
+	            'title' => 'Vismin',
+	            'description' => 'Vismin',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'area',
+	            'title' => 'South 1',
+	            'description' => 'South 1',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'area',
+	            'title' => 'South 2',
+	            'description' => 'South 2',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'area',
+	            'title' => 'South 3',
+	            'description' => 'South 3',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
+
+	    DB::table('lookup')->insert([
+	            'key' => 'area',
+	            'title' => 'South 4',
+	            'description' => 'South 4',
+	            'created_at' => date('Y-m-d h:i:s'),
+	            'updated_at' => date('Y-m-d h:i:s')
+	    ]);
     }
 }

@@ -10,6 +10,7 @@ use App\Satellite;
 use App\Http\Controllers\Controller;
 use Response;
 use Redirect;
+use Excel;
 
 class BranchController extends Controller
 {
@@ -42,8 +43,8 @@ class BranchController extends Controller
             'region' => 'required',
             'longitude' => 'required|numeric',
             'latitude' => 'required|numeric',
-            'area' => 'required|max:250',
-            'division' => 'required|integer|between:1,4',
+            'area' => 'required|integer',
+            'division' => 'required|integer',
             'island_group' => 'required',
             'image_path' => 'mimes:png,jpeg,jpg'
         ]);
@@ -119,7 +120,10 @@ class BranchController extends Controller
         $result = new LookupController();
         $regions = $result->getRegions();
         $trade_names = $result->getTradeNames();
-        return view('branch.add', ['regions' => $regions, 'trade_names' => $trade_names]);
+        $divisions = $result->getDivisions();
+        $areas = $result->getAreas();
+
+        return view('branch.add', ['regions' => $regions, 'trade_names' => $trade_names, 'divisions' => $divisions, 'areas' => $areas]);
     }
 
     /**
@@ -135,9 +139,11 @@ class BranchController extends Controller
 
         $result = new LookupController();
         $regions = $result->getRegions();
-        $trade_names = $result->getTradeNames();     
+        $trade_names = $result->getTradeNames();
+        $divisions = $result->getDivisions();
+        $areas = $result->getAreas();
 
-        return view('branch.edit', ['regions' => $regions, 'trade_names' => $trade_names, 'data' => $data]);
+        return view('branch.edit', ['regions' => $regions, 'trade_names' => $trade_names, 'divisions' => $divisions, 'areas' => $areas, 'data' => $data]);
     }
 
     /**
@@ -195,6 +201,63 @@ class BranchController extends Controller
         }
 
         return $branch->getStores($branch_where, $satellite_where);
+    }
+
+    /**
+     * Handles excel export of branches.
+     */
+    public function export() {
+        $filename = 'branches_' . date('Ymd-his') . '_export';
+        
+        Excel::create($filename, function ($excel) {
+
+            $excel->sheet('Branches', function ($sheet) {
+
+                //first row styling and writing content
+                $sheet->mergeCells('A1:W1');
+                $sheet->row(1, function ($row) {
+                    $row->setFontFamily('Verdana');
+                    $row->setFontSize(14);
+                });
+
+                $sheet->row(1, array("Tom's World Philippines"));
+
+                //second row styling and writing content
+                $sheet->row(2, function ($row) {
+
+                    //call cell manipulation methods
+                    $row->setFontFamily('Verdana');
+                    $row->setFontSize(10);
+
+                });
+
+                $sheet->row(2, array('List of all the branches'));
+
+                $branches = Branch::get()->toArray();
+
+                if((count($branches) > 0)) {
+                    //setting column names
+                    $sheet->appendRow(array_keys($branches[0])); // column names
+
+                    //getting last row number
+                    $sheet->row($sheet->getHighestRow(), function ($row) {
+                        $row->setFontFamily('Verdana');
+                        $row->setFontSize(10);
+                        $row->setBackground('#2674ce');
+                        $row->setFontColor('#ffffff');
+                    });
+
+                    //putting data as next rows
+                    foreach ($branches as $branch) {
+                        $sheet->appendRow($branch);
+                    }
+                }
+                else {
+                    $sheet->row(3, array('No records available'));
+                }
+            });
+
+        })->export('xls');
     }
 
     /**
@@ -304,6 +367,31 @@ class BranchController extends Controller
     }
 
     /**
+     * Update branch status.
+     *
+     * @param  integer $id, integer $status
+     * @return Branch
+     */
+    protected function postStatus($id, $status)
+    {
+        $message = '';
+
+        $user = Branch::find($id);
+        $user->status = $status;
+        $user->where('id', $id);
+        $user->update();
+
+        if($status == 0) {
+            $message = 'Success! Branch with ID ' . $id .' has been deactivated.';
+        }
+        else {
+            $message = 'Success! Branch with ID ' . $id .' has been activated.';
+        }
+
+        return Redirect::back()->with('success_message', $message);
+    }
+
+    /**
      * Lists all active branches.
      * @param  array $data
      * @return array
@@ -362,6 +450,26 @@ class BranchController extends Controller
     {
         $branch = new Branch();
         return $branch->getStoresByIslandGroup($island_group_id);
+    }
+
+    /**
+     * Get branch by division.
+     * @return integer $division_id
+     */
+    public function getStoresByDivision($division_id)
+    {
+        $branch = new Branch();
+        return $branch->getStoresByDivision($division_id);
+    }
+
+    /**
+     * Get branch by area.
+     * @return integer $area_id
+     */
+    public function getStoresByArea($area_id)
+    {
+        $branch = new Branch();
+        return $branch->getStoresByArea($area_id);
     }
 
     /**

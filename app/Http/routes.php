@@ -40,6 +40,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/', 'UserController@search');
 		Route::get('/', 'UserController@index');
 		Route::get('/add', 'UserController@add');
+        Route::get('/export', 'UserController@export');
 		Route::get('/{id}/edit', 'UserController@edit');
 		Route::get('/{id}/profile', 'UserController@profile');
 		Route::get('/{id}/status', 'UserController@status');
@@ -51,6 +52,7 @@ Route::group(['middleware' => 'web'], function () {
 		Route::get('/', 'BranchController@index');
 		Route::get('/locator', 'BranchController@locator');
 		Route::get('/add', 'BranchController@add');
+        Route::get('/export', 'BranchController@export');
 		Route::get('/{id}/edit', 'BranchController@edit');
 		Route::get('/{id}/status', 'BranchController@status');
 
@@ -58,6 +60,7 @@ Route::group(['middleware' => 'web'], function () {
             Route::post('/', 'SatelliteController@search');
 			Route::get('/', 'SatelliteController@index');
 			Route::get('/add', 'SatelliteController@add');
+            Route::get('/export', 'SatelliteController@export');
 			Route::get('/{id}/edit', 'SatelliteController@edit');
 		});
 	});
@@ -69,6 +72,7 @@ Route::group(['middleware' => 'web'], function () {
     	Route::post('stores', 'BranchController@showAll');
     	Route::post('stores/add', 'BranchController@postAdd');
     	Route::post('stores/edit', 'BranchController@postEdit');
+        Route::get('stores/{id}/status/{status}', 'BranchController@postStatus');
     	Route::get('stores/island_groups/{id}', 'BranchController@getStoresByIslandGroup');
         Route::get('stores/island_groups', 'LookupController@getIslandGroups');
 
@@ -79,15 +83,22 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('stores/branch/{id}', 'BranchController@getBranch');
         Route::get('stores/branch', 'BranchController@getBranches');
 
-        Route::get('stores/divisions', 'LookupController@getDivisions');
+        Route::get('stores/divisions/{id}', 'BranchController@getStoresByDivision');
+        Route::get('stores/divisions', 'LookupController@getDivisions'); 
+
+        Route::get('stores/areas/{id}', 'BranchController@getStoresByArea');
+        Route::get('stores/areas', 'LookupController@getAreas');
 
         Route::get('stores/satellite/date_opened', 'SatelliteController@getSatelliteByDateOpened');
         Route::get('stores/satellite/{id}', 'BranchController@getSatellite');
         Route::get('stores/satellite', 'BranchController@getSatellites');
 
+        Route::get('stores/{branch_id}/satellite/{id}/status/{status}', 'SatelliteController@postStatus');
     	Route::post('satellite/add', 'SatelliteController@postAdd');
     	Route::post('satellite/edit', 'SatelliteController@postEdit');
 
+        Route::get('users/{id}/reset', 'UserController@postReset');
+        Route::get('users/{id}/status/{status}', 'UserController@postStatus');
     	Route::post('users/add', 'UserController@postAdd');
     	Route::post('users/edit', 'UserController@postEdit');
     	Route::post('users/profile', 'UserController@postProfile');

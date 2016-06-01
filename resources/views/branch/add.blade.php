@@ -220,29 +220,47 @@
                         </div>
                     </div>
 
-                    <div class="form-group{{ $errors->has('area') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('division') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
-                            <span>Area</span>
+                            <span>Division</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter the area here" name="area" value="{{ old('area') }}">
 
-                            @if ($errors->has('area'))
+                            <select class="form-control" name="division" value="{{ old('division') }}">
+                                @if (!old('division'))
+                                        <option value="">Choose a division</option>
+                                @endif
+
+                                @foreach ($divisions as $division)
+                                    <option value="{{ $division->id }}" {{ (old('division') == $division->id) ? 'selected="selected"' : '' }}>{{ $division->title }}</option>
+                                @endforeach
+                            </select>
+
+                            @if ($errors->has('division'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('area') }}</strong>
+                                    <strong>{{ $errors->first('division') }}</strong>
                                 </span>
                             @endif
                         </div>
                     </div>
 
-                    <div class="form-group{{ $errors->has('division') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('area') ? ' has-error' : '' }}">
                         <div class="col-md-12 custom-form">
-                            <span>Division</span>
+                            <span>Area</span>
                             <i class="glyphicon glyphicon-certificate input-icon required"></i>
-                            <input type="text" class="form-control" placeholder="Enter division number here" name="division" value="{{ old('division') }}">
 
-                            @if ($errors->has('division'))
+                            <select class="form-control" name="area" value="{{ old('area') }}">
+                                @if (!old('area'))
+                                        <option value="">Choose an area</option>
+                                @endif
+
+                                @foreach ($areas as $area)
+                                    <option value="{{ $area->id }}" {{ (old('area') == $area->id) ? 'selected="selected"' : '' }}>{{ $area->title }}</option>
+                                @endforeach
+                            </select>
+
+                            @if ($errors->has('area'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('division') }}</strong>
+                                    <strong>{{ $errors->first('area') }}</strong>
                                 </span>
                             @endif
                         </div>

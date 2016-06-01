@@ -12,10 +12,12 @@
                   Add New Satellite
               </li>
             </a>
-            <li class="sidebar-js-button">
-                <i class="glyphicon glyphicon-download"></i>
-                Download CSV Report
-            </li>
+            <a href="{{ url('stores/' . $branch_id . '/satellite/export') }}">
+              <li class="sidebar-js-button">
+                  <i class="glyphicon glyphicon-download"></i>
+                  Download XLS Report
+              </li>
+            </a>
         </ul>
     </div>
 </aside>
@@ -33,6 +35,12 @@
 </div>
 
 <div class="inner-container top-30">
+  @if (Session::has('error_message'))
+      <div class="alert alert-danger" role="alert">{{ Session::get('error_message') }}</div>
+  @elseif (Session::has('success_message'))
+      <div class="alert alert-success" role="alert">{{ Session::get('success_message') }}</div>
+  @endif
+
   <form class="form-horizontal" role="form" method="POST" action="{{ url('stores/' . $branch_id . '/satellite') }}">
     {!! csrf_field() !!}
     <div class="col-lg-12 no-padding">
@@ -71,12 +79,12 @@
                   <i class="fa fa-btn fa-pencil"></i>
               </a>
               @if ($datum->status == 1)
-                <a href="{{ url('/stores/' . $datum->branch_id . '/satellite/' . $datum->id . '/status') }}" title="Deactivate" class="btn btn-danger action-button">
+                <a href="{{ url('api/v1/stores/' . $datum->branch_id . '/satellite/' . $datum->id . '/status/0') }}" title="Deactivate" class="btn btn-danger action-button">
                     <i class="fa fa-btn fa-close"></i>
                 </a>
               @else
-                <a href="{{ url('/stores/' . $datum->branch_id . '/satellite/' . $datum->id . '/status') }}" title="Activate" class="btn btn-success action-button">
-                  <i class="fa fa-btn fa-close"></i>
+                <a href="{{ url('api/v1/stores/' . $datum->branch_id . '/satellite/' . $datum->id . '/status/1') }}" title="Activate" class="btn btn-success action-button">
+                  <i class="fa fa-btn fa-check"></i>
                 </a>
               @endif
             </td>
@@ -104,8 +112,8 @@
               <i class="glyphicon glyphicon-option-horizontal"></i>
             </a>
             <ul class="dropdown-menu">
-                  <li class="dropdown-submenu"><a>Add New Branch</a></li>
-                  <li class="dropdown-submenu"><a>Download CSV Report</a></li>
+                  <li class="dropdown-submenu"><a href="{{ url('stores/' . $branch_id . '/satellite/add') }}">Add New Satellite</a></li>
+                  <li class="dropdown-submenu"><a href="{{ url('stores/' . $branch_id . '/satellite/export') }}">Download XLS Report</a></li>
             </ul>
           </div>
         </li>

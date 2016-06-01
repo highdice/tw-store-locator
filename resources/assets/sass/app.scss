@@ -418,6 +418,10 @@ ul {
     border-radius: 50%;
 }
 
+.legend-default {
+	box-shadow: none;
+}
+
 .map-legends .map-legend {
 	padding: 0px;
 }
@@ -962,6 +966,7 @@ ul {
 	border: 10px solid #e3e3e3;
 	border-top: none;
 	border-bottom: none;
+	margin-bottom: 100px;
 
 	.input-group {
 		padding: 3px;
@@ -1002,7 +1007,7 @@ ul {
 }
 
 #bottom-nav {
-	position: absolute;
+	position: fixed;
 	z-index: 2;
 	bottom: 0;
 	width: 100%;

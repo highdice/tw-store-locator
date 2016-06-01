@@ -46,10 +46,12 @@
                                     <label>
                                         <input type="checkbox" name="remember"> Remember Me
                                     </label>
+                                    <!--
                                     |
                                     <label class="forgot-password-lbl">
                                         <a href="{{ url('/password/reset') }}">Forgot Password</a>
                                     </label>
+                                    -->
                                 </div>
                             </div>
                         </div>

@@ -105,6 +105,8 @@ $(document).ready(function() {
               address = store['address'],
               region = store['region'],
               island_group = store['island_group'],
+              division = store['division'],
+              area = store['area'],
               contact_number = store['contact_number'],
               date_opened = store['date_opened'],
               image = store['image'],
@@ -235,6 +237,8 @@ $(document).ready(function() {
               address = store['address'],
               region = store['region'],
               island_group = store['island_group'],
+              division = store['division'],
+              area = store['area'],
               contact_number = store['contact_number'],
               date_opened = store['date_opened'],
               image = store['image'],
@@ -639,7 +643,7 @@ $(document).ready(function() {
   /**
    * Event for showing markers based on region
    */
-  $('#show-regions').on('click', function() {
+  $('.show-regions').on('click', function() {
     showMarkersByCategory('regions');
     $(this).addClass('active');
   });
@@ -647,15 +651,31 @@ $(document).ready(function() {
   /**
    * Event for showing markers based on island groups
    */
-  $('#show-island-groups').on('click', function() {
+  $('.show-island-groups').on('click', function() {
     showMarkersByCategory('island_groups');
+    $(this).addClass('active');
+  });
+
+  /**
+   * Event for showing markers based on divisions
+   */
+  $('.show-divisions').on('click', function() {
+    showMarkersByCategory('divisions');
+    $(this).addClass('active');
+  });
+
+  /**
+   * Event for showing markers based on areas
+   */
+  $('.show-areas').on('click', function() {
+    showMarkersByCategory('areas');
     $(this).addClass('active');
   });
 
   /**
    * Event for showing markers based on branches
    */
-  $('#show-branches').on('click', function() {
+  $('.show-branches').on('click', function() {
     showMarkers(undefined, undefined, 'branch');
     $(this).addClass('active');
   });
@@ -663,7 +683,7 @@ $(document).ready(function() {
   /**
    * Event for showing markers based on satellites
    */
-  $('#show-satellites').on('click', function() {
+  $('.show-satellites').on('click', function() {
     showMarkers(undefined, undefined, 'satellite');
     $(this).addClass('active');
   });

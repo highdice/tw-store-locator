@@ -9,6 +9,7 @@ use App\Satellite;
 use App\Http\Controllers\Controller;
 use Response;
 use Redirect;
+use Excel;
 
 class SatelliteController extends Controller
 {
@@ -40,8 +41,8 @@ class SatelliteController extends Controller
             'region' => 'required',
             'longitude' => 'required|numeric',
             'latitude' => 'required|numeric',
-            'area' => 'required|max:250',
-            'division' => 'required|integer|between:1,4',
+            'area' => 'required|integer',
+            'division' => 'required|integer',
             'island_group' => 'required',
             'image_path' => 'mimes:png,jpeg,jpg'
         ]);
@@ -115,7 +116,10 @@ class SatelliteController extends Controller
         $result = new LookupController();
         $regions = $result->getRegions();
         $trade_names = $result->getTradeNames();
-        return view('satellite.add', ['regions' => $regions, 'trade_names' => $trade_names, 'branch_id' => $branch_id]);
+        $divisions = $result->getDivisions();
+        $areas = $result->getAreas();
+
+        return view('satellite.add', ['regions' => $regions, 'trade_names' => $trade_names, 'divisions' => $divisions, 'areas' => $areas, 'branch_id' => $branch_id]);
     }
 
     /**
@@ -133,8 +137,10 @@ class SatelliteController extends Controller
         $regions = $result->getRegions();
         $region = $result->getRegion($data->region);
         $trade_names = $result->getTradeNames();
+        $divisions = $result->getDivisions();
+        $areas = $result->getAreas();
 
-        return view('satellite.edit', ['regions' => $regions, 'trade_names' => $trade_names, 'region' => $region, 'data' => $data]);
+        return view('satellite.edit', ['regions' => $regions, 'trade_names' => $trade_names, 'region' => $region, 'divisions' => $divisions, 'areas' => $areas, 'data' => $data]);
     }
 
     /**
@@ -167,6 +173,63 @@ class SatelliteController extends Controller
 
         return $result->leftJoin('Branch', 'Satellite.branch_id', '=', 'Branch.id')
                       ->whereRaw($where)->get(array('Branch.code', 'Satellite.satellite_code', 'Satellite.trade_name_prefix', 'Satellite.trade_name', 'Satellite.name', 'Satellite.address', 'Satellite.region', 'Satellite.island_group', 'Satellite.latitude', 'Satellite.longitude'));
+    }
+
+    /**
+     * Handles excel export of satellites.
+     */
+    public function export($branch_id) {
+        $filename = 'satellites_' . $branch_id . '_' . date('Ymd-his') . '_export';
+        
+        Excel::create($filename, function ($excel) use($branch_id) {
+
+            $excel->sheet('Satellites', function ($sheet) use($branch_id) {
+
+                //first row styling and writing content
+                $sheet->mergeCells('A1:W1');
+                $sheet->row(1, function ($row) {
+                    $row->setFontFamily('Verdana');
+                    $row->setFontSize(14);
+                });
+
+                $sheet->row(1, array("Tom's World Philippines"));
+
+                //second row styling and writing content
+                $sheet->row(2, function ($row) {
+
+                    //call cell manipulation methods
+                    $row->setFontFamily('Verdana');
+                    $row->setFontSize(10);
+
+                });
+
+                $sheet->row(2, array('List of all the satellites for Branch ID #' . $branch_id));
+
+                $satellites = Satellite::where('branch_id', '=', $branch_id)->get()->toArray();
+
+                if((count($satellites) > 0)) {
+                    //setting column names
+                    $sheet->appendRow(array_keys($satellites[0])); // column names
+
+                    //getting last row number
+                    $sheet->row($sheet->getHighestRow(), function ($row) {
+                        $row->setFontFamily('Verdana');
+                        $row->setFontSize(10);
+                        $row->setBackground('#2674ce');
+                        $row->setFontColor('#ffffff');
+                    });
+
+                    //putting data as next rows
+                    foreach ($satellites as $satellite) {
+                        $sheet->appendRow($satellite);
+                    }
+                }
+                else {
+                    $sheet->row(3, array('No records available'));
+                }
+            });
+
+        })->export('xls');
     }
 
     /**
@@ -276,6 +339,31 @@ class SatelliteController extends Controller
         $satellite->save();
 
         return Redirect::back()->with('success_message', 'Success! Satellite details have been updated.');
+    }
+
+     /**
+     * Update satellite status.
+     *
+     * @param  integer $id, integer $status
+     * @return Satellite
+     */
+    protected function postStatus($branch_id, $id, $status)
+    {
+        $message = '';
+
+        $user = Satellite::find($id);
+        $user->status = $status;
+        $user->where('id', $id);
+        $user->update();
+
+        if($status == 0) {
+            $message = 'Success! Satellite with ID ' . $id .' has been deactivated.';
+        }
+        else {
+            $message = 'Success! Satellite with ID ' . $id .' has been activated.';
+        }
+
+        return Redirect::back()->with('success_message', $message);
     }
 
     /**
