@@ -135,7 +135,7 @@
                             <input type="file" id="image" class="form-control" name="image" value="{{ $data->image }}">
                             
                             @if ($data->image)
-                                <span>An image was already uploaded. <a href="">Click here to view the image.</a></span>
+                                <span>An image was already uploaded. <a href="javascript:void(0);" data-toggle="modal" data-target="#image-modal">Click here to view the image.</a></span>
                             @endif
 
                             @if ($errors->has('image'))
@@ -308,5 +308,22 @@
           </div>
         </div>
     </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="image-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p class="title">
+            Image:
+        </p>
+        <div class="well well-sm description"><img src="{{ URL::to('/') . '/images/' . $data->image }}" alt="" class="img-responsive"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection

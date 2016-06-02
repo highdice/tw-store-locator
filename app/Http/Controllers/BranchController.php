@@ -349,8 +349,11 @@ class BranchController extends Controller
         if(isset($data['image'])) {
             //delete old image
             $old_filename = Branch::where('id', $data['id'])->first(['image']);
-            $old_filename_path = base_path() . '/public/images/' . $old_filename->image;
-            unlink($old_filename_path);
+
+            if($old_filename->image) {
+                $old_filename_path = base_path() . '/public/images/' . $old_filename->image;
+                unlink($old_filename_path);
+            }
 
             //set up new image
             $filename = 'b_' . strtotime(date('Y-m-d h:i:s')) . '.' . $data['image']->getClientOriginalExtension();
@@ -389,6 +392,16 @@ class BranchController extends Controller
         }
 
         return Redirect::back()->with('success_message', $message);
+    }
+
+    /**
+     * Count branches.
+     * @return JSON
+     */
+    protected function count()
+    {
+        $count = Branch::count();
+        return $count;
     }
 
     /**

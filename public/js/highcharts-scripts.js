@@ -32,6 +32,11 @@ $(document).ready(function() {
         });
     });
 
+    $.getJSON('api/v1/stores/count', function (data) {
+        alert(data);
+        $('.branch-count').text(data);
+    }
+
     $.getJSON('api/v1/stores/island_groups', function (data) {
         count = data.length;
 

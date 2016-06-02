@@ -207,8 +207,8 @@ class LookupTableSeeder extends Seeder
 
 	    DB::table('lookup')->insert([
 	            'key' => 'trade_name',
-	            'title' => 'Joy Planet',
-	            'description' => 'Joy Planet',
+	            'title' => 'Fun House',
+	            'description' => 'Fun House',
 	            'created_at' => date('Y-m-d h:i:s'),
 	            'updated_at' => date('Y-m-d h:i:s')
 	    ]);

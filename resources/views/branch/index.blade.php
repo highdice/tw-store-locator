@@ -68,7 +68,7 @@
         @if (isset($data) && count($data) > 0 && !empty($data))
         <?php $x = 0; ?>
         @foreach ($data as $datum)
-          <tr class="{{ ($x % 2) ? 'odd' : '' }}">
+          <tr class="{{ ($x % 2) ? 'odd' : '' }} {{ ($datum->status == 0) ? ' deactivated' : ''  }}">
             <td>{{ $datum->branch_code }}</td>
             <td>{{ $datum->trade_name_prefix . ' - ' . $datum->getTradeName->description }}</td>
             <td>{{ $datum->name }}</td>

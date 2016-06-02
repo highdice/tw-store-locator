@@ -70,6 +70,7 @@ Route::group(['middleware' => 'web'], function () {
      */
     Route::group(['prefix' => 'api/v1'], function() {
     	Route::post('stores', 'BranchController@showAll');
+        Route::get('stores/count', 'BranchController@count');
     	Route::post('stores/add', 'BranchController@postAdd');
     	Route::post('stores/edit', 'BranchController@postEdit');
         Route::get('stores/{id}/status/{status}', 'BranchController@postStatus');
@@ -94,6 +95,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('stores/satellite', 'BranchController@getSatellites');
 
         Route::get('stores/{branch_id}/satellite/{id}/status/{status}', 'SatelliteController@postStatus');
+        Route::get('satellite/count', 'SatelliteController@count');
     	Route::post('satellite/add', 'SatelliteController@postAdd');
     	Route::post('satellite/edit', 'SatelliteController@postEdit');
 

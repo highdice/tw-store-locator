@@ -40,7 +40,41 @@
         <p>This page contains a list of statistical charts and tables</p>
     </div>
 
+    <div class="col-md-4 inner-container count-container">
+        <div class="col-md-12 no-padding chart-title branch-count-container">
+            <h4>Branches</h4>
+
+            <div>
+              <center><h2 class="branch-count"></h2></center>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 inner-container count-container">
+        <div class="col-md-12 no-padding chart-title satellite-count-container">
+            <h4>Satellites</h4>
+
+            <div>
+              <center><h2 class="satellite-count"></h2></center>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 inner-container count-container">
+        <div class="col-md-12 no-padding chart-title total-count-container">
+            <h4>Total Stores</h4>
+
+            <div>
+              <center><h2 class="stores-count"></h2></center>
+            </div>
+        </div>
+    </div>
+
     <div class="col-md-12 inner-container historical-chart-container">
+        <div class="col-md-12 no-padding chart-title">
+            <h4>Development</h4>
+        </div>
+
         <div id="historical-chart" class="line-chart"></div>
     </div>
 

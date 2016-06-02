@@ -66,7 +66,7 @@
         @if (isset($data) && count($data) > 0 && !empty($data))
         <?php $x = 0; ?>
         @foreach ($data as $datum)
-          <tr class="{{ ($x % 2) ? 'odd' : '' }}">
+          <tr class="{{ ($x % 2) ? 'odd' : '' }} {{ ($datum->status == 0) ? ' deactivated' : ''  }}">
             <td>{{ $datum->id }}</td>
             <td>{{ $datum->email }}</td>
             <td>{{ $datum->name }}</td>

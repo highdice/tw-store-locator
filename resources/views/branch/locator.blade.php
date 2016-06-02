@@ -114,45 +114,7 @@
 <div class="modal fade" id="marker-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <center>
-            <img src="../build/css/images/tomsworld-marker.png" alt="" class="modal-logo img-responsive">
-            <h3 class="modal-title" id="myModalLabel">Modal title</h3>
-            <p>PTI - Tom's World</p>
-        </center>
-      </div>
-      <div class="modal-body">
-        <p class="title">
-            Store Code:
-        </p>
-        <div class="well well-sm description">PL01</div>
-
-        <p class="title">
-            Branch Code:
-        </p>
-        <div class="well well-sm description">PL1</div>
-
-        <p class="title">
-            Address:
-        </p>
-        <div class="well well-sm description">3rd Level, Xsite Area and KBOX Festival Super Mall, Filinvest, Alabang, Muntinlupa City</div>
-        
-        <p class="title">
-            Date Opened:
-        </p>
-        <div class="well well-sm description">1987-07-09</div>
-
-        <p class="title">
-            Contact Number:
-        </p>
-        <div class="well well-sm description">0919 923-4232</div>
-
-        <p class="title">
-            Image:
-        </p>
-        <div class="well well-sm description"><img src="../build/css/images/tw-logo_orig1.jpg" alt="" class="img-responsive"></div>
-      </div>
+      <div class="modal-inner-content"></div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
