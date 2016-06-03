@@ -5992,7 +5992,7 @@ ul {
       max-width: 130px;
       margin-top: -55px; }
   .modal .modal-dialog .modal-title {
-    margin-top: -40px;
+    margin-top: -50px;
     text-transform: uppercase; }
   .modal .modal-dialog .modal-body .title {
     font-size: 16px; }
@@ -6435,6 +6435,7 @@ ul {
   min-width: 310px;
   height: 400px;
   margin: 0 auto;
+  margin-bottom: 50px;
   background: #ffffff;
   padding-top: 10px;
   border: 3px solid #e3e3e3; }
@@ -6459,7 +6460,7 @@ ul {
 .satellite-count-container {
   background: #3E76BD; }
 
-.total-count-container {
+.user-count-container {
   background: #2A902E; }
 
 .search-by {

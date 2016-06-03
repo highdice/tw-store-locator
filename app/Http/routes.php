@@ -101,6 +101,7 @@ Route::group(['middleware' => 'web'], function () {
 
         Route::get('users/{id}/reset', 'UserController@postReset');
         Route::get('users/{id}/status/{status}', 'UserController@postStatus');
+        Route::get('users/count', 'UserController@count');
     	Route::post('users/add', 'UserController@postAdd');
     	Route::post('users/edit', 'UserController@postEdit');
     	Route::post('users/profile', 'UserController@postProfile');

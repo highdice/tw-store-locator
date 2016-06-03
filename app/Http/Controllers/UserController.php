@@ -301,6 +301,16 @@ class UserController extends Controller
     }
 
     /**
+     * Count users.
+     * @return integer
+     */
+    protected function count()
+    {
+        $count = User::count();
+        return $count;
+    }
+
+    /**
      * Edit profile on post.
      *
      * @param  array $data

@@ -62,6 +62,7 @@
           <th>Trade Name</th>
           <th>Name</th>
           <th>Division</th>
+          <th>Area</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -73,7 +74,8 @@
             <td>{{ $datum->satellite_code }}</td>
             <td>{{ $datum->trade_name_prefix . ' - ' . $datum->getTradeName->description }}</td>
             <td>{{ $datum->name }}</td>
-            <td>{{ $datum->division }}</td>
+            <td>{{ $datum->getDivision->title }}</td>
+            <td>{{ $datum->getArea->title }}</td>
             <td>
               <a href="{{ url('/stores/' . $datum->branch_id . '/satellite/' . $datum->id . '/edit' ) }}" title="Update" class="btn btn-info action-button">
                   <i class="fa fa-btn fa-pencil"></i>

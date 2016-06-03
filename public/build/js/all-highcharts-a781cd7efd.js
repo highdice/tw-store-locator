@@ -399,9 +399,16 @@ $(document).ready(function() {
     });
 
     $.getJSON('api/v1/stores/count', function (data) {
-        alert(data);
         $('.branch-count').text(data);
-    }
+    });
+
+    $.getJSON('api/v1/satellite/count', function (data) {
+        $('.satellite-count').text(data);
+    });
+
+    $.getJSON('api/v1/users/count', function (data) {
+        $('.user-count').text(data);
+    });
 
     $.getJSON('api/v1/stores/island_groups', function (data) {
         count = data.length;
@@ -615,10 +622,18 @@ $(document).ready(function() {
         });
     }
 
-    $('.show-historical-chart').on('click', function() {
+    $('.show-count-container').on('click', function() {
         $('.sidebar-js-button').removeClass('active');
         $(this).addClass('active');
         $('html, body').animate({scrollTop: 0}, 200);
+    });
+
+    $('.show-historical-chart').on('click', function() {
+        var position = $('.historical-chart-container').position();
+
+        $('.sidebar-js-button').removeClass('active');
+        $(this).addClass('active');
+        $('html, body').animate({scrollTop: position.top + 50}, 200);
     });
 
     $('.show-island-groups-chart').on('click', function() {

@@ -396,7 +396,7 @@ class BranchController extends Controller
 
     /**
      * Count branches.
-     * @return JSON
+     * @return integer
      */
     protected function count()
     {

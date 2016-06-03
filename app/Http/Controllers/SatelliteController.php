@@ -367,6 +367,16 @@ class SatelliteController extends Controller
     }
 
     /**
+     * Count satellites.
+     * @return integer
+     */
+    protected function count()
+    {
+        $count = Satellite::count();
+        return $count;
+    }
+
+    /**
      * Get satellite by region.
      * @return string $region_id
      */

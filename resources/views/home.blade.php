@@ -6,7 +6,11 @@
         <div class="sidebar-divider"></div>
         <p>GENERAL</p>
         <ul>
-            <li class="show-historical-chart sidebar-js-button active">
+            <li class="show-count-container sidebar-js-button active">
+                <i class="glyphicon glyphicon-signal"></i>
+                Statistics
+            </li>
+            <li class="show-historical-chart sidebar-js-button">
                 <i class="fa fa-btn fa-line-chart"></i>
                 Development
             </li>
@@ -40,32 +44,34 @@
         <p>This page contains a list of statistical charts and tables</p>
     </div>
 
-    <div class="col-md-4 inner-container count-container">
-        <div class="col-md-12 no-padding chart-title branch-count-container">
-            <h4>Branches</h4>
+    <div class="col-md-12 no-padding inner-container">
+        <div class="col-md-4 col-sm-4 no-padding count-container">
+            <div class="col-md-12 no-padding chart-title branch-count-container">
+                <h4>Branches</h4>
 
-            <div>
-              <center><h2 class="branch-count"></h2></center>
+                <div>
+                  <center><h2 class="branch-count"></h2></center>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-4 inner-container count-container">
-        <div class="col-md-12 no-padding chart-title satellite-count-container">
-            <h4>Satellites</h4>
+        <div class="col-md-4 col-sm-4 no-padding count-container">
+            <div class="col-md-12 no-padding chart-title satellite-count-container">
+                <h4>Satellites</h4>
 
-            <div>
-              <center><h2 class="satellite-count"></h2></center>
+                <div>
+                  <center><h2 class="satellite-count"></h2></center>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-4 inner-container count-container">
-        <div class="col-md-12 no-padding chart-title total-count-container">
-            <h4>Total Stores</h4>
+        <div class="col-md-4 col-sm-4 no-padding count-container">
+            <div class="col-md-12 no-padding chart-title user-count-container">
+                <h4>Users</h4>
 
-            <div>
-              <center><h2 class="stores-count"></h2></center>
+                <div>
+                  <center><h2 class="user-count"></h2></center>
+                </div>
             </div>
         </div>
     </div>
