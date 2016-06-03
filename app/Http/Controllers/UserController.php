@@ -301,16 +301,6 @@ class UserController extends Controller
     }
 
     /**
-     * Count users.
-     * @return integer
-     */
-    protected function count()
-    {
-        $count = User::count();
-        return $count;
-    }
-
-    /**
      * Edit profile on post.
      *
      * @param  array $data
@@ -367,5 +357,15 @@ class UserController extends Controller
         $user->update();
 
         return Redirect::back()->with('success_message', 'Success! Your password has been updated.');
+    }
+
+    /**
+     * Count users.
+     * @return integer
+     */
+    protected function count()
+    {
+        $count = User::count();
+        return $count;
     }
 }

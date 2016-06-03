@@ -55,7 +55,7 @@
                     <div class="form-group">
                         <div class="col-md-12 custom-form">
                             <span>User Level</span>
-                            <span class="required">{{ $data->getUserLevel->title }}</span>
+                            <div class="well well-sm required">{{ $data->getUserLevel->title }}</div>
                         </div>
                     </div>
                 </div>

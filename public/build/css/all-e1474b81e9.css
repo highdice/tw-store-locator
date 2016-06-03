@@ -5873,6 +5873,8 @@ ul {
   background: #ffffff;
   padding: 5px;
   border: 3px solid #e3e3e3; }
+  .table-responsive td {
+    vertical-align: middle !important; }
 
 .form-group .input-icon {
   position: absolute;
@@ -5993,6 +5995,12 @@ ul {
     background: #2674ce !important; }
   .navbar-toggle:hover {
     background: #52a7fe !important; }
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  background: #2674ce; }
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background: #2674ce; }
 
 .icon-bar {
   background: #ffffff !important; }
@@ -6522,6 +6530,9 @@ ul {
   background: #ffffff;
   border: 3px solid #e3e3e3;
   padding: 8px 10px 10px 16px !important; }
+  .chart-title h4 {
+    font-size: 16px;
+    font-weight: bold; }
 
 .line-chart {
   min-width: 310px;
