@@ -109,9 +109,13 @@ $(document).ready(function() {
   /**
    * Get regions geojson and add to gj variable
    */
-  $.getJSON('/js/regions.50m.json', function(data) {
-      //zipLayer = L.mapbox.featureLayer(data);
-
+   $.ajax({
+    dataType: "json",
+    url: '/js/regions.50m.json',
+    beforeSend: function(xhr){
+        xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+    },
+    success: function (data) {
       gj = L.geoJson(data, {
           style: function(feature) {
               switch (feature.properties.name) {
@@ -128,6 +132,7 @@ $(document).ready(function() {
           onEachFeature: function (feature, layer) {
           }
       });
+    }
   });
 
   /**
@@ -139,6 +144,9 @@ $(document).ready(function() {
     $.ajax({
         url: "/api/v1/stores/" + category,
         type: "GET",
+        beforeSend: function(xhr){
+            xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+        },
         success: function (data) {
             callback(data);
         },
@@ -155,6 +163,9 @@ $(document).ready(function() {
     $.ajax({
         url: "/api/v1/stores/" + category + "/" + id,
         type: "GET",
+        beforeSend: function(xhr){
+            xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+        },
         success: function (data) {
           var count = data.length,
           marker,
@@ -273,6 +284,9 @@ $(document).ready(function() {
           url: "/api/v1/stores",
           type: "POST",
           data: {'search': search, 'category': category},
+          beforeSend: function(xhr){
+            xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+          },
           success: function (data) {
             var count = data.length,
             store,

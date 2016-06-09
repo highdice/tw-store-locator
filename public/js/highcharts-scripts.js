@@ -18,7 +18,13 @@ $(document).ready(function() {
     });
     
     $.each(hchart, function (i, name) {
-        $.getJSON('api/v1/stores/' + name.toLowerCase() + '/date_opened', function (data) {
+        $.ajax({
+          dataType: "json",
+          url: 'api/v1/stores/' + name.toLowerCase() + '/date_opened',
+          beforeSend: function(xhr){
+            xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+          },
+          success: function (data) {
             hchartSeriesOptions[i] = {
                 name: name,
                 data: data
@@ -29,22 +35,50 @@ $(document).ready(function() {
             if (hchartCounter === hchart.length) {
                 createHistoricalChart();
             }
+          }
         });
     });
 
-    $.getJSON('api/v1/stores/count', function (data) {
+    $.ajax({
+      dataType: "json",
+      url: 'api/v1/stores/count',
+      beforeSend: function(xhr){
+        xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+      },
+      success: function (data) {
         $('.branch-count').text(data);
+      }
     });
 
-    $.getJSON('api/v1/satellite/count', function (data) {
+    $.ajax({
+      dataType: "json",
+      url: 'api/v1/satellite/count',
+      beforeSend: function(xhr){
+        xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+      },
+      success: function (data) {
         $('.satellite-count').text(data);
+      }
     });
 
-    $.getJSON('api/v1/users/count', function (data) {
+    $.ajax({
+      dataType: "json",
+      url: 'api/v1/users/count',
+      beforeSend: function(xhr){
+        xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+      },
+      success: function (data) {
         $('.user-count').text(data);
+      }
     });
 
-    $.getJSON('api/v1/stores/island_groups', function (data) {
+    $.ajax({
+      dataType: "json",
+      url: 'api/v1/stores/island_groups',
+      beforeSend: function(xhr){
+        xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+      },
+      success: function (data) {
         count = data.length;
 
         $.each(data, function (i, row) {
@@ -69,9 +103,16 @@ $(document).ready(function() {
                 createPieChart('island-groups', igchartSeriesOptions);
             }
         });
+      }
     });
 
-    $.getJSON('api/v1/stores/regions', function (data) {
+    $.ajax({
+      dataType: "json",
+      url: 'api/v1/stores/regions',
+      beforeSend: function(xhr){
+        xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+      },
+      success: function (data) {
         count = data.length;
 
         $.each(data, function (i, row) {
@@ -96,9 +137,16 @@ $(document).ready(function() {
                 createPieChart('regions', rchartSeriesOptions);
             }
         });
+      }
     });
 
-    $.getJSON('api/v1/stores/divisions', function (data) {
+    $.ajax({
+      dataType: "json",
+      url: 'api/v1/stores/divisions',
+      beforeSend: function(xhr){
+        xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+      },
+      success: function (data) {
         count = data.length;
 
         $.each(data, function (i, row) {
@@ -123,9 +171,16 @@ $(document).ready(function() {
                 createPieChart('divisions', dchartSeriesOptions);
             }
         });
+      }
     });
 
-    $.getJSON('api/v1/stores/areas', function (data) {
+    $.ajax({
+      dataType: "json",
+      url: 'api/v1/stores/areas',
+      beforeSend: function(xhr){
+        xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));
+      },
+      success: function (data) {
         count = data.length;
 
         $.each(data, function (i, row) {
@@ -150,6 +205,7 @@ $(document).ready(function() {
                 createPieChart('areas', achartSeriesOptions);
             }
         });
+      }
     });
 
     function createHistoricalChart() {
