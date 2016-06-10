@@ -411,8 +411,8 @@ class SatelliteController extends Controller
         $data = $satellite->getSatelliteByDateOpened();
 
         foreach($data as $row) {
-            array_push($values, $row->date_opened * 1000);
-            array_push($values, $row->count);
+            array_push($values, floatval($row->date_opened * 1000));
+            array_push($values, floatval($row->count));
             array_push($result, $values);
             $values = array();
         }

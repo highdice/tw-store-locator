@@ -383,6 +383,7 @@ $(document).ready(function() {
         colors: colors
     });
     
+    //for development chart
     $.each(hchart, function (i, name) {
         $.ajax({
           dataType: "json",
@@ -399,12 +400,13 @@ $(document).ready(function() {
             hchartCounter += 1;
 
             if (hchartCounter === hchart.length) {
-                createHistoricalChart();
+                createDevelopmentChart();
             }
           }
         });
     });
 
+    //for branch count
     $.ajax({
       dataType: "json",
       url: 'api/v1/stores/count',
@@ -416,6 +418,7 @@ $(document).ready(function() {
       }
     });
 
+    //for satellite count
     $.ajax({
       dataType: "json",
       url: 'api/v1/satellite/count',
@@ -427,6 +430,7 @@ $(document).ready(function() {
       }
     });
 
+    //for users count
     $.ajax({
       dataType: "json",
       url: 'api/v1/users/count',
@@ -438,6 +442,7 @@ $(document).ready(function() {
       }
     });
 
+    //for island groups chart
     $.ajax({
       dataType: "json",
       url: 'api/v1/stores/island_groups',
@@ -448,7 +453,7 @@ $(document).ready(function() {
         count = data.length;
 
         $.each(data, function (i, row) {
-            var store_count = (row['store_count']) ? row['store_count'] : null,
+            var store_count = (row['store_count']) ? row['store_count'] : 0,
             is_default = (store_count == null) ? 'legend-default' : '',
             color = (store_count == null) ? default_color : colors[i] ;
 
@@ -472,6 +477,7 @@ $(document).ready(function() {
       }
     });
 
+    //for regions chart
     $.ajax({
       dataType: "json",
       url: 'api/v1/stores/regions',
@@ -482,7 +488,7 @@ $(document).ready(function() {
         count = data.length;
 
         $.each(data, function (i, row) {
-            var store_count = (row['store_count']) ? row['store_count'] : null,
+            var store_count = (row['store_count']) ? row['store_count'] : 0,
             is_default = (store_count == null) ? 'legend-default' : '',
             color = (store_count == null) ? default_color : colors[i] ;
 
@@ -506,6 +512,7 @@ $(document).ready(function() {
       }
     });
 
+    //for divisions chart
     $.ajax({
       dataType: "json",
       url: 'api/v1/stores/divisions',
@@ -516,7 +523,7 @@ $(document).ready(function() {
         count = data.length;
 
         $.each(data, function (i, row) {
-            var store_count = (row['store_count']) ? row['store_count'] : null,
+            var store_count = (row['store_count']) ? row['store_count'] : 0,
             is_default = (store_count == null) ? 'legend-default' : '',
             color = (store_count == null) ? default_color : colors[i] ;
 
@@ -540,6 +547,7 @@ $(document).ready(function() {
       }
     });
 
+    //for areas chart
     $.ajax({
       dataType: "json",
       url: 'api/v1/stores/areas',
@@ -550,7 +558,7 @@ $(document).ready(function() {
         count = data.length;
 
         $.each(data, function (i, row) {
-            var store_count = (row['store_count']) ? row['store_count'] : null,
+            var store_count = (row['store_count']) ? row['store_count'] : 0,
             is_default = (store_count == null) ? 'legend-default' : '',
             color = (store_count == null) ? default_color : colors[i];
 
@@ -574,7 +582,8 @@ $(document).ready(function() {
       }
     });
 
-    function createHistoricalChart() {
+    //for creation of development chart
+    function createDevelopmentChart() {
         $('#historical-chart').highcharts({
             chart: {
                 zoomType: 'x'
@@ -633,6 +642,7 @@ $(document).ready(function() {
         });
     }
 
+    //for creation of pie chart
     function createPieChart(category, seriesOptions) {
         $('#' + category + '-chart').highcharts({
             chart: {
