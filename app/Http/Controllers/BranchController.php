@@ -171,12 +171,12 @@ class BranchController extends Controller
             array_push($branch_where, $branch_search);
 
             //satellite search
-            array_push($satellite_search, "Branch.code LIKE '%" . $data['search'] . "%'");
-            array_push($satellite_search, "Satellite.satellite_code LIKE '%" . $data['search'] . "%'");
-            array_push($satellite_search, "Satellite.name LIKE '%" . $data['search'] . "%'");
-            array_push($satellite_search, "Satellite.trade_name_prefix LIKE '%" . $data['search'] . "%'");
-            array_push($satellite_search, "Satellite.trade_name LIKE '%" . $data['search'] . "%'");
-            array_push($satellite_search, "Satellite.address LIKE '%" . $data['search'] . "%'");
+            array_push($satellite_search, "branch.code LIKE '%" . $data['search'] . "%'");
+            array_push($satellite_search, "satellite.satellite_code LIKE '%" . $data['search'] . "%'");
+            array_push($satellite_search, "satellite.name LIKE '%" . $data['search'] . "%'");
+            array_push($satellite_search, "satellite.trade_name_prefix LIKE '%" . $data['search'] . "%'");
+            array_push($satellite_search, "satellite.trade_name LIKE '%" . $data['search'] . "%'");
+            array_push($satellite_search, "satellite.address LIKE '%" . $data['search'] . "%'");
 
             $satellite_search = implode(" OR ", $satellite_search);
             array_push($satellite_where, $satellite_search);
@@ -185,7 +185,7 @@ class BranchController extends Controller
         array_push($branch_where, "status = 1");
         $branch_where = implode(" AND ", $branch_where);
 
-        array_push($satellite_where, "Satellite.status = 1");
+        array_push($satellite_where, "satellite.status = 1");
         $satellite_where = implode(" AND ", $satellite_where);
 
         $branch = new Branch();
