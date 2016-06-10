@@ -87,7 +87,7 @@ $(document).ready(function() {
         count = data.length;
 
         $.each(data, function (i, row) {
-            var store_count = (row['store_count']) ? row['store_count'] : 0,
+            var store_count = (row['store_count'] > 0) ? parseFloat(row['store_count']) : null,
             is_default = (store_count == null) ? 'legend-default' : '',
             color = (store_count == null) ? default_color : colors[i] ;
 
@@ -122,7 +122,7 @@ $(document).ready(function() {
         count = data.length;
 
         $.each(data, function (i, row) {
-            var store_count = (row['store_count']) ? row['store_count'] : 0,
+            var store_count = (row['store_count'] > 0) ? parseFloat(row['store_count']) : null,
             is_default = (store_count == null) ? 'legend-default' : '',
             color = (store_count == null) ? default_color : colors[i] ;
 
@@ -157,7 +157,7 @@ $(document).ready(function() {
         count = data.length;
 
         $.each(data, function (i, row) {
-            var store_count = (row['store_count']) ? row['store_count'] : 0,
+            var store_count = (row['store_count'] > 0) ? parseFloat(row['store_count']) : null,
             is_default = (store_count == null) ? 'legend-default' : '',
             color = (store_count == null) ? default_color : colors[i] ;
 
@@ -192,7 +192,7 @@ $(document).ready(function() {
         count = data.length;
 
         $.each(data, function (i, row) {
-            var store_count = (row['store_count']) ? row['store_count'] : 0,
+            var store_count = (row['store_count'] > 0) ? parseFloat(row['store_count']) : null,
             is_default = (store_count == null) ? 'legend-default' : '',
             color = (store_count == null) ? default_color : colors[i];
 
