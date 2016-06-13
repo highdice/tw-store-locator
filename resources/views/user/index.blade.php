@@ -12,13 +12,19 @@
                   Add New User
               </li>
             </a>
-            <a href="{{ url('users/export') }}">
-              <li class="sidebar-js-button">
-                  <i class="glyphicon glyphicon-download"></i>
-                  Download XLS Report
-              </li>
-            </a>
         </ul>
+
+        @if (Auth::user()->user_level == 30)
+          <p>GENERATE REPORT (xls)</p>
+          <ul>
+              <a href="{{ url('users/export') }}">
+                <li class="sidebar-js-button">
+                    <i class="glyphicon glyphicon-download"></i>
+                    Users
+                </li>
+              </a>
+          </ul>
+        @endif
     </div>
 </aside>
 
@@ -59,6 +65,7 @@
           <th>User ID</th>
           <th>Email Address</th>
           <th>Name</th>
+          <th>Default Password</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -66,28 +73,31 @@
         @if (isset($data) && count($data) > 0 && !empty($data))
         <?php $x = 0; ?>
         @foreach ($data as $datum)
-          <tr class="{{ ($x % 2) ? 'odd' : '' }} {{ ($datum->status == 0) ? ' deactivated' : ''  }}">
-            <td>{{ $datum->id }}</td>
-            <td>{{ $datum->email }}</td>
-            <td>{{ $datum->name }}</td>
-            <td>
-              <a href="{{ url('api/v1/users/' . $datum->id . '/reset' ) }}" title="Reset Password" class="btn btn-warning action-button">
-                  <i class="fa fa-btn fa-lock"></i>
-              </a>
-              <a href="{{ url('/users/' . $datum->id . '/edit' ) }}" title="Update" class="btn btn-info action-button">
-                  <i class="fa fa-btn fa-pencil"></i>
-              </a>
-              @if ($datum->status == 1)
-                <a href="{{ url('api/v1/users/' . $datum->id . '/status/0') }}" title="Deactivate" class="btn btn-danger action-button">
-                    <i class="fa fa-btn fa-close"></i>
+          @if ($datum->id != Auth::user()->id && $datum->id != 1)
+            <tr class="{{ ($x % 2) ? 'odd' : '' }} {{ ($datum->status == 0) ? ' deactivated' : ''  }}">
+              <td>{{ $datum->id }}</td>
+              <td>{{ $datum->email }}</td>
+              <td>{{ $datum->name }}</td>
+              <td>{{ (empty($datum->default_password)) ? 'None' : $datum->default_password }}</td>
+              <td>
+                <a href="{{ url('api/v1/users/' . $datum->id . '/reset' ) }}" title="Reset Password" class="btn btn-warning action-button">
+                    <i class="fa fa-btn fa-lock"></i>
                 </a>
-              @else
-                <a href="{{ url('api/v1/users/' . $datum->id . '/status/1') }}" title="Activate" class="btn btn-success action-button">
-                  <i class="fa fa-btn fa-check"></i>
+                <a href="{{ url('/users/' . $datum->id . '/edit' ) }}" title="Update" class="btn btn-info action-button">
+                    <i class="fa fa-btn fa-pencil"></i>
                 </a>
-              @endif
-            </td>
-          </tr>
+                @if ($datum->status == 1)
+                  <a href="{{ url('api/v1/users/' . $datum->id . '/status/0') }}" title="Deactivate" class="btn btn-danger action-button">
+                      <i class="fa fa-btn fa-close"></i>
+                  </a>
+                @else
+                  <a href="{{ url('api/v1/users/' . $datum->id . '/status/1') }}" title="Activate" class="btn btn-success action-button">
+                    <i class="fa fa-btn fa-check"></i>
+                  </a>
+                @endif
+              </td>
+            </tr>
+          @endif
         <?php $x++; ?>
         @endforeach
         @else 

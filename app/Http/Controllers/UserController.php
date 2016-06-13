@@ -150,7 +150,7 @@ class UserController extends Controller
     }
 
     /**
-     * Handles excel export of users.
+     * Handles excel export of all users.
      */
     public function export() {
         $filename = 'users_' . date('Ymd-his') . '_export';
@@ -179,7 +179,7 @@ class UserController extends Controller
 
                 $sheet->row(2, array('List of all the users'));
 
-                $users = User::get()->toArray();
+                $users = User::where('id', '!=', 1)->get()->toArray();
 
                 if((count($users) > 0)) {
                     //setting column names
@@ -293,11 +293,16 @@ class UserController extends Controller
     protected function postReset($id)
     {
         $user = User::find($id);
-        $user->password = Hash::make('t0m$w0rld');
+
+        $password = 't0m$w0rld' . $id . strtotime(date('Y-m-d h:i:s'));
+
+        $user->password = Hash::make($password);
+        $user->default_password = $password;
+        $user->default_password_changed = 0;
         $user->where('id', $id);
         $user->update();
 
-        return Redirect::back()->with('success_message', 'Success! Password for user with ID ' . $id .' has been reset.');
+        return Redirect::back()->with('success_message', 'Success! Password for user with ID ' . $id .' has been reset. The new password is ' . $password . '.');
     }
 
     /**
@@ -353,6 +358,8 @@ class UserController extends Controller
         }
 
         $user->password = Hash::make($data['password']);
+        $user->default_password = '';
+        $user->default_password_changed = 1;
         $user->where('id', $data['id']);
         $user->update();
 

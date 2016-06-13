@@ -52,7 +52,8 @@ Route::group(['middleware' => 'web'], function () {
 		Route::get('/', 'BranchController@index');
 		Route::get('/locator', 'BranchController@locator');
 		Route::get('/add', 'BranchController@add');
-        Route::get('/export', 'BranchController@export');
+        Route::get('/export/branches', 'BranchController@exportBranches');
+        Route::get('/export/satellites', 'BranchController@exportSatellites');
 		Route::get('/{id}/edit', 'BranchController@edit');
 		Route::get('/{id}/status', 'BranchController@status');
 

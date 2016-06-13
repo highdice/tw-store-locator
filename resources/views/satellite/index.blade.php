@@ -12,13 +12,27 @@
                   Add New Satellite
               </li>
             </a>
-            <a href="{{ url('stores/' . $branch_id . '/satellite/export') }}">
-              <li class="sidebar-js-button">
-                  <i class="glyphicon glyphicon-download"></i>
-                  Download XLS Report
-              </li>
-            </a>
+            @if (Auth::user()->user_level == 'Super Admin')
+              <a href="{{ url('stores/' . $branch_id . '/satellite/export') }}">
+                <li class="sidebar-js-button">
+                    <i class="glyphicon glyphicon-download"></i>
+                    Download XLS Report
+                </li>
+              </a>
+            @endif
         </ul>
+
+        @if (Auth::user()->user_level == 30)
+          <p>GENERATE REPORT (xls)</p>
+          <ul>
+              <a href="{{ url('stores/' . $branch_id . '/satellite/export') }}">
+                <li class="sidebar-js-button">
+                    <i class="glyphicon glyphicon-download"></i>
+                    Satellites By Branch
+                </li>
+              </a>
+          </ul>
+        @endif
     </div>
 </aside>
 

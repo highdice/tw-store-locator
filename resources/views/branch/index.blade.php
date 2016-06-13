@@ -12,13 +12,25 @@
                   Add New Branch
               </li>
             </a>
-            <a href="{{ url('stores/export') }}">
-              <li class="sidebar-js-button">
-                  <i class="glyphicon glyphicon-download"></i>
-                  Download XLS Report
-              </li>
-            </a>
         </ul>
+
+        @if (Auth::user()->user_level == 30)
+          <p>GENERATE REPORT (xls)</p>
+          <ul>
+              <a href="{{ url('stores/export/branches') }}">
+                <li class="sidebar-js-button">
+                    <i class="glyphicon glyphicon-download"></i>
+                    Branches
+                </li>
+              </a>
+              <a href="{{ url('stores/export/satellites') }}">
+                <li class="sidebar-js-button">
+                    <i class="glyphicon glyphicon-download"></i>
+                    Satellites
+                </li>
+              </a>
+          </ul>
+        @endif
     </div>
 </aside>
 

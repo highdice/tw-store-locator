@@ -204,9 +204,9 @@ class BranchController extends Controller
     }
 
     /**
-     * Handles excel export of branches.
+     * Handles excel export of all branches.
      */
-    public function export() {
+    public function exportBranches() {
         $filename = 'branches_' . date('Ymd-his') . '_export';
         
         Excel::create($filename, function ($excel) {
@@ -250,6 +250,63 @@ class BranchController extends Controller
                     //putting data as next rows
                     foreach ($branches as $branch) {
                         $sheet->appendRow($branch);
+                    }
+                }
+                else {
+                    $sheet->row(3, array('No records available'));
+                }
+            });
+
+        })->export('xls');
+    }
+
+    /**
+     * Handles excel export of all satellites.
+     */
+    public function exportSatellites() {
+        $filename = 'satellites_' . date('Ymd-his') . '_export';
+        
+        Excel::create($filename, function ($excel) {
+
+            $excel->sheet('Satellites', function ($sheet) {
+
+                //first row styling and writing content
+                $sheet->mergeCells('A1:W1');
+                $sheet->row(1, function ($row) {
+                    $row->setFontFamily('Verdana');
+                    $row->setFontSize(14);
+                });
+
+                $sheet->row(1, array("Tom's World Philippines"));
+
+                //second row styling and writing content
+                $sheet->row(2, function ($row) {
+
+                    //call cell manipulation methods
+                    $row->setFontFamily('Verdana');
+                    $row->setFontSize(10);
+
+                });
+
+                $sheet->row(2, array('List of all the satellites'));
+
+                $satellites = Satellite::get()->toArray();
+
+                if((count($satellites) > 0)) {
+                    //setting column names
+                    $sheet->appendRow(array_keys($satellites[0])); // column names
+
+                    //getting last row number
+                    $sheet->row($sheet->getHighestRow(), function ($row) {
+                        $row->setFontFamily('Verdana');
+                        $row->setFontSize(10);
+                        $row->setBackground('#2674ce');
+                        $row->setFontColor('#ffffff');
+                    });
+
+                    //putting data as next rows
+                    foreach ($satellites as $satellite) {
+                        $sheet->appendRow($satellite);
                     }
                 }
                 else {
