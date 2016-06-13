@@ -222,9 +222,13 @@ class UserController extends Controller
             );
         }
 
+        $password = 't0m$w0rld' . strtotime(date('Y-m-d h:i:s'));
+
         $user = new User;
         $user->email = $data['email'];
-        $user->password = Hash::make('t0m$w0rld');
+        $user->password = Hash::make($password);
+        $user->default_password = $password;
+        $user->default_password_changed = 0;
         $user->name = $data['name'];
         $user->user_level = $data['user_level'];
         $user->status = 1;
