@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
+use Redirect;
+
 class Authenticate
 {
     /**
@@ -23,6 +25,11 @@ class Authenticate
             } else {
                 return redirect()->guest('login');
             }
+        }
+
+        if (Auth::user()->status == 0) {
+            Auth::logout();
+            return Redirect::back()->with('error_message', 'Your account has been deactivated. Please contact an administrator.');
         }
 
         return $next($request);

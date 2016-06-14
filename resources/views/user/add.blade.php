@@ -86,7 +86,12 @@
                                 @endif
 
                                 @foreach ($user_levels as $user_level)
-                                    <option value="{{ $user_level->id }}" {{ (old('user_level') == $user_level->id) ? 'selected="selected"' : '' }}>{{ $user_level->title }}</option>
+                                    @if (Auth::user()->user_level == 30)
+                                        <option value="{{ $user_level->id }}" {{ (old('user_level') == $user_level->id) ? 'selected="selected"' : '' }}>{{ $user_level->title }}</option>
+                                    @endif
+                                    @if (Auth::user()->user_level == 31 && ($user_level->title == "Admin" || $user_level->title == "User"))
+                                        <option value="{{ $user_level->id }}" {{ (old('user_level') == $user_level->id) ? 'selected="selected"' : '' }}>{{ $user_level->title }}</option>
+                                    @endif
                                 @endforeach
                             </select>
 

@@ -60,7 +60,12 @@
                             
                             <select class="form-control" name="user_level" value="{{ $data->user_level }}">
                                 @foreach ($user_levels as $user_level)
-                                    <option value="{{ $user_level->id }}" {{ ($user_level->id == $data->getUserLevel->id) ? 'selected="selected"' : '' }}>{{ $user_level->title }}</option>
+                                    @if (Auth::user()->user_level == 30)
+                                        <option value="{{ $user_level->id }}" {{ ($user_level->id == $data->getUserLevel->id) ? 'selected="selected"' : '' }}>{{ $user_level->title }}</option>
+                                    @endif
+                                    @if (Auth::user()->user_level == 31 && ($user_level->title == "Admin" || $user_level->title == "User"))
+                                        <option value="{{ $user_level->id }}" {{ ($user_level->id == $data->getUserLevel->id) ? 'selected="selected"' : '' }}>{{ $user_level->title }}</option>
+                                    @endif
                                 @endforeach
                             </select>
 

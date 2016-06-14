@@ -8,6 +8,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading hide">Login</div>
                 <div class="panel-body">
+                    @if (Session::has('error_message'))
+                        <div class="alert alert-danger" role="alert">{{ Session::get('error_message') }}</div>
+                    @elseif (Session::has('success_message'))
+                        <div class="alert alert-success" role="alert">{{ Session::get('success_message') }}</div>
+                    @endif
+
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
 
@@ -39,22 +45,22 @@
                               
                             </div>
                         </div>
-
+                        
+                        <!--
                         <div class="form-group">
                             <div class="col-md-12">
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="remember"> Remember Me
                                     </label>
-                                    <!--
                                     |
                                     <label class="forgot-password-lbl">
                                         <a href="{{ url('/password/reset') }}">Forgot Password</a>
                                     </label>
-                                    -->
                                 </div>
                             </div>
                         </div>
+                        -->
 
                         <div class="form-group no-margin-bottom">
                             <div class="col-md-12">

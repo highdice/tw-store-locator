@@ -78,7 +78,7 @@
               <td>{{ $datum->id }}</td>
               <td>{{ $datum->email }}</td>
               <td>{{ $datum->name }}</td>
-              <td>{{ (empty($datum->default_password)) ? 'None' : $datum->default_password }}</td>
+              <td>{{ (empty($datum->default_password)) ? 'Changed' : $datum->default_password }}</td>
               <td>
                 <a href="{{ url('api/v1/users/' . $datum->id . '/reset' ) }}" title="Reset Password" class="btn btn-warning action-button">
                     <i class="fa fa-btn fa-lock"></i>
