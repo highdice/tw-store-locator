@@ -9,7 +9,8 @@
     <title>Tom's World Store Locator</title>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700" rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,700" rel='stylesheet' type='text/css'>
 
     <!-- Styles -->
     <link href="{{ elixir('css/all.css') }}" rel="stylesheet">

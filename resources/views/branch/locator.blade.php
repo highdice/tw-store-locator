@@ -2,44 +2,47 @@
 
 @section('content')
 <aside>
-    <div id="sidebar" class="col-lg-2 col-md-3 col-sm-3 hidden-xs">
-        <div class="sidebar-divider"></div>
+    <div id="sidebar" class="col-lg-3 col-md-3 col-sm-3 hidden-xs">
+        <div class="col-lg-2 menu no-padding">
+            <div class="sidebar-divider"></div>
 
-        <div class="sidebar-search-container">
-            <i class="glyphicon glyphicon-search"></i>
-            <input type="text" id="search-input" placeholder="Search here" class="form-control">
-            <center>
-                <button id="search-button" class="btn btn-success">SEARCH</button>
-            </center>
+            <div class="sidebar-search-container">
+                <i class="glyphicon glyphicon-search"></i>
+                <input type="text" id="search-input" placeholder="Search here" class="form-control">
+                <center>
+                    <button id="search-button" class="btn btn-success">SEARCH</button>
+                </center>
+            </div>
+
+            <p>CATEGORIES</p>
+            <ul>
+                <li class="show-branches sidebar-js-button">
+                    <i class="glyphicon glyphicon-th"></i>
+                    Branch
+                </li>
+                <li class="show-satellites sidebar-js-button">
+                    <i class="glyphicon glyphicon-th"></i>
+                    Satellite
+                </li>
+                <li class="show-island-groups sidebar-js-button">
+                    <i class="glyphicon glyphicon-th"></i>
+                    Island Group
+                </li>
+                <li class="show-regions sidebar-js-button">
+                    <i class="glyphicon glyphicon-th"></i>
+                    Region
+                </li>
+                <li class="show-divisions sidebar-js-button">
+                    <i class="glyphicon glyphicon-th"></i>
+                    Division
+                </li>
+                <li class="show-areas sidebar-js-button">
+                    <i class="glyphicon glyphicon-th"></i>
+                    Area
+                </li>
+            </ul>
         </div>
-
-        <p>CATEGORIES</p>
-        <ul>
-            <li class="show-branches sidebar-js-button">
-                <i class="glyphicon glyphicon-th"></i>
-                Branch
-            </li>
-            <li class="show-satellites sidebar-js-button">
-                <i class="glyphicon glyphicon-th"></i>
-                Satellite
-            </li>
-            <li class="show-island-groups sidebar-js-button">
-                <i class="glyphicon glyphicon-th"></i>
-                Island Group
-            </li>
-            <li class="show-regions sidebar-js-button">
-                <i class="glyphicon glyphicon-th"></i>
-                Region
-            </li>
-            <li class="show-divisions sidebar-js-button">
-                <i class="glyphicon glyphicon-th"></i>
-                Division
-            </li>
-            <li class="show-areas sidebar-js-button">
-                <i class="glyphicon glyphicon-th"></i>
-                Area
-            </li>
-        </ul>
+        <div class="col-lg-10 list"></div>
     </div>
 </aside>
 
@@ -62,7 +65,7 @@
     </div>
 </div>
 
-<div id="map" class="col-lg-offset-2 col-lg-10 col-md-offset-3 col-md-9 col-sm-offset-3 col-sm-9 no-padding"></div>
+<div id="map" class="col-lg-offset-3 col-lg-9 col-md-offset-3 col-md-9 col-sm-offset-3 col-sm-9 no-padding"></div>
 
 <div id="result-container">
     <div id="result-inner-container">

@@ -1,7 +1,7 @@
 @import "vendor/bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 
 body, html {
-    font-family: 'Lato';
+    font-family: 'Open Sans';
     background: #e3e3e3;
     height: 100%;
 }
@@ -52,7 +52,7 @@ ul {
 		z-index: 1;
 	    margin-top: 12px;
 	    margin-left: 12px;
-	    color: #a0a0a0;
+	    color: #cacaca;
 	}
 
 	input, select {
@@ -83,7 +83,7 @@ ul {
 
 	.custom-form {
 		.input-icon {
-		    margin-top: 34px;
+		    margin-top: 12px;
 		}
 
 		span {
@@ -289,19 +289,35 @@ ul {
 	background: #FB8E03;
 
 	.panel {
-		box-shadow: 3px 4px 12px #303030;
+		box-shadow: 4px 4px 15px #bb6800;
+		margin-top: -16px;
+
+		.panel-body {
+			padding: 30px 15px;
+
+			img {
+				opacity: 0.9;
+			}
+
+			p {
+				margin-top: 15px;
+				color: #a0a0a0;
+			}
+		}
 	}
 }
 
 .guest-button {
 	margin-right: 3px;
 	margin-bottom: 5px;
-	width: 122px;
 	border-radius: 2px;
+	width: 100%;
+	padding: 10px;
 }
 
 .tw-logo {
-	margin-top: 30px;
+	margin-top: 50px;
+	z-index: 1;
 }
 
 .top-30 {
@@ -532,83 +548,88 @@ ul {
 	left: 0;
 	top: 0;
 	z-index: 2;
-    background: #303030;
+    background: #ffffff;
     height: 100%;
     padding: 0px;
 
-    .sidebar-divider {
-    	height: 10px;
-    	width: 100%;
-    	margin-top: 42px;
-    }
+	.menu {
+		background: #303030;
+		height: 100%;
 
-    .badge {
-    	margin-left: 5px;
-    }
-
-    a {
-    	text-decoration: none;
-    }
-
-    p {
-	    color: #ffffff;
-	    padding: 10px;
-	    padding-bottom: 5px;
-	    margin-bottom: 0px;
-    }
-
-    ul {
-    	li {
-    		cursor: pointer;
-    		color: #9f9f9f;
-    		padding: 15px 10px;
-    		background: transparent;
-
-    		i {
-    			font-size: 13px;
-    			color: #9f9f9f;
-    			margin-right: 10px;
-    		}
-
-    		p {
-    			color: #f0f0f0;
-			    margin-top: 3px;
-			    margin-bottom: 0px;
-    		}
-
-    		.selected {
-    			float: right;
-			    color: #5CD872;
-			    font-size: 18px;
-			    margin-top: 2px;
-    		}
-
-    		&:hover {
-    			color: #ffffff;
-    			background: #202020;
-
-    			i {
-    				color: #ffffff;
-    			}
-
-    			.selected {
-    				color: #5CD872;
-    			}
-
-    			p {
-    				color: #ffffff;
-    			}
-    		}
-    	}
-
-    	.active {
-    		background: #202020;
-    	}
-
-    	.disabled {
-			pointer-events: none;
+		.sidebar-divider {
+			height: 10px;
+			width: 100%;
+			margin-top: 42px;
 		}
-    }
+	
+		.badge {
+			margin-left: 5px;
+		}
+	
+		a {
+			text-decoration: none;
+		}
+	
+		p {
+			color: #ffffff;
+			padding: 10px;
+			padding-bottom: 5px;
+			margin-bottom: 0px;
+		}
+	
+		ul {
+			li {
+				cursor: pointer;
+				color: #9f9f9f;
+				padding: 15px 10px;
+				background: transparent;
+	
+				i {
+					font-size: 13px;
+					color: #9f9f9f;
+					margin-right: 10px;
+				}
+	
+				p {
+					color: #f0f0f0;
+					margin-top: 3px;
+					margin-bottom: 0px;
+				}
+	
+				.selected {
+					float: right;
+					color: #5CD872;
+					font-size: 18px;
+					margin-top: 2px;
+				}
+	
+				&:hover {
+					color: #ffffff;
+					background: #202020;
+	
+					i {
+						color: #ffffff;
+					}
+	
+					.selected {
+						color: #5CD872;
+					}
+	
+					p {
+						color: #ffffff;
+					}
+				}
+			}
+	
+			.active {
+				background: #202020;
+			}
+	
+			.disabled {
+				pointer-events: none;
+			}
+		}
+	}
 }
 
 .sidebar-item-active {
