@@ -11,10 +11,6 @@
                     <div class="col-lg-12">
                         <center>
                             <img src="build/css/images/tw-login-brand.png" alt="" class="img-responsive">
-
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut interdum lacus.
-                            </p>
                         </center>
 
                         @if (Session::has('error_message'))
@@ -28,10 +24,10 @@
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                             {!! csrf_field() !!}
 
-                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }} email-form-group">
                                 <div class="col-md-12 custom-form">
                                     <i class="glyphicon glyphicon-envelope input-icon"></i>
-                                    <input type="email" class="form-control" placeholder="Enter your email address here" name="email" value="{{ old('email') }}">
+                                    <input type="email" class="form-control email-input" placeholder="Enter your email address here" name="email" value="{{ old('email') }}">
 
                                     @if ($errors->has('email'))
                                         <span class="help-block">
@@ -41,10 +37,10 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                            <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }} password-form-group">
                                 <div class="col-md-12 custom-form">
                                     <i class="glyphicon glyphicon-lock input-icon"></i>
-                                    <input type="password" class="form-control" placeholder="Enter your password here" name="password">
+                                    <input type="password" class="form-control password-input" placeholder="Enter your password here" name="password">
 
                                     @if ($errors->has('password'))
                                         <span class="help-block">

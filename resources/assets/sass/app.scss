@@ -82,8 +82,24 @@ ul {
 	}
 
 	.custom-form {
+		.email-input {
+			border-top-left-radius: 5px;
+    		border-top-right-radius: 5px;
+		}
+
+		.password-input {
+			border-bottom-left-radius: 5px;
+    		border-bottom-right-radius: 5px;
+		}
+
 		.input-icon {
 		    margin-top: 12px;
+		}
+
+		input {
+			border: 1px solid #e8e8e8;
+			background: #f0f0f0;
+			box-shadow: none;
 		}
 
 		span {
@@ -106,6 +122,14 @@ ul {
 	.input-half {
 		padding-left: 10px;
 	}
+}
+
+.email-form-group {
+	margin-top: 20px;
+}
+
+.password-form-group {
+	margin-top: -13px;
 }
 
 .panel {
@@ -202,7 +226,7 @@ ul {
 
 .navbar-brand {
 	color: #ffffff !important;
-	background: #F79232 !important;
+	background: #267fd8 !important;
 }
 
 .nav {
@@ -550,7 +574,8 @@ ul {
 	z-index: 2;
     background: #ffffff;
     height: 100%;
-    padding: 0px;
+	padding: 0px;
+	box-shadow: 5px 0px 10px #c0c0c0;
 
 	.menu {
 		background: #303030;
@@ -581,13 +606,12 @@ ul {
 			li {
 				cursor: pointer;
 				color: #9f9f9f;
-				padding: 15px 10px;
+				padding: 15px 0;
 				background: transparent;
 	
 				i {
-					font-size: 13px;
+					font-size: 21px;
 					color: #9f9f9f;
-					margin-right: 10px;
 				}
 	
 				p {
@@ -630,6 +654,58 @@ ul {
 			}
 		}
 	}
+
+	.list {
+		.list-top-section {	
+			background: #f0f0f0;
+
+			h3 {
+				margin-top: 66px;
+    			font-size: 13pt;
+			}
+		}
+
+		table {
+			thead {
+				background: #e5e5e5;
+
+				th {
+					border: 0px;
+					font-weight: normal;
+					font-size: 9pt;
+					color: #909090;
+					padding-left: 15px;
+					padding-right: 15px;
+					vertical-align: middle;
+				}
+			}
+
+			tbody {
+				tr {
+					td {
+						padding: 20px 15px;
+						font-size: 10pt;
+						vertical-align: middle;
+
+						p {
+							font-weight: bold;
+						}
+
+						span {
+							font-size: 8pt;
+							color: #a0a0a0;
+						}
+
+						.badge {
+							background: #399bfe;
+							color: #fff;
+							padding: 4px 10px 4px 9px;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 .sidebar-item-active {
@@ -645,30 +721,32 @@ ul {
 }
 
 .sidebar-search-container {
+	margin-top: 15px;
+
 	input {
-    	border: 0px;
+    	border: 1px solid #e8e8e8;
 	    border-radius: 0px;
-	    background: #404040;
-	    color: #ffffff;
+	    color: #606060;
 	    padding: 20px 10px 20px 32px;
-	    margin-bottom: 10px;
-	    border-bottom: 1px solid #585858;
+		margin-bottom: 10px;
+		box-shadow: none;
     }
 
     i {
         position: absolute;
 	    z-index: 1;
-	    margin-top: 64px;
+	    margin-top: 114px;
 	    margin-left: 10px;
 	    font-size: 13px;
-	    color: #9f9f9f;
+	    color: #b0b0b0;
     }
 
     #search-button {
-    	width: 94%;
+    	width: 100%;
 	    border-radius: 3px;
 	    margin-top: -3px;
-	    margin-bottom: 20px;
+		margin-bottom: 20px;
+		padding: 10px;
     }
 }
 
@@ -886,7 +964,7 @@ ul {
 
     .search-input {
         display: inline-block !important;
-    	width: 88%;
+    	width: 100%;
     	padding-left: 35px;
     	padding-right: 35px;
     	border: 0px;

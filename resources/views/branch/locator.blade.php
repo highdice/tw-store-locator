@@ -6,43 +6,104 @@
         <div class="col-lg-2 menu no-padding">
             <div class="sidebar-divider"></div>
 
-            <div class="sidebar-search-container">
-                <i class="glyphicon glyphicon-search"></i>
-                <input type="text" id="search-input" placeholder="Search here" class="form-control">
-                <center>
-                    <button id="search-button" class="btn btn-success">SEARCH</button>
-                </center>
-            </div>
-
-            <p>CATEGORIES</p>
             <ul>
                 <li class="show-branches sidebar-js-button">
-                    <i class="glyphicon glyphicon-th"></i>
-                    Branch
+                    <center>
+                        <i class="fa fa-building" tooltip="Branch"></i>
+                    </center>
                 </li>
                 <li class="show-satellites sidebar-js-button">
-                    <i class="glyphicon glyphicon-th"></i>
-                    Satellite
+                    <center>
+                        <i class="fa fa-building-o" tooltip="Satellite"></i>
+                    </center>
                 </li>
                 <li class="show-island-groups sidebar-js-button">
-                    <i class="glyphicon glyphicon-th"></i>
-                    Island Group
+                    <center>
+                        <i class="fa fa-map" tooltip="Island Group"></i>
+                    </center>
                 </li>
                 <li class="show-regions sidebar-js-button">
-                    <i class="glyphicon glyphicon-th"></i>
-                    Region
+                    <center>
+                        <i class="fa fa-image" tooltip="Region"></i>
+                    </center>
                 </li>
                 <li class="show-divisions sidebar-js-button">
-                    <i class="glyphicon glyphicon-th"></i>
-                    Division
+                    <center>
+                        <i class="fa fa-pie-chart" tooltip="Division"></i>
+                    </center>
                 </li>
                 <li class="show-areas sidebar-js-button">
-                    <i class="glyphicon glyphicon-th"></i>
-                    Area
+                    <center>
+                        <i class="fa fa-area-chart" tooltip="Area"></i>
+                    </center>
                 </li>
             </ul>
         </div>
-        <div class="col-lg-10 list"></div>
+        <div class="col-lg-10 list no-padding">
+            <div class="col-lg-12 list-top-section">
+                <h3>BRANCHES</h3>
+
+                <div class="sidebar-search-container">
+                    <i class="glyphicon glyphicon-search"></i>
+                    <input type="text" id="search-input" placeholder="Search here" class="form-control">
+                    <center>
+                        <button id="search-button" class="btn btn-success">SEARCH</button>
+                    </center>
+                </div>
+            </div>
+
+            <table class="table"> 
+                <thead> 
+                    <tr> 
+                        <th>Name</th>
+                        <th>Code</th>
+                        <th width="25%">Trade Name</th>
+                        <th>Satellites</th>
+                    </tr> 
+                </thead> 
+                <tbody> 
+                    <tr> 
+                        <td>
+                            <p>Festival Mall</p>
+                            <span>3rd Level, Xsite Area and KBOX Festival Super Mall, Filinvest, Alabang, Muntinlupa City</span>
+                        </td> 
+                        <td>PL01</td> 
+                        <td>Tom's World</td>
+                        <td>
+                            <span class="badge">
+                                4
+                            </div> 
+                        </td>
+                    </tr>
+                    <tr> 
+                        <td>
+                            <p>Festival Mall</p>
+                            <span>3rd Level, Xsite Area and KBOX Festival Super Mall, Filinvest, Alabang, Muntinlupa City</span>
+                        </td> 
+                        <td>PL01</td> 
+                        <td>Tom's World</td>
+                        <td>
+                            <span class="badge">
+                                10
+                            </div>  
+                        </td>
+                    </tr>
+                    <tr> 
+                        <td>
+                            <p>Festival Mall</p>
+                            <span>3rd Level, Xsite Area and KBOX Festival Super Mall, Filinvest, Alabang, Muntinlupa City</span>
+                        </td> 
+                        <td>PL01</td> 
+                        <td>Tom's World</td>
+                        <td>
+                            <span class="badge">
+                                0
+                            </div> 
+                        </td>
+                    </tr>
+                </tbody> 
+            </table>
+        </div>
     </div>
 </aside>
 
